@@ -11,15 +11,20 @@ document.addEventListener('DOMContentLoaded', () => {
         const hasPlayedThisSession = sessionStorage.getItem('yume_preloader_played');
         
         if (!hasPlayedThisSession || isReload) {
+            // Lock scroll while preloader is visible
+            document.body.style.overflow = 'hidden';
             window.addEventListener('load', () => {
                 setTimeout(() => {
                     preloader.classList.add('fade-out');
                     sessionStorage.setItem('yume_preloader_played', 'true');
-                    setTimeout(() => { preloader.style.display = 'none'; }, 800);
-                }, 800); // Artificial minimum delay for aesthetic transition
+                    // Unlock scroll when preloader finishes fading
+                    setTimeout(() => {
+                        preloader.style.display = 'none';
+                        document.body.style.overflow = '';
+                    }, 800);
+                }, 800);
             });
         } else {
-            // Already played this session, hide instantly when traversing back
             preloader.style.display = 'none';
         }
     }
