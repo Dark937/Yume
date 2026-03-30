@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yume | Our Flavors</title>
+    <!-- Favicon -->
+    <link rel="icon" href="assets/yume-light.png" type="image/png">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles/shop.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="shop-nav">
+        <!-- Text update as requested -->
+        <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> BACK TO HOME</a>
+        <img src="assets/yume-light-sakura.png" alt="YUME" class="brand-logo">
+        <a href="cart.html" class="cart-link"><i class="fa-solid fa-cart-shopping"></i></a>
+    </nav>
+
+    <main class="shop-container">
+        <header class="shop-header">
+            <h1 class="shop-title">STOREFRONT</h1>
+            <p>Select your nostalgia.</p>
+        </header>
+
+        <section class="product-grid" id="productGrid">
+            
+            <!-- Can 1: Original -->
+            <a href="products/original.html" class="product-card">
+                <div class="card-image-box box-lavender">
+                    <img src="assets/placeholder-can.jpg" alt="Original Flavor" class="card-img">
+                </div>
+                <div class="card-info">
+                    <h3>Yume Original</h3>
+                    <p class="flavor-profile">Vanilla Cream Soda. Light caramel.</p>
+                    <span class="price">¥350 / $3.00</span>
+                </div>
+            </a>
+
+            <!-- Can 2: Strawberry -->
+            <a href="products/strawberry.html" class="product-card">
+                <div class="card-image-box box-pink">
+                    <img src="assets/placeholder-can.jpg" alt="Yume Strawberry" class="card-img">
+                </div>
+                <div class="card-info">
+                    <h3>Strawberry</h3>
+                    <p class="flavor-profile">Soft candy, sweet heart.</p>
+                    <span class="price">¥350 / $3.00</span>
+                </div>
+            </a>
+
+            <!-- NORMAL CAN: Moonlight -->
+            <a href="products/moonlight.html" class="product-card">
+                <div class="card-image-box starry-box">
+                    <img src="assets/placeholder-moonlight-1.jpg" alt="Yume Moonlight" class="card-img">
+                    <span class="limited-badge">LIMITED EDITION</span>
+                </div>
+                <div class="card-info">
+                    <h3>Moonlight</h3>
+                    <p class="flavor-profile">Grape, Blueberry & Vanilla</p>
+                    <span class="price">¥400 / $3.50</span>
+                </div>
+            </a>
+
+            <!-- Can 3: Melon -->
+            <a href="products/melon.html" class="product-card">
+                <div class="card-image-box box-mint">
+                    <img src="assets/placeholder-can.jpg" alt="Yume Melon" class="card-img">
+                </div>
+                <div class="card-info">
+                    <h3>Melon</h3>
+                    <p class="flavor-profile">Sweet green melon vibes.</p>
+                    <span class="price">¥350 / $3.00</span>
+                </div>
+            </a>
+
+            <!-- Can 4: Yuzu -->
+            <a href="products/yuzu.html" class="product-card">
+                <!-- Using inline gradient to map the missing Yellow box class dynamically -->
+                <div class="card-image-box" style="background: repeating-linear-gradient(45deg, #FFED99, #FFED99 10px, #FFE680 10px, #FFE680 20px);">
+                    <img src="assets/placeholder-can.jpg" alt="Yume Yuzu" class="card-img">
+                </div>
+                <div class="card-info">
+                    <h3>Yuzu</h3>
+                    <p class="flavor-profile">Premium crisp citrus.</p>
+                    <span class="price">¥350 / $3.00</span>
+                </div>
+            </a>
+
+            <!-- Can 5: Lychee -->
+            <a href="products/lychee.html" class="product-card">
+                <!-- Using inline gradient to map the missing Peach/Orange box class -->
+                <div class="card-image-box" style="background: repeating-linear-gradient(45deg, #FFB3A7, #FFB3A7 10px, #FFA092 10px, #FFA092 20px);">
+                    <img src="assets/placeholder-can.jpg" alt="Tokyo Lychee" class="card-img">
+                </div>
+                <div class="card-info">
+                    <h3>Tokyo Lychee</h3>
+                    <p class="flavor-profile">Tropical and floral breeze.</p>
+                    <span class="price">¥350 / $3.00</span>
+                </div>
+            </a>
+
+            <!-- Can 6: Blue -->
+            <a href="products/blue.html" class="product-card">
+                <div class="card-image-box box-blue">
+                    <img src="assets/placeholder-can.jpg" alt="Blue Mystery" class="card-img">
+                </div>
+                <div class="card-info">
+                    <h3>Blue Mystery</h3>
+                    <p class="flavor-profile">Apple + citrus + bubblegum!</p>
+                    <span class="price">¥350 / $3.00</span>
+                </div>
+            </a>
+
+            <!-- Can 7: Calpis Soda -->
+            <a href="products/calpis.html" class="product-card">
+                <div class="card-image-box" style="background: repeating-linear-gradient(45deg, #FFFFFF, #FFFFFF 10px, #E0F7FA 10px, #E0F7FA 20px);">
+                    <img src="assets/placeholder-can.jpg" alt="Calpis Soda" class="card-img">
+                </div>
+                <div class="card-info">
+                    <h3>Calpis Soda</h3>
+                    <p class="flavor-profile">Sparkling delicate yogurt.</p>
+                    <span class="price">¥350 / $3.00</span>
+                </div>
+            </a>
+
+            <!-- Can 8: Grape -->
+            <a href="products/grape.html" class="product-card">
+                <div class="card-image-box" style="background: repeating-linear-gradient(45deg, #CE93D8, #CE93D8 10px, #BA68C8 10px, #BA68C8 20px);">
+                    <img src="assets/placeholder-can.jpg" alt="Yume Grape" class="card-img">
+                </div>
+                <div class="card-info">
+                    <h3>Grape</h3>
+                    <p class="flavor-profile">Intense sweet grape.</p>
+                    <span class="price">¥350 / $3.00</span>
+                </div>
+            </a>
+
+        </section>
+    </main>
+
+    <!-- Scroll Down Visual Indicator -->
+    <div class="scroll-hint" id="scrollHint">
+        <i class="fa-solid fa-chevron-down"></i>
+        <i class="fa-solid fa-chevron-down"></i>
+        <i class="fa-solid fa-chevron-down"></i>
+    </div>
+
+    <script src="scripts/shop.js"></script>
+    <script>
+        const hint = document.getElementById('scrollHint');
+        window.addEventListener('scroll', () => {
+            hint.style.opacity = window.scrollY > 80 ? '0' : '1';
+            hint.style.pointerEvents = window.scrollY > 80 ? 'none' : 'auto';
+        }, { passive: true });
+    </script>
+</body>
+</html>

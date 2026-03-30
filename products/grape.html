@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yume | Grape</title>
+    <!-- Favicon -->
+    <link rel="icon" href="../assets/yume-light.png" type="image/png">
+    
+    <!-- Unified CSS Architecture -->
+    <link rel="stylesheet" href="../styles/cans.css">
+    
+    <!-- FontAwesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="flavor-grape">
+    
+    <!-- Top Navigation -->
+    <nav class="product-nav">
+        <!-- Dynamic Referrer Back Button -->
+        <a href="../index.html" class="back-btn" id="dynamicBackBtn"><i class="fa-solid fa-arrow-left"></i> BACK</a>
+        <img src="../assets/yume-light.png" alt="YUME LOGO" class="brand-logo">
+        <a href="../cart.html" class="cart-link"><i class="fa-solid fa-cart-shopping"></i></a>
+    </nav>
+
+    <main class="product-container">
+        
+        <!-- Left Side: Interactive 3D/Images -->
+        <div class="product-gallery">
+            <img src="../assets/placeholder-can.jpg" alt="Yume Grape" class="product-image" id="mainImage">
+            <img src="../assets/placeholder-can-detail.jpg" alt="Yume Grape Detail View" class="product-image" style="display: none;" id="secondaryImage">
+            
+            <div class="gallery-controls" style="display: flex; gap: 1rem; margin-top: 2rem;">
+                <button onclick="switchImage(0)" style="width: 15px; height: 15px; border-radius: 50%; border: none; background: var(--theme-color); cursor: pointer;"></button>
+                <button onclick="switchImage(1)" style="width: 15px; height: 15px; border-radius: 50%; border: none; background: rgba(255,255,255,0.3); cursor: pointer;"></button>
+            </div>
+        </div>
+
+        <!-- Right Side: Product Details & Cart -->
+        <div class="product-info">
+            <span class="badge">Classic Flavor</span>
+            <h1 class="product-title slanted">Yume Grape</h1>
+            <div class="product-price">¥350 / $3.00</div>
+            
+            <p class="product-desc">
+                Uva dolce e intensa, il gusto più popolare e riconoscibile del Giappone in una lattina. Il sapore è pieno, avvolgente, con una dolcezza naturale che richiama le caramelle all'uva giapponesi. Una soda viola vibrante che è un classico assoluto, amata da tutti.
+            </p>
+
+            <div class="ingredients-box shadow-punk">
+                <h3>Vibe Highlights & Diet</h3>
+                <p><strong>Profile:</strong> Sweet, Bold, Fruity, Iconic<br>
+                <strong>Look:</strong> Vibrant Purple<br>
+                <strong>Ingredients:</strong> Carbonated Water, Grape Juice Concentrate, Natural Grape Flavors, Citric Acid, Grape Skin Extract, Ascorbic Acid.<br>
+                <strong>Dietary:</strong> Vegan. Low Sugar. No Artificial Colors.</p>
+            </div>
+
+            <!-- Shop Action -->
+            <button class="buy-btn shadow-punk">Add to Cart</button>
+        </div>
+
+    </main>
+
+    <!-- Unified JS Architecture -->
+    <script src="../scripts/cans.js"></script>
+</body>
+</html>

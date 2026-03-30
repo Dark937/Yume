@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,19 +10,23 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&family=Nunito:ital,wght@0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&family=Nunito:ital,wght@0,400;0,700;0,900;1,400&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="styles/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+
 <body>
     <!-- Screen Preloader -->
     <div id="preloader" class="preloader">
         <img src="assets/yume-light-sakura.png" alt="Loading Yume" class="preloader-logo">
-    </div>    <!-- Sticky Navigation -->
+    </div> <!-- Sticky Navigation -->
     <header class="navbar">
         <div class="logo-container">
             <!-- Using Logo 1/4 (Light standard) for Top Nav -->
-            <img src="assets/yume-light.png" alt="Yume Logo Light" class="brand-logo" title="Place your attached logo image here">
+            <img src="assets/yume-light.png" alt="Yume Logo Light" class="brand-logo"
+                title="Place your attached logo image here">
         </div>
 
         <!-- Mobile Hamburger Icon -->
@@ -33,22 +38,18 @@
             <div class="menu-items-container">
                 <a href="#hero" class="menu-item">
                     <span class="menu-text">HOME</span>
-                    <span class="menu-page">PAGE 001</span>
                 </a>
                 <a href="#story" class="menu-item">
                     <span class="menu-text">OUR STORY</span>
-                    <span class="menu-page">PAGE 002</span>
                 </a>
                 <a href="#flavors" class="menu-item">
                     <span class="menu-text">FLAVORS</span>
-                    <span class="menu-page">PAGE 003</span>
                 </a>
                 <a href="#moonlight" class="menu-item">
                     <span class="menu-text">MOONLIGHT</span>
-                    <span class="menu-page">PAGE 004</span>
                 </a>
             </div>
-            
+
             <!-- Mobile-only socials footer border -->
             <div class="menu-footer mobile-socials">
                 <a href="#">INSTAGRAM</a>
@@ -66,13 +67,15 @@
     <!-- Parallax Hero -->
     <section id="hero" class="hero-section" data-theme="dark">
         <!-- Single Background Level (Moves slightly backwards during scroll) -->
-        <div class="parallax-layer layer-1 parallax-element" data-speed="0.1" style="background-image: url('assets/hero-bg-main.png');"></div>
+        <div class="parallax-layer layer-1 parallax-element" data-speed="0.1"
+            style="background-image: url('assets/hero-bg-main.png');"></div>
 
         <!-- Sakura Petals Container (Z-index 4) -->
         <div id="petals-container"></div>
 
         <!-- Hero Content Overlay (Z-index 5) -->
-        <div class="hero-content parallax-element" data-speed="-0.2" style="opacity: 0; animation: fadeUp 1s ease 0.5s forwards;">
+        <div class="hero-content parallax-element" data-speed="-0.2"
+            style="opacity: 0; animation: fadeUp 1s ease 0.5s forwards;">
             <h1 class="hero-title-animated">TASTE THE DREAM</h1>
             <h2 class="hero-subtitle-static">Sip the anime sunset, feeling cozy.</h2>
         </div>
@@ -85,18 +88,22 @@
     <!-- Storytelling & Vibe Section (Slanted Theme + White BG, Punk Shadows) -->
     <section id="story" class="section-light slanted-section" data-theme="light">
         <div class="container split-story">
-            
-            <div class="story-content parallax-element reveal-on-scroll" data-speed="0.1">
+
+            <div class="story-content parallax-element reveal-on-scroll unique-reveal-left" data-speed="0.1">
                 <div class="punk-tag box-lavender shadow-punk">Beyond the taste</div>
                 <h2 class="shadow-text-dark story-huge-title">DREAM IN EVERY SIP.</h2>
-                <p><strong>Yume (夢)</strong> brings you back to a nostalgic, dreamy anime sunset. We didn't just bottle a flavor; we bottled a vibe. Balancing traditional Japanese tastes with an unapologetic, bold modern twist.</p>
+                <p><strong>Yume (夢)</strong> brings you back to a nostalgic, dreamy anime sunset. We didn't just bottle
+                    a flavor; we bottled a vibe. Balancing traditional Japanese tastes with an unapologetic, bold modern
+                    twist.</p>
             </div>
 
             <!-- Animazione Lattina 3D (GIF) -->
-            <div class="story-3d-model-wrapper parallax-element reveal-on-scroll" data-speed="-0.04" style="transition-delay: 0.2s;">
+            <div class="story-3d-model-wrapper parallax-element reveal-on-scroll unique-reveal-right" data-speed="-0.04"
+                style="transition-delay: 0.2s;">
                 <div class="model-3d-container slanted">
                     <!-- The user's animated GIF asset goes here -->
-                    <img src="assets/yume-3d-can.gif" alt="Animazione Lattina Yume" class="model-gif" style="width: 100%; height: auto; border-radius: 12px; filter: drop-shadow(8px 8px 0px var(--color-pink));">
+                    <img src="assets/yume-3d-can.gif" alt="Animazione Lattina Yume" class="model-gif"
+                        style="width: 100%; height: auto; border-radius: 12px; filter: drop-shadow(8px 8px 0px var(--color-pink));">
                 </div>
             </div>
 
@@ -108,10 +115,10 @@
         <div class="container text-center parallax-element" data-speed="0.05">
             <div class="title-badge slanted-box box-yellow shadow-punk">The Lineup</div>
             <h2 class="section-title shadow-text">Pick your aesthetic</h2>
-            
+
             <div class="carousel-container">
                 <button class="carousel-btn prev-btn"><i class="fa-solid fa-chevron-left"></i></button>
-                
+
                 <div class="carousel-track">
                     <!-- Can 0 : Melon -->
                     <div class="carousel-item" data-flavor="melon">
@@ -121,7 +128,7 @@
                             <p>Sweet green melon vibes.</p>
                         </div>
                     </div>
-                    
+
                     <!-- Can 1 : Strawberry -->
                     <div class="carousel-item" data-flavor="strawberry">
                         <div class="can-placeholder can-pink shadow-punk"></div>
@@ -166,6 +173,24 @@
                             <p>Apple + citrus + bubblegum!</p>
                         </div>
                     </div>
+
+                    <!-- Can 6 : Grape -->
+                    <div class="carousel-item" data-flavor="grape">
+                        <div class="can-placeholder can-grape shadow-punk"></div>
+                        <div class="flavor-info slanted box-white shadow-punk">
+                            <h3>Grape</h3>
+                            <p>Intense purple sweetness.</p>
+                        </div>
+                    </div>
+
+                    <!-- Can 7 : Calpis Soda -->
+                    <div class="carousel-item" data-flavor="calpis">
+                        <div class="can-placeholder can-calpis shadow-punk"></div>
+                        <div class="flavor-info slanted box-white shadow-punk">
+                            <h3>Calpis Soda</h3>
+                            <p>Sparkling yogurt dream.</p>
+                        </div>
+                    </div>
                 </div>
 
                 <button class="carousel-btn next-btn"><i class="fa-solid fa-chevron-right"></i></button>
@@ -185,6 +210,9 @@
                     <p>Japanese grape + blueberry + vanilla + floral note.</p>
                     <p>"Under a starry anime sky, magic becomes reality. A sweet dream you can drink."</p>
                 </div>
+                <a href="products/moonlight.html" class="btn-primary"
+                    style="margin-top: 2rem; display: inline-block; text-decoration: none; transform: rotate(-2deg);">DISCOVER
+                    THE CAN</a>
             </div>
             <div class="moonlight-can parallax-element" data-speed="-0.04">
                 <div class="can-glow-wrapper">
@@ -197,7 +225,7 @@
 
     <!-- Footer -->
     <footer class="footer" data-theme="light">
-        <div class="container footer-content">
+        <div class="container footer-content reveal-on-scroll">
             <div class="footer-brand">
                 <img src="assets/yume-dark.png" alt="Yume Logo Dark" class="footer-logo">
                 <p>Drink the dream. Feel the vibe.</p>
@@ -207,7 +235,7 @@
                     <a href="#"><i class="fa-brands fa-twitter"></i></a>
                 </div>
             </div>
-            
+
             <div class="footer-links">
                 <div class="link-column">
                     <h4>Company</h4>
@@ -233,11 +261,17 @@
                 </form>
             </div>
         </div>
-        <div class="footer-bottom">
+        <div class="footer-bottom reveal-on-scroll" style="transition-delay: 0.2s;">
             <p>&copy; 2026 Yume Drinks. Anime-Inspired Energy. All rights reserved.</p>
         </div>
     </footer>
 
+    <!-- Sticky Storefront Floating Button -->
+    <a href="products.html" class="floating-shop-btn">
+        <i class="fa-solid fa-cart-shopping"></i> SHOP NOW
+    </a>
+
     <script src="scripts/main.js"></script>
 </body>
+
 </html>

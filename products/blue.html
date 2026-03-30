@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yume | Blue Mystery</title>
+    <link rel="icon" href="../assets/yume-light.png" type="image/png">
+    <link rel="stylesheet" href="../styles/cans.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="flavor-blue">
+    <nav class="product-nav">
+        <a href="../index.html" class="back-btn" id="dynamicBackBtn"><i class="fa-solid fa-arrow-left"></i> BACK</a>
+        <img src="../assets/yume-light.png" alt="YUME" class="brand-logo">
+        <a href="../cart.html" class="cart-link"><i class="fa-solid fa-cart-shopping"></i></a>
+    </nav>
+    <main class="product-container">
+        <div class="product-gallery">
+            <img src="../assets/placeholder-can.jpg" alt="Blue Mystery" class="product-image" id="mainImage">
+            <img src="../assets/placeholder-can-detail.jpg" alt="Blue Mystery Detail" class="product-image" style="display: none;" id="secondaryImage">
+            <div class="gallery-controls" style="display: flex; gap: 1rem; margin-top: 2rem;">
+                <button onclick="switchImage(0)" style="width: 15px; height: 15px; border-radius: 50%; border: none; background: var(--theme-color); cursor: pointer;"></button>
+                <button onclick="switchImage(1)" style="width: 15px; height: 15px; border-radius: 50%; border: none; background: rgba(255,255,255,0.3); cursor: pointer;"></button>
+            </div>
+        </div>
+        <div class="product-info">
+            <span class="badge">Neon Edition</span>
+            <h1 class="product-title">Blue Mystery</h1>
+            <div class="product-price">¥350 / $3.00</div>
+            <p class="product-desc">Take a dive into the neon. A mysterious, electrifying mix of green apple, yuzu citrus, and sweet bubblegum nostalgia.</p>
+            <div class="ingredients-box">
+                <h3>Vibe Highlights & Ingredients</h3>
+                <p><strong>Profile:</strong> Mystery, Tangy, Sweet<br>
+                <strong>Ingredients:</strong> Carbonated Water, Natural Flavors, Citric Acid, Ascorbic Acid, Vegan Sweetener.<br>
+                <strong>Dietary:</strong> Vegan, Low Sugar, Gluten-Free.</p>
+            </div>
+            <button class="buy-btn">Add to Cart</button>
+        </div>
+    </main>
+    <script src="../scripts/cans.js"></script>
+</body>
+</html>

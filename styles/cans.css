@@ -1,0 +1,286 @@
+@import url('https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&family=Nunito:ital,wght@0,400;0,700;0,900;1,400&display=swap');
+
+:root {
+    --bg-dark: #111427;
+    --text-light: #f4f4f5;
+    --color-pink: #FABCDB;
+    --color-lavender: #E6DDFE;
+    --color-mint: #D1F5E1;
+    --color-purple: #8A2BE2;
+    --font-heading: 'Mochiy Pop One', sans-serif;
+    --font-body: 'Nunito', sans-serif;
+    --theme-color: var(--color-mint);
+    /* Default if no class is bound */
+}
+
+/* --- FLAVOR COLOR DICTIONARY --- */
+body.flavor-original {
+    --theme-color: var(--color-lavender);
+}
+
+body.flavor-strawberry {
+    --theme-color: var(--color-pink);
+}
+
+body.flavor-melon {
+    --theme-color: var(--color-mint);
+}
+
+body.flavor-yuzu {
+    --theme-color: #FFED99;
+}
+
+body.flavor-lychee {
+    --theme-color: #FFA092;
+}
+
+body.flavor-blue {
+    --theme-color: #8cc5f5;
+}
+
+body.flavor-moonlight {
+    --theme-color: var(--color-purple);
+}
+
+body.flavor-calpis {
+    --theme-color: #E0F7FA;
+}
+
+body.flavor-grape {
+    --theme-color: #BA68C8;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+}
+
+/* Navigation */
+.product-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 4rem;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+    background: rgba(17, 20, 39, 0.8);
+}
+
+.back-btn {
+    color: var(--text-light);
+    text-decoration: none;
+    font-weight: 900;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: 0.3s;
+}
+
+.back-btn:hover {
+    color: var(--theme-color);
+    transform: translateX(-5px);
+}
+
+.brand-logo {
+    max-height: 40px;
+}
+
+.desktop-spacer {
+    width: 80px;
+}
+
+/* Layout Structure */
+.product-container {
+    display: flex;
+    min-height: 100vh;
+    padding-top: 80px;
+}
+
+.product-gallery {
+    flex: 1;
+    padding: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: sticky;
+    top: 80px;
+    height: calc(100vh - 80px);
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.product-image {
+    max-width: 80%;
+    max-height: 50vh;
+    object-fit: contain;
+    margin-bottom: 2rem;
+    filter: drop-shadow(0 20px 30px rgba(255, 255, 255, 0.1));
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.product-image:hover {
+    transform: scale(1.05) rotate(-3deg);
+}
+
+.product-info {
+    flex: 1;
+    padding: 4rem 6rem;
+    overflow-y: auto;
+}
+
+/* Dynamic Typography & Elements */
+.badge {
+    border: 3px solid var(--theme-color);
+    color: var(--theme-color);
+    padding: 0.4rem 1.2rem;
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    font-size: 1rem;
+    border-radius: 5px;
+    margin-bottom: 2rem;
+    display: inline-block;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+    transform: rotate(-2deg);
+    text-shadow: 0 0 5px var(--theme-color);
+}
+
+.product-title {
+    font-family: var(--font-heading);
+    font-size: clamp(3rem, 5vw, 6rem);
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+    color: #fff;
+    -webkit-text-stroke: 1.5px var(--bg-dark);
+    text-transform: uppercase;
+    transform: rotate(-2deg);
+    text-shadow: 4px 4px 0px var(--theme-color);
+}
+
+.product-price {
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--theme-color);
+    margin-bottom: 3rem;
+    transform: rotate(-2deg);
+}
+
+.product-desc {
+    font-size: 1.3rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 3rem;
+}
+
+/* Highlights Box */
+.ingredients-box {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 2.5rem;
+    border-radius: 12px;
+    margin-bottom: 3rem;
+    border-left: 5px solid var(--theme-color);
+}
+
+.ingredients-box h3 {
+    font-family: var(--font-heading);
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    color: var(--theme-color);
+}
+
+.ingredients-box p {
+    color: #bbb;
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+/* Action Button */
+.buy-btn {
+    background-color: var(--theme-color);
+    color: var(--bg-dark);
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    border: none;
+    width: 100%;
+    padding: 1.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    text-transform: uppercase;
+}
+
+.buy-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(255, 255, 255, 0.2);
+    background-color: white !important;
+}
+
+/* Cart Icon */
+.cart-link {
+    color: var(--theme-color);
+    font-size: 1.4rem;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+}
+
+.cart-link:hover {
+    color: var(--bg-dark);
+    background: var(--theme-color);
+    transform: scale(1.1);
+    border-color: var(--theme-color);
+}
+
+/* Responsive Media Queries */
+@media (max-width: 900px) {
+    .product-nav {
+        padding: 1.5rem 2rem;
+    }
+
+    .product-container {
+        flex-direction: column;
+    }
+
+    .product-gallery {
+        position: relative;
+        top: 0;
+        min-height: 50vh;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 2rem;
+    }
+
+    .product-info {
+        padding: 3rem 2rem;
+    }
+
+    .cart-link {
+        width: 38px;
+        height: 38px;
+        font-size: 1.1rem;
+    }
+}
+
+/* Flavor Exceptions */
+body.flavor-moonlight .product-image {
+    filter: drop-shadow(0 0 30px rgba(138, 43, 226, 0.6));
+}

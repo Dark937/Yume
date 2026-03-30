@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yume Moonlight - Limited Edition</title>
+    <!-- Favicon -->
+    <link rel="icon" href="../assets/yume-light.png" type="image/png">
+    <link rel="stylesheet" href="../styles/cans.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="flavor-moonlight">
+    <nav class="product-nav">
+        <a href="../index.html" class="back-btn" id="dynamicBackBtn"><i class="fa-solid fa-arrow-left"></i> BACK</a>
+        <img src="../assets/yume-light.png" alt="YUME" class="brand-logo">
+        <a href="../cart.html" class="cart-link"><i class="fa-solid fa-cart-shopping"></i></a>
+    </nav>
+
+    <main class="product-container">
+        <!-- Lato Sinistro: Media/Immagini (Sticky) -->
+        <div class="product-gallery">
+            <!-- 2 Image placeholders requested by user -->
+            <img src="../assets/placeholder-moonlight-1.jpg" alt="Moonlight Can Front" class="product-image" id="mainImage">
+            <img src="../assets/placeholder-moonlight-2.jpg" alt="Moonlight Can Detail" class="product-image" style="display: none;" id="secondaryImage">
+            
+            <div class="gallery-controls" style="display: flex; gap: 1rem; margin-top: 2rem;">
+                <button onclick="switchImage(0)" style="width: 15px; height: 15px; border-radius: 50%; border: none; background: var(--theme-color); cursor: pointer;"></button>
+                <button onclick="switchImage(1)" style="width: 15px; height: 15px; border-radius: 50%; border: none; background: rgba(255,255,255,0.3); cursor: pointer;" title="Image 2"></button>
+            </div>
+        </div>
+
+        <!-- Lato Destro: Info testuali (Scrolla) -->
+        <div class="product-info">
+            <span class="badge">Limited Edition</span>
+            <h1 class="product-title">Moonlight</h1>
+            <div class="product-price">¥400 / $3.50</div>
+            
+            <p class="product-desc">
+                Unwind under the neon twilight with Yume Moonlight. A perfectly balanced blend of Kyoto grape, wild mountain blueberry, and a soothing hint of vanilla blossom. Engineered to bring you back to the calm of a nostalgic anime sunset.
+            </p>
+
+            <div class="ingredients-box">
+                <h3>Vibe Highlights & Ingredients</h3>
+                <p><strong>Profile:</strong> Sweet, Floral, Deep Berry<br>
+                <strong>Ingredients:</strong> Carbonated Water, Japanese Grape Juice, Blueberry Extract, Natural Vanilla Flavor, Citric Acid, Blossom Nectar, Ascorbic Acid.<br>
+                <strong>Dietary:</strong> Vegan, Low Sugar, Gluten-Free.</p>
+            </div>
+
+            <button class="buy-btn">Add to Cart</button>
+        </div>
+    </main>
+
+    <script src="../scripts/cans.js"></script>
+</body>
+</html>

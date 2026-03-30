@@ -4,13 +4,25 @@ document.addEventListener('DOMContentLoaded', () => {
        0. Preloader Logic
        ========================================= */
     const preloader = document.getElementById('preloader');
-    window.addEventListener('load', () => {
-        if(preloader) {
-            setTimeout(() => {
-                preloader.classList.add('fade-out');
-            }, 800); // Artificial minimum delay for aesthetic transition
+    
+    if (preloader) {
+        const navEntries = performance.getEntriesByType("navigation");
+        const isReload = navEntries.length > 0 && navEntries[0].type === "reload";
+        const hasPlayedThisSession = sessionStorage.getItem('yume_preloader_played');
+        
+        if (!hasPlayedThisSession || isReload) {
+            window.addEventListener('load', () => {
+                setTimeout(() => {
+                    preloader.classList.add('fade-out');
+                    sessionStorage.setItem('yume_preloader_played', 'true');
+                    setTimeout(() => { preloader.style.display = 'none'; }, 800);
+                }, 800); // Artificial minimum delay for aesthetic transition
+            });
+        } else {
+            // Already played this session, hide instantly when traversing back
+            preloader.style.display = 'none';
         }
-    });
+    }
 
     /* =========================================
        0.5. Mobile Hamburger Menu
@@ -22,6 +34,16 @@ document.addEventListener('DOMContentLoaded', () => {
         mobileMenuBtn.addEventListener('click', () => {
             navLinks.classList.toggle('active');
             mobileMenuBtn.classList.toggle('active');
+            
+            // X Icon Toggle
+            const icon = mobileMenuBtn.querySelector('i');
+            if(mobileMenuBtn.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-xmark');
+            } else {
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+            }
         });
 
         // Close menu when clicking a link
@@ -29,6 +51,11 @@ document.addEventListener('DOMContentLoaded', () => {
             link.addEventListener('click', () => {
                 navLinks.classList.remove('active');
                 mobileMenuBtn.classList.remove('active');
+                const icon = mobileMenuBtn.querySelector('i');
+                if(icon) {
+                    icon.classList.remove('fa-xmark');
+                    icon.classList.add('fa-bars');
+                }
             });
         });
     }
@@ -141,18 +168,30 @@ document.addEventListener('DOMContentLoaded', () => {
             } else if (Math.abs(diff) === 1) {
                 scale = 0.8;
                 opacity = 0.8;
-            } else {
+            } else if (Math.abs(diff) === 2) {
                 scale = 0.6;
                 opacity = 0.3;
+            } else {
+                scale = 0.4;
+                opacity = 0; // Brutally hide the outer extreme items crossing over
             }
 
-            // Hide the item crossing over behind the scenes
-            if (Math.abs(diff) >= half && totalItems % 2 === 0) {
-                opacity = 0;
+            // Evaluate previous physical interval state to spot Cross-void wrapping triggers
+            const oldDiff = item.dataset.prevDiff !== undefined ? parseInt(item.dataset.prevDiff) : diff;
+            item.dataset.prevDiff = diff;
+            
+            // Instantly strip transitions to snap wrapping items without physical dragging visuals
+            if (Math.abs(oldDiff - diff) > 1) {
+                item.style.transition = 'none';
+                item.style.transform = `translateX(${xOffset}px) scale(${scale})`;
+                item.style.opacity = opacity;
+                void item.offsetWidth; // Extremely critical: Force browser Paint flush to lock in invisible teleport before next transitions
+            } else {
+                item.style.transition = 'transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.8s ease-out';
+                item.style.transform = `translateX(${xOffset}px) scale(${scale})`;
+                item.style.opacity = opacity;
             }
 
-            item.style.transform = `translateX(${xOffset}px) scale(${scale})`;
-            item.style.opacity = opacity;
             item.style.zIndex = zIndex;
             
             // Hide items too far away from interactions
@@ -166,18 +205,23 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
+    const flushStaggerDelays = () => items.forEach(item => { item.style.transitionDelay = '0s'; });
+
     nextBtn.addEventListener('click', () => {
-        currentIndex = (currentIndex + 1) % items.length;
+        flushStaggerDelays();
+        currentIndex = (currentIndex - 1 + items.length) % items.length;
         updateCarousel();
     });
 
     prevBtn.addEventListener('click', () => {
-        currentIndex = (currentIndex - 1 + items.length) % items.length;
+        flushStaggerDelays();
+        currentIndex = (currentIndex + 1) % items.length;
         updateCarousel();
     });
 
     items.forEach((item, index) => {
         item.addEventListener('click', () => {
+            flushStaggerDelays();
             // Check if it's visually a neighbor (diff is 1 or -1)
             let diff = index - currentIndex;
             const half = Math.floor(items.length / 2);
@@ -191,9 +235,36 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Initialize carousel layout on load
-    setTimeout(updateCarousel, 100); // Give layout time to paint
-    window.addEventListener('resize', updateCarousel);
+    // Freeze layout state initially for custom parallax entrance
+    container.classList.add('unrevealed');
+    setTimeout(updateCarousel, 100); // Give layout time to paint its matrix in background
+
+    const lineupObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Apply a staggered popup delay radiating from left to right
+                items.forEach((item, idx) => {
+                    item.style.transitionDelay = `${idx * 0.15}s`;
+                });
+
+                // Unleash CSS transforms
+                container.classList.remove('unrevealed');
+                
+                // Scrub the delays after completion so user manual skipping doesn't lag
+                setTimeout(() => {
+                    items.forEach(item => { item.style.transitionDelay = '0s'; });
+                }, 1200 + (items.length * 150));
+
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.3 }); // Trigger when 30% of the carousel comes into view
+    
+    if(container) lineupObserver.observe(container);
+
+    window.addEventListener('resize', () => {
+        if (!container.classList.contains('unrevealed')) updateCarousel();
+    });
 
     /* =========================================
        4. Moonlight Canvas Star Animation
