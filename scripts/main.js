@@ -20,14 +20,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const preventKeyScroll = (e) => { if (scrollKeys.includes(e.key)) e.preventDefault(); };
 
         const lockScroll = () => {
-            document.body.style.overflow = 'hidden';
+            document.documentElement.style.overflow = 'hidden';
             window.addEventListener('wheel', preventScroll, { passive: false });
             window.addEventListener('touchmove', preventScroll, { passive: false });
             window.addEventListener('keydown', preventKeyScroll);
         };
 
         const unlockScroll = () => {
-            document.body.style.overflow = '';
+            document.documentElement.style.overflow = '';
             window.removeEventListener('wheel', preventScroll);
             window.removeEventListener('touchmove', preventScroll);
             window.removeEventListener('keydown', preventKeyScroll);

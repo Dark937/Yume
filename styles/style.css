@@ -20,12 +20,42 @@
     --font-body: 'Nunito', sans-serif;
 }
 
-html,
-body {
+/* Custom Scrollbar Styles */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #111427;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #FABCDB;
+    border: 3px solid #111427;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #E6DDFE;
+}
+
+/* Firefox Support */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #FABCDB #111427;
+}
+
+html {
     margin: 0;
     padding: 0;
     overflow-x: hidden;
     scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
     font-family: var(--font-body);
     color: var(--text-dark);
     background-color: var(--bg-dark);
@@ -1025,18 +1055,19 @@ a {
 .footer {
     background-color: var(--bg-light);
     color: var(--text-dark);
-    padding: 2rem 2rem 1rem;
+    padding: 2rem 2rem 0;
+    overflow: hidden;
 }
 
 .footer .container {
-    padding: 3rem 2rem;
+    padding: 3rem 2rem 0;
 }
 
 .footer-content {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    padding-bottom: 2rem;
+    padding-bottom: 6rem;
     border-bottom: 3px solid var(--text-dark);
     gap: 2rem;
 }
@@ -1086,6 +1117,7 @@ a {
     padding: 1.5rem;
     border: 2px dashed var(--color-pink);
     border-radius: 8px;
+
 }
 
 .footer-tracking h4 {
@@ -1148,8 +1180,12 @@ a {
 
 .footer-bottom {
     text-align: center;
-    padding-top: 2rem;
+    padding: 2rem 0;
     font-weight: bold;
+}
+
+.footer-bottom p {
+    margin-bottom: 0;
 }
 
 /* Floating Shop Button */
@@ -1225,25 +1261,26 @@ a {
 }
 
 @media (max-width: 900px) {
+
     .reveal-on-scroll.unique-reveal-left,
     .reveal-on-scroll.unique-reveal-right {
         transform: translateY(20px) scale(0.98) !important;
         opacity: 0;
     }
-    
+
     .reveal-on-scroll.unique-reveal-left.is-visible,
     .reveal-on-scroll.unique-reveal-right.is-visible {
         transform: translateY(0) scale(1) !important;
         opacity: 1;
     }
-    
-    section.slanted-section, 
+
+    section.slanted-section,
     section.slanted-section-reverse,
     #moonlight,
     .parallax-layer {
         overflow-x: hidden;
     }
-    
+
     .glow-text {
         font-size: 3rem;
     }
@@ -1472,7 +1509,7 @@ a {
         font-size: 3rem !important;
     }
 
-    .collab-row, 
+    .collab-row,
     .collab-row.reverse {
         flex-direction: column !important;
         text-align: center;
@@ -1490,7 +1527,7 @@ a {
         margin: 0 auto 1rem !important;
     }
 
-    .op-text, 
+    .op-text,
     .naruto-text {
         font-size: 2.8rem !important;
     }

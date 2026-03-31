@@ -15,6 +15,27 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    scrollbar-width: thin;
+    scrollbar-color: #FABCDB #111427;
+}
+
+/* Custom Scrollbar Styles */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #111427;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #FABCDB;
+    border: 3px solid #111427;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #E6DDFE;
 }
 
 body {
