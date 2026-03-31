@@ -50,6 +50,14 @@ body.flavor-grape {
     --theme-color: #BA68C8;
 }
 
+body.flavor-onepiece {
+    --theme-color: #FFA726;
+}
+
+body.flavor-naruto {
+    --theme-color: #FF7043;
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -138,6 +146,41 @@ body {
     flex: 1;
     padding: 4rem 6rem;
     overflow-y: auto;
+}
+
+/* === Collab Layout: single unified card === */
+.collab-layout {
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.collab-layout .product-gallery {
+    position: static;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    width: 100%;
+    padding: 3rem 2rem;
+    flex-direction: row;
+    gap: 3rem;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.collab-layout .product-image {
+    max-height: 35vh;
+}
+
+.collab-layout .product-info {
+    padding: 3rem 2rem;
+    width: 100%;
+    overflow-y: visible;
 }
 
 /* Dynamic Typography & Elements */
@@ -283,4 +326,18 @@ body {
 /* Flavor Exceptions */
 body.flavor-moonlight .product-image {
     filter: drop-shadow(0 0 30px rgba(138, 43, 226, 0.6));
+}
+
+body.flavor-onepiece {
+    --theme-color: #FFA726;
+}
+body.flavor-onepiece .product-image {
+    filter: drop-shadow(0 0 30px rgba(255, 167, 38, 0.6));
+}
+
+body.flavor-naruto {
+    --theme-color: #FF7043;
+}
+body.flavor-naruto .product-image {
+    filter: drop-shadow(0 0 30px rgba(255, 112, 67, 0.6));
 }

@@ -1,3 +1,7 @@
+// Always scroll to top on load/reload
+history.scrollRestoration = 'manual';
+window.scrollTo(0, 0);
+
 document.addEventListener('DOMContentLoaded', () => {
 
     /* =========================================
@@ -9,18 +13,35 @@ document.addEventListener('DOMContentLoaded', () => {
         const navEntries = performance.getEntriesByType("navigation");
         const isReload = navEntries.length > 0 && navEntries[0].type === "reload";
         const hasPlayedThisSession = sessionStorage.getItem('yume_preloader_played');
+
+        // Hard scroll lock helpers
+        const scrollKeys = ['ArrowUp','ArrowDown','PageUp','PageDown','Home','End',' '];
+        const preventScroll = (e) => e.preventDefault();
+        const preventKeyScroll = (e) => { if (scrollKeys.includes(e.key)) e.preventDefault(); };
+
+        const lockScroll = () => {
+            document.body.style.overflow = 'hidden';
+            window.addEventListener('wheel', preventScroll, { passive: false });
+            window.addEventListener('touchmove', preventScroll, { passive: false });
+            window.addEventListener('keydown', preventKeyScroll);
+        };
+
+        const unlockScroll = () => {
+            document.body.style.overflow = '';
+            window.removeEventListener('wheel', preventScroll);
+            window.removeEventListener('touchmove', preventScroll);
+            window.removeEventListener('keydown', preventKeyScroll);
+        };
         
         if (!hasPlayedThisSession || isReload) {
-            // Lock scroll while preloader is visible
-            document.body.style.overflow = 'hidden';
+            lockScroll();
             window.addEventListener('load', () => {
                 setTimeout(() => {
                     preloader.classList.add('fade-out');
                     sessionStorage.setItem('yume_preloader_played', 'true');
-                    // Unlock scroll when preloader finishes fading
                     setTimeout(() => {
                         preloader.style.display = 'none';
-                        document.body.style.overflow = '';
+                        unlockScroll();
                     }, 800);
                 }, 800);
             });
