@@ -95,13 +95,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('scroll', () => {
         let currentTheme = 'dark'; // Default
-        const scrollPosition = window.scrollY + 60; // Offset for navbar height
+        const scrollPosition = window.scrollY + 100; // Offset for navbar center-ish detection
 
         sections.forEach(sec => {
             const top = sec.offsetTop;
             const bottom = top + sec.offsetHeight;
             if (scrollPosition >= top && scrollPosition < bottom) {
                 currentTheme = sec.getAttribute('data-theme');
+                
+                // Update active nav link
+                const id = sec.getAttribute('id');
+                if (id) {
+                    const navItems = document.querySelectorAll('.menu-item');
+                    navItems.forEach(item => {
+                        item.classList.remove('active');
+                        if (item.getAttribute('href') === `#${id}`) {
+                            item.classList.add('active');
+                        }
+                    });
+                }
             }
         });
 
@@ -111,6 +123,9 @@ document.addEventListener('DOMContentLoaded', () => {
             navbar.classList.remove('nav-dark');
         }
     });
+
+    // Initial check on load
+    window.dispatchEvent(new Event('scroll'));
 
     /* =========================================
        2. Universal Parallax Effect
