@@ -1,66 +1,151 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yume | Calpis Soda</title>
-    <!-- Favicon -->
+    <title>Yume | Calpis</title>
     <link rel="icon" href="../assets/yume-light.png" type="image/png">
-    
-    <!-- Unified CSS Architecture -->
     <link rel="stylesheet" href="../styles/cans.css">
-    
-    <!-- FontAwesome icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="../scripts/cart-manager.js" defer></script>
 </head>
+
 <body class="flavor-calpis">
-    
-    <!-- Top Navigation -->
     <nav class="product-nav">
-        <!-- Dynamic Referrer Back Button -->
-        <a href="../index.html" class="back-btn" id="dynamicBackBtn"><i class="fa-solid fa-arrow-left"></i> BACK</a>
-        <img src="../assets/yume-light.png" alt="YUME LOGO" class="brand-logo">
-        <a href="../cart.html" class="cart-link"><i class="fa-solid fa-cart-shopping"></i></a>
+        <a href="../products.html" class="back-btn" id="dynamicBackBtn"><i class="fa-solid fa-arrow-left"></i>
+            STOREFRONT</a>
+        <a href="../index.html" class="nav-logo-link">
+            <img src="../assets/yume-light-sakura.png" alt="YUME" class="brand-logo">
+        </a>
+        <div class="nav-cart-link">
+            <a href="../cart.html" class="cart-link">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span class="cart-count">0</span>
+            </a>
+        </div>
     </nav>
 
-    <main class="product-container">
-        
-        <!-- Left Side: Interactive 3D/Images -->
-        <div class="product-gallery">
-            <img src="../assets/placeholder-can.jpg" alt="Calpis Soda" class="product-image" id="mainImage">
-            <img src="../assets/placeholder-can-detail.jpg" alt="Calpis Soda Detail View" class="product-image" style="display: none;" id="secondaryImage">
-            
-            <div class="gallery-controls" style="display: flex; gap: 1rem; margin-top: 2rem;">
-                <button onclick="switchImage(0)" style="width: 15px; height: 15px; border-radius: 50%; border: none; background: var(--theme-color); cursor: pointer;"></button>
-                <button onclick="switchImage(1)" style="width: 15px; height: 15px; border-radius: 50%; border: none; background: rgba(255,255,255,0.3); cursor: pointer;"></button>
+    <main class="product-main-container">
+        <!-- Main Product Section - LIGHT -->
+        <section class="product-section light">
+            <div class="product-container">
+                <div class="product-gallery">
+                    <div class="slider-container">
+                        <div class="slider-track">
+                            <div class="slider-item">
+                                <img src="../assets/calpis-nobg.png" alt="Yume Calpis Soda">
+                            </div>
+                            <div class="slider-item">
+                                <img src="../assets/calpis.png" alt="Yume Calpis Soda">
+                            </div>
+                        </div>
+                        <button class="slider-arrow prev-arrow"><i class="fa-solid fa-chevron-left"></i></button>
+                        <button class="slider-arrow next-arrow"><i class="fa-solid fa-chevron-right"></i></button>
+                        <div class="slider-dots"></div>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <span class="badge">Smooth Vibe</span>
+                    <h1 class="product-title">Calpis</h1>
+                    <div class="product-price" data-base-price="3.00">3.00€</div>
+                    <p class="product-desc">That unique, creamy-tangy yogurt flavor in a light or sparkling soda. It's the ultimate refreshing experience, pure and simple.</p>
+
+                    <!-- Bundle Selector -->
+                    <div class="bundle-selector">
+                        <div class="bundle-option active" data-bundle="single" data-price="3.00">
+                            <span class="detail-tag">Single Can</span>
+                            <span class="bundle-price-tag">3.00€</span>
+                        </div>
+                        <div class="bundle-option" data-bundle="pack6" data-price="16.00">
+                            <span class="detail-tag">Pack of 6</span>
+                            <div class="price-side">
+                                <span class="bundle-price-tag">16.00€</span>
+                                <span class="bundle-save">SAVE 2€</span>
+                            </div>
+                        </div>
+                        <div class="bundle-option" data-bundle="pack12" data-price="31.00">
+                            <span class="detail-tag">Pack of 12</span>
+                            <div class="price-side">
+                                <span class="bundle-price-tag">31.00€</span>
+                                <span class="bundle-save">SAVE 5€</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="buy-btn">Add to Cart</button>
+
+                    <!-- Item Details Grid -->
+                    <div class="item-details-grid">
+                        <div class="detail-item">
+                            <span class="detail-label">Type:</span>
+                            <span class="detail-value">Soft Drink</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Material:</span>
+                            <span class="detail-value">Aluminum Can</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Model:</span>
+                            <span class="detail-value">330ml</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+        </section>
 
-        <!-- Right Side: Product Details & Cart -->
-        <div class="product-info">
-            <span class="badge" style="color: var(--bg-dark); background: white;">Milky Pearl</span>
-            <h1 class="product-title slanted">Yume Calpis Soda</h1>
-            <div class="product-price">¥350 / $3.00</div>
-            
-            <p class="product-desc">
-                Un gusto leggermente lattico, cremoso e dolce con un tocco acidulo. Ispirata alla classica bevanda giapponese "Calpis", unisce il profilo morbido yogurt-latte a delicate bollicine per un effetto rinfrescante bianco perlato. Diverso dalle normali soda fruttate ma comunque facile da bere e incredibilmente nostalgico.
-            </p>
+        <!-- Secondary Section - DARK (Ingredients) -->
+        <section class="product-section dark">
+            <div class="product-container" style="display: block; max-width: 800px; text-align: center;">
+                <div class="ingredients-box">
+                    <h3>Ingredients & Magic</h3>
+                    <p>Filtered Carbonated Water, Nonfat Dry Milk (Lactic Acid Fermented), Cane Sugar, Natural Creamy
+                        Flavors, Citric Acid, Sea Salt, Caffeine (from Green Tea).</p>
 
-            <div class="ingredients-box shadow-punk">
-                <h3>Vibe Highlights & Diet</h3>
-                <p><strong>Profile:</strong> Creamy, Tart, Sweet, Sparkling<br>
-                <strong>Look:</strong> Pearly White Bubble Cloud<br>
-                <strong>Ingredients:</strong> Carbonated Water, Cultured Milk Serum, Lactic Acid, Natural Ferment Flavors, Ascorbic Acid, Vegan Sweeteners.<br>
-                <strong>Dietary:</strong> Low Sugar (Contains Trace Dairy Processing).</p>
+                    <div class="nutrition-grid">
+
+                        <div class="nutrition-item">
+                            <span class="nutrition-label">Energy</span>
+                            <span class="nutrition-value">35 kcal</span>
+                        </div>
+                        <div class="nutrition-item">
+                            <span class="nutrition-label">Fat</span>
+                            <span class="nutrition-value">0g</span>
+                        </div>
+                        <div class="nutrition-item">
+                            <span class="nutrition-label">Carbs</span>
+                            <span class="nutrition-value">8.5g</span>
+                        </div>
+                        <div class="nutrition-item">
+                            <span class="nutrition-label">Sugars</span>
+                            <span class="nutrition-value">8.5g</span>
+                        </div>
+                        <div class="nutrition-item">
+                            <span class="nutrition-label">Protein</span>
+                            <span class="nutrition-value">0g</span>
+                        </div>
+                        <div class="nutrition-item">
+                            <span class="nutrition-label">Salt</span>
+                            <span class="nutrition-value">0.01g</span>
+                        </div>
+                    </div>
+
+                    <div class="allergen-section">
+                        <span class="allergen-title">Allergens</span>
+                        <div class="allergen-list">
+                            <span>Caffeine</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <!-- Shop Action -->
-            <button class="buy-btn shadow-punk">Add to Cart</button>
-        </div>
-
+        </section>
     </main>
 
-    <!-- Unified JS Architecture -->
+    <footer class="product-footer">
+        <p>&copy; 2026 Yume Drinks. Anime-Inspired Energy.</p>
+    </footer>
+
     <script src="../scripts/cans.js"></script>
 </body>
+
 </html>

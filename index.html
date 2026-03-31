@@ -15,6 +15,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="styles/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="scripts/cart-manager.js" defer></script>
 </head>
 
 <body>
@@ -61,6 +62,10 @@
         <div class="socials desktop-socials">
             <a href="#"><i class="fa-brands fa-instagram"></i></a>
             <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+            <a href="cart.html" class="cart-link-nav">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span class="cart-count">0</span>
+            </a>
         </div>
     </header>
 
@@ -360,96 +365,6 @@
     <a href="products.html" class="floating-shop-btn">
         <i class="fa-solid fa-cart-shopping"></i> SHOP NOW
     </a>
-
-    <!-- ═══ EASTER EGG: Can 67 ═══ -->
-    <div id="egg67-overlay" style="
-        display: none; position: fixed; inset: 0; z-index: 9999;
-        background: rgba(0,0,0,0.85); backdrop-filter: blur(10px);
-        align-items: center; justify-content: center; flex-direction: column;
-        text-align: center; font-family: 'Mochiy Pop One', sans-serif;
-        cursor: pointer;
-        ">
-        <div id="egg67-inner" style="
-            transform: scale(0); transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.6);
-            display: flex; flex-direction: column; align-items: center; gap: 1.5rem;
-            ">
-            <!-- Secret can visual: now using an image -->
-            <img src="assets/can-67.png" alt="Can 67" style="
-                width: 280px; height: auto;
-                border-radius: 40px;
-                filter: drop-shadow(0 0 30px rgba(255,215,0,0.6));
-                animation: spin67 8s linear infinite;
-                ">
-            <h2 style="color: #FFD700; font-size: 2.5rem; text-shadow: 3px 3px 0 #000; letter-spacing: -1px;">Can #67
-            </h2>
-            <p
-                style="color: rgba(255,255,255,0.7); font-family: 'Nunito', sans-serif; font-size: 1.1rem; max-width: 340px; line-height: 1.6;">
-                <strong style="color:#FFD700;">You found it.</strong><br>
-                The legendary Flavor 67 — a secret blend known only to true Yume believers.<br>
-                <span style="opacity:0.5; font-size: 0.85rem;">Coming... when it's ready.</span>
-            </p>
-            <div
-                style="font-size: 0.8rem; color: rgba(255,255,255,0.3); letter-spacing: 2px; text-transform: uppercase;">
-                Click anywhere to close</div>
-        </div>
-    </div>
-
-    <style>
-        @keyframes spin67 {
-            0% {
-                filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.6));
-                transform: translateY(0);
-            }
-
-            25% {
-                filter: drop-shadow(0 0 50px rgba(255, 100, 0, 0.8));
-                transform: translateY(-10px);
-            }
-
-            50% {
-                filter: drop-shadow(0 0 50px rgba(138, 43, 226, 0.8));
-                transform: translateY(0);
-            }
-
-            75% {
-                filter: drop-shadow(0 0 50px rgba(0, 200, 255, 0.8));
-                transform: translateY(10px);
-            }
-
-            100% {
-                filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.6));
-                transform: translateY(0);
-            }
-        }
-    </style>
-
-    <script>
-        (function () {
-            const input = document.getElementById('newsletterEmail');
-            const overlay = document.getElementById('egg67-overlay');
-            const inner = document.getElementById('egg67-inner');
-            if (!input || !overlay) return;
-
-            input.addEventListener('input', () => {
-                const buffer = input.value;
-                if (buffer.includes('67')) {
-                    // 🥚 Trigger Easter Egg
-                    overlay.style.display = 'flex';
-                    requestAnimationFrame(() => {
-                        requestAnimationFrame(() => {
-                            inner.style.transform = 'scale(1)';
-                        });
-                    });
-                    input.value = '';
-                }
-            });
-
-            overlay.addEventListener('click', () => {
-                inner.style.transform = 'scale(0)';
-                setTimeout(() => { overlay.style.display = 'none'; }, 500);
-            });
-        })();
-    </script>
 
     <script src="scripts/main.js"></script>
 </body>

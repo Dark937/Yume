@@ -148,6 +148,41 @@ a {
     color: var(--text-dark);
 }
 
+/* Navigation Cart Badge */
+.cart-link-nav {
+    color: inherit !important;
+    font-size: 1.2rem;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-left: 1rem;
+}
+
+.cart-link-nav:hover {
+    color: var(--color-pink) !important;
+    transform: scale(1.1);
+}
+
+.cart-link-nav .cart-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: var(--color-pink);
+    color: var(--bg-dark);
+    font-size: 0.65rem;
+    font-weight: 900;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid var(--bg-dark);
+}
+
 .box-glass-dark {
     background: rgba(17, 20, 39, 0.7);
     backdrop-filter: blur(8px);
@@ -691,43 +726,46 @@ a {
     margin: 0 auto;
     position: relative;
     border-radius: 12px;
+    background-size: cover !important;
+    /* Force fill container vertically */
+    background-position: center !important;
 }
 
 /* Colors */
 .can-original {
-    background: linear-gradient(180deg, #FFF5C3, #FFD194);
+    background: url('../assets/original.png') center/cover no-repeat;
 }
 
 .can-green {
-    background: linear-gradient(180deg, var(--color-mint), #8FEEB9);
+    background: url('../assets/melon.png') center/cover no-repeat;
 }
 
 .can-pink {
-    background: linear-gradient(180deg, var(--color-pink), #FF9EBB);
+    background: url('../assets/strawberry.png') center/cover no-repeat;
 }
 
 .can-yellow {
-    background: linear-gradient(180deg, var(--color-yellow), #FFD54F);
+    background: url('../assets/yuzu.png') center/cover no-repeat;
 }
 
 .can-peach {
-    background: linear-gradient(180deg, var(--color-peach), #FFA07A);
+    background: url('../assets/lychee.png') center/cover no-repeat;
 }
 
 .can-blue {
-    background: linear-gradient(180deg, var(--color-blue), #5C6BC0);
+    background: url('../assets/blue.png') center/cover no-repeat;
 }
 
 .can-moonlight {
-    background: linear-gradient(180deg, #4A00E0, #8E2DE2);
+    background: url('../assets/moonlight-nobg.png') center/cover no-repeat;
 }
 
 .can-calpis {
-    background: linear-gradient(180deg, #FFFFFF, #E0F7FA);
+    background: url('../assets/calpis.png') center/cover no-repeat;
 }
 
 .can-grape {
-    background: linear-gradient(180deg, #BA68C8, #7B1FA2);
+    background: url('../assets/grape.png') center/cover no-repeat;
 }
 
 .flavor-info {
@@ -834,10 +872,24 @@ a {
 }
 
 .moonlight-can {
-    flex: 1;
+    flex: 1.2;
+    /* Enlarged space for the can */
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.moonlight-can .can-placeholder {
+    width: 250px;
+    /* Increased from 160px */
+    height: 480px;
+    /* Increased from 300px */
+    transform: rotate(5deg) translateY(-20px);
+    transition: transform 0.5s ease;
+}
+
+.moonlight-can:hover .can-placeholder {
+    transform: rotate(2deg) translateY(-30px) scale(1.05);
 }
 
 .neon-badge {
@@ -892,6 +944,7 @@ a {
    Collab Editions Section
    ================================ */
 .section-collabs {
+    overflow: hidden;
     background-color: var(--bg-dark);
     color: var(--text-light);
     position: relative;
@@ -926,14 +979,15 @@ a {
 
 /* One Piece - Gomu Gomu Fizz */
 .can-onepiece {
-    background: repeating-radial-gradient(circle at 50% 120%, #FFA726, #FF9800 10px, #FFB74D 10px, #FFB74D 20px);
+    background: url('../assets/onepiece.png') center/cover no-repeat;
     box-shadow: 0 0 20px rgba(255, 152, 0, 0.5), inset 0 0 20px rgba(255, 152, 0, 0.8);
-    border: 4px solid #D32F2F; /* Luffy Red */
+    border: 4px solid #D32F2F;
+    /* Luffy Red */
 }
 
-.op-text { 
-    color: #FFA726; 
-    text-shadow: 4px 4px 0px #D32F2F, 0 0 20px rgba(255, 167, 38, 0.4); 
+.op-text {
+    color: #FFA726;
+    text-shadow: 4px 4px 0px #D32F2F, 0 0 20px rgba(255, 167, 38, 0.4);
     font-size: 4.5rem;
     line-height: 1;
     margin-bottom: 1rem;
@@ -942,14 +996,15 @@ a {
 
 /* Naruto - Chakra Burst */
 .can-naruto {
-    background: repeating-linear-gradient(45deg, #FF5722, #FF5722 5px, #FF7043 5px, #FF7043 10px), linear-gradient(0deg, #FF5722, #FF9800);
+    background: url('../assets/naruto.png') center/cover no-repeat;
     box-shadow: 0 0 25px rgba(255, 87, 34, 0.8), inset 0 0 20px rgba(3, 169, 244, 0.5);
-    border: 4px solid #03A9F4; /* Chakra Blue Accent */
+    border: 4px solid #03A9F4;
+    /* Chakra Blue Accent */
 }
 
-.naruto-text { 
-    color: #FF7043; 
-    text-shadow: 4px 4px 0px #03A9F4, 0 0 20px rgba(255, 112, 67, 0.4); 
+.naruto-text {
+    color: #FF7043;
+    text-shadow: 4px 4px 0px #03A9F4, 0 0 20px rgba(255, 112, 67, 0.4);
     font-size: 4.5rem;
     line-height: 1;
     margin-bottom: 1rem;
@@ -969,7 +1024,11 @@ a {
 .footer {
     background-color: var(--bg-light);
     color: var(--text-dark);
-    padding: 3rem 2rem 2rem;
+    padding: 2rem 2rem 1rem;
+}
+
+.footer .container {
+    padding: 3rem 2rem;
 }
 
 .footer-content {
@@ -1152,8 +1211,15 @@ a {
 }
 
 @keyframes pulseAura {
-    0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.7; }
-    100% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+    0% {
+        transform: translate(-50%, -50%) scale(0.9);
+        opacity: 0.7;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(1.1);
+        opacity: 1;
+    }
 }
 
 .floating-badge {
@@ -1318,4 +1384,12 @@ a {
     .menu-footer a:hover {
         color: var(--color-mint);
     }
+}
+
+/* Mobile FAB Logic */
+.navbar.menu-open+#petals-container+.floating-shop-btn,
+.navbar.menu-open~.floating-shop-btn {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transform: scale(0.8) translateY(20px) !important;
 }

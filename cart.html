@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yume | Your Haul</title>
+    <link rel="icon" href="assets/yume-light.png" type="image/png">
+    <link rel="stylesheet" href="styles/cart.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="scripts/cart-manager.js" defer></script>
+</head>
+
+<body>
+    <nav class="cart-nav">
+        <a href="products.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> CONTINUE SHOPPING</a>
+
+        <div class="cart-logo-container">
+            <img src="assets/yume-light-sakura.png" alt="YUME" class="brand-logo" style="filter: invert(1);">
+        </div>
+
+        <div class="cart-socials">
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+        </div>
+    </nav>
+
+    <main class="cart-main">
+        <!-- Cart Items Section - LIGHT -->
+        <section class="cart-section light">
+            <div class="cart-container">
+                <div class="cart-header">
+                    <h1 class="cart-title">CART <span class="cart-count-title" id="cartCountTitle">[ 0 ITEMS ]</span>
+                    </h1>
+
+                    <div class="shipping-progress-container" id="shippingProgress">
+                        <div class="shipping-msg" id="shippingMsg">Only 20.00€ away from FREE shipping!</div>
+                        <div class="progress-bar-track">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cart-layout">
+                    <!-- Products Column -->
+                    <div class="cart-items-column" id="cartItemsList">
+                        <!-- Items injected here by scripts/cart.js -->
+                        <div class="empty-cart-message">
+                            <i class="fa-solid fa-box-open"></i>
+                            <p>Your haul is empty. Time to dream bigger.</p>
+                            <a href="products.html" class="btn-primary">Go to Store</a>
+                        </div>
+                    </div>
+
+                    <!-- Summary Column -->
+                    <div class="cart-summary-column">
+                        <div class="summary-card">
+                            <h3>Order Summary</h3>
+
+                            <div class="summary-row">
+                                <span>SUBTOTAL</span>
+                                <span id="subtotal">0.00€</span>
+                            </div>
+                            <div class="summary-row discount" id="discountRow" style="display: none;">
+                                <span>SAVE - 10%</span>
+                                <span id="discountValue">-0.00€</span>
+                            </div>
+
+                            <div class="summary-row total">
+                                <span>TOTAL</span>
+                                <span id="total">0.00€</span>
+                            </div>
+
+                            <p class="shipping-info-text">Taxes and shipping calculated at checkout</p>
+
+                            <!-- Promo Code Box -->
+                            <div class="promo-container">
+                                <label class="promo-label">Promo Code</label>
+                                <div class="promo-box">
+                                    <input type="text" placeholder="Enter promo code" id="promoInput">
+                                    <button id="applyPromoBtn">Apply</button>
+                                </div>
+                            </div>
+
+                            <button class="checkout-btn" id="checkoutBtn">Checkout</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer - DARK -->
+        <footer class="cart-footer">
+            <p>&copy; 2026 Yume Drinks. Anime-Inspired Energy. All rights reserved.</p>
+        </footer>
+    </main>
+
+    <!-- Custom Script for Cart rendering (matches Image 2 style) -->
+    <script src="scripts/cart.js"></script>
+</body>
+
+</html>

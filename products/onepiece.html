@@ -1,54 +1,151 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yume x One Piece - Gomu Gomu Fizz</title>
-    <!-- Favicon -->
+    <title>Yume | Gomu Gomu Fizz</title>
     <link rel="icon" href="../assets/yume-light.png" type="image/png">
     <link rel="stylesheet" href="../styles/cans.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="../scripts/cart-manager.js" defer></script>
 </head>
+
 <body class="flavor-onepiece">
     <nav class="product-nav">
-        <a href="../index.html" class="back-btn" id="dynamicBackBtn"><i class="fa-solid fa-arrow-left"></i> BACK</a>
-        <img src="../assets/yume-light.png" alt="YUME" class="brand-logo">
-        <a href="../cart.html" class="cart-link"><i class="fa-solid fa-cart-shopping"></i></a>
+        <a href="../products.html" class="back-btn" id="dynamicBackBtn"><i class="fa-solid fa-arrow-left"></i>
+            STOREFRONT</a>
+        <a href="../index.html" class="nav-logo-link">
+            <img src="../assets/yume-light-sakura.png" alt="YUME" class="brand-logo">
+        </a>
+        <div class="nav-cart-link">
+            <a href="../cart.html" class="cart-link">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span class="cart-count">0</span>
+            </a>
+        </div>
     </nav>
 
-    <main class="product-container collab-layout">
-        <!-- Media Area -->
-        <div class="product-gallery">
-            <img src="../assets/placeholder-can.jpg" alt="One Piece Can Front" class="product-image" id="mainImage">
-            <img src="../assets/placeholder-can.jpg" alt="One Piece Can Detail" class="product-image" style="display: none;" id="secondaryImage">
-            
-            <div class="gallery-controls" style="display: flex; gap: 1rem; margin-top: 2rem;">
-                <button onclick="switchImage(0)" style="width: 15px; height: 15px; border-radius: 50%; border: none; background: var(--theme-color); cursor: pointer;"></button>
-                <button onclick="switchImage(1)" style="width: 15px; height: 15px; border-radius: 50%; border: none; background: rgba(255,255,255,0.3); cursor: pointer;" title="Image 2"></button>
+    <main class="product-main-container">
+        <!-- Main Product Section - LIGHT -->
+        <section class="product-section light">
+            <div class="product-container">
+                <div class="product-gallery">
+                    <div class="slider-container">
+                        <div class="slider-track">
+                            <div class="slider-item">
+                                <img src="../assets/onepiece-nobg.png" alt="Yume One Piece Edition">
+                            </div>
+                            <div class="slider-item">
+                                <img src="../assets/onepiece.png" alt="Yume One Piece Edition">
+                            </div>
+                        </div>
+                        <button class="slider-arrow prev-arrow"><i class="fa-solid fa-chevron-left"></i></button>
+                        <button class="slider-arrow next-arrow"><i class="fa-solid fa-chevron-right"></i></button>
+                        <div class="slider-dots"></div>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <span class="badge">Special Collab</span>
+                    <h1 class="product-title">Gomu Gomu Fizz</h1>
+                    <div class="product-price" data-base-price="3.50">3.50€</div>
+                    <p class="product-desc">Tropical explosion with a rubbery kick. Sail the Grand Line with every sip of our exclusive One Piece collaboration.</p>
+
+                    <!-- Bundle Selector -->
+                    <div class="bundle-selector">
+                        <div class="bundle-option active" data-bundle="single" data-price="3.50">
+                            <span class="detail-tag">Single Can</span>
+                            <span class="bundle-price-tag">3.50€</span>
+                        </div>
+                        <div class="bundle-option" data-bundle="pack6" data-price="19.00">
+                            <span class="detail-tag">Pack of 6</span>
+                            <div class="price-side">
+                                <span class="bundle-price-tag">19.00€</span>
+                                <span class="bundle-save">SAVE 2€</span>
+                            </div>
+                        </div>
+                        <div class="bundle-option" data-bundle="pack12" data-price="37.00">
+                            <span class="detail-tag">Pack of 12</span>
+                            <div class="price-side">
+                                <span class="bundle-price-tag">37.00€</span>
+                                <span class="bundle-save">SAVE 5€</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="buy-btn">Add to Cart</button>
+
+                    <!-- Item Details Grid -->
+                    <div class="item-details-grid">
+                        <div class="detail-item">
+                            <span class="detail-label">Type:</span>
+                            <span class="detail-value">Soft Drink</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Material:</span>
+                            <span class="detail-value">Aluminum Can</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Model:</span>
+                            <span class="detail-value">330ml</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+        </section>
 
-        <!-- Info Area -->
-        <div class="product-info">
-            <span class="badge">Exclusive Collab</span>
-            <h1 class="product-title">Gomu Gomu Fizz</h1>
-            <div class="product-price">¥450 / $4.00</div>
-            
-            <p class="product-desc">
-                Set sail for a new adventure. The <strong>Yume x One Piece</strong> drop brings you "Gomu Gomu Fizz" — an energetic, tropical burst of freedom. Capturing the spirit of the sea, this island-inspired brew is intensely vibrant, sunny, and unapologetically bold.
-            </p>
+        <!-- Secondary Section - DARK (Ingredients) -->
+        <section class="product-section dark">
+            <div class="product-container" style="display: block; max-width: 800px; text-align: center;">
+                <div class="ingredients-box">
+                    <h3>Ingredients & Soul</h3>
+                    <p>Filtered Carbonated Water, Cane Sugar, Pineapple Extract, Passion Fruit, Mango Puree, Natural
+                        Tropical Flavors, Citric Acid, Sea Salt, Caffeine (from Green Tea).</p>
 
-            <div class="ingredients-box">
-                <h3>Vibe Highlights & Ingredients</h3>
-                <p><strong>Profile:</strong> Tropical Mango, Fresh Pineapple, Light Citrus.<br>
-                <strong>Ingredients:</strong> Carbonated Water, Mango Puree, Pineapple Juice, Citric Acid, Grand Line Sea Salt.<br>
-                <strong>Dietary:</strong> Vegan, Low Sugar, Gluten-Free.</p>
+                    <div class="nutrition-grid">
+
+                        <div class="nutrition-item">
+                            <span class="nutrition-label">Energy</span>
+                            <span class="nutrition-value">35 kcal</span>
+                        </div>
+                        <div class="nutrition-item">
+                            <span class="nutrition-label">Fat</span>
+                            <span class="nutrition-value">0g</span>
+                        </div>
+                        <div class="nutrition-item">
+                            <span class="nutrition-label">Carbs</span>
+                            <span class="nutrition-value">8.5g</span>
+                        </div>
+                        <div class="nutrition-item">
+                            <span class="nutrition-label">Sugars</span>
+                            <span class="nutrition-value">8.5g</span>
+                        </div>
+                        <div class="nutrition-item">
+                            <span class="nutrition-label">Protein</span>
+                            <span class="nutrition-value">0g</span>
+                        </div>
+                        <div class="nutrition-item">
+                            <span class="nutrition-label">Salt</span>
+                            <span class="nutrition-value">0.01g</span>
+                        </div>
+                    </div>
+
+                    <div class="allergen-section">
+                        <span class="allergen-title">Allergens</span>
+                        <div class="allergen-list">
+                            <span>Caffeine</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <button class="buy-btn">Pre-order Drop</button>
-        </div>
+        </section>
     </main>
+
+    <footer class="product-footer">
+        <p>&copy; 2026 Yume Drinks. Anime-Inspired Energy.</p>
+    </footer>
 
     <script src="../scripts/cans.js"></script>
 </body>
+
 </html>

@@ -60,6 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
         mobileMenuBtn.addEventListener('click', () => {
             navLinks.classList.toggle('active');
             mobileMenuBtn.classList.toggle('active');
+            navbar.classList.toggle('menu-open');
             
             // X Icon Toggle
             const icon = mobileMenuBtn.querySelector('i');
