@@ -1552,91 +1552,94 @@ a {
     pointer-events: none !important;
     transform: scale(0.8) translateY(20px) !important;
 }
-/* --- EASTER EGG Styles --- */
+/* =========================================
+   ═══ EASTER EGG: CAN #67 ═══
+   ========================================= */
 .egg-overlay {
     display: none;
     position: fixed;
     inset: 0;
-    z-index: 9999;
+    z-index: 10000;
     background: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     align-items: center;
     justify-content: center;
-    flex-direction: column;
-    text-align: center;
-    font-family: var(--font-heading);
     cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.egg-overlay.active {
+    display: flex;
+    opacity: 1;
 }
 
 .egg-inner {
-    transform: scale(0);
-    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.6);
+    transform: scale(0.6);
+    opacity: 0;
+    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.6);
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
     gap: 1.5rem;
+    max-width: 400px;
+    padding: 2rem;
+}
+
+.egg-overlay.active .egg-inner {
+    transform: scale(1);
+    opacity: 1;
 }
 
 .egg-can-img {
-    width: 280px;
+    width: 250px;
     height: auto;
-    border-radius: 40px;
-    filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.6));
-    animation: spin67 8s linear infinite;
+    filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.4));
+    animation: spin67 15s linear infinite;
+    user-select: none;
+}
+
+@keyframes spin67 {
+    0% { transform: perspective(1000px) rotateY(0deg) translateY(0); }
+    50% { transform: perspective(1000px) rotateY(180deg) translateY(-10px); }
+    100% { transform: perspective(1000px) rotateY(360deg) translateY(0); }
 }
 
 .egg-title {
+    font-family: 'Mochiy Pop One', sans-serif;
     color: #FFD700;
-    font-size: 2.5rem;
-    text-shadow: 3px 3px 0 #000;
-    letter-spacing: -1px;
+    font-size: 3.5rem;
     margin: 0;
+    text-shadow: 4px 4px 0 #000;
+    letter-spacing: -2px;
 }
 
 .egg-text {
-    color: rgba(255, 255, 255, 0.7);
-    font-family: var(--font-body);
+    color: rgba(255, 255, 255, 0.8);
     font-size: 1.1rem;
-    max-width: 340px;
     line-height: 1.6;
-    margin: 0;
+    font-family: 'Nunito', sans-serif;
 }
 
 .egg-highlight {
     color: #FFD700;
+    font-weight: 900;
 }
 
 .egg-subtext {
-    opacity: 0.5;
+    opacity: 0.4;
     font-size: 0.85rem;
+    font-style: italic;
+    display: block;
+    margin-top: 10px;
 }
 
 .egg-close-hint {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     color: rgba(255, 255, 255, 0.3);
-    letter-spacing: 2px;
+    letter-spacing: 3px;
     text-transform: uppercase;
-}
-
-@keyframes spin67 {
-    0% {
-        filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.6));
-        transform: translateY(0);
-    }
-    25% {
-        filter: drop-shadow(0 0 50px rgba(255, 100, 0, 0.8));
-        transform: translateY(-10px);
-    }
-    50% {
-        filter: drop-shadow(0 0 50px rgba(138, 43, 226, 0.8));
-        transform: translateY(0);
-    }
-    75% {
-        filter: drop-shadow(0 0 50px rgba(0, 200, 255, 0.8));
-        transform: translateY(10px);
-    }
-    100% {
-        filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.6));
-        transform: translateY(0);
-    }
+    margin-top: 2rem;
 }

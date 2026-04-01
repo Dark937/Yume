@@ -447,22 +447,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (newsletterInput && eggOverlay && eggInner) {
         newsletterInput.addEventListener('input', () => {
+            // Trigger Easter Egg when '67' is typed
             if (newsletterInput.value.includes('67')) {
-                // Trigger Easter Egg
-                eggOverlay.style.display = 'flex';
-                // Small delay to ensure display: flex is applied before scaling
-                setTimeout(() => {
-                    eggInner.style.transform = 'scale(1)';
-                }, 10);
+                eggOverlay.classList.add('active');
                 newsletterInput.value = '';
+                
+                // Secret Console Log
+                console.log('%c✨ SECRET UNLOCKED: FLAVOR #67', 'color: #FFD700; font-weight: 900; font-size: 20px;');
             }
         });
 
         eggOverlay.addEventListener('click', () => {
-            eggInner.style.transform = 'scale(0)';
-            setTimeout(() => {
-                eggOverlay.style.display = 'none';
-            }, 500);
+            eggOverlay.classList.remove('active');
         });
     }
 
