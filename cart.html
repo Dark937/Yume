@@ -139,20 +139,28 @@
 
                             <div id="cardDetails" class="payment-details-form">
                                 <div class="form-group full">
+                                    <label>Cardholder Name</label>
+                                    <input type="text" id="cardName" placeholder="Zoro Roronoa" required>
+                                    <div class="error-msg">Name is required</div>
+                                </div>
+                                <div class="form-group full">
                                     <label>Card Number</label>
                                     <div class="input-with-icon">
-                                        <input type="text" id="cardNumber" placeholder="0000 0000 0000 0000" maxlength="19">
+                                        <input type="text" id="cardNumber" placeholder="0000 0000 0000 0000" maxlength="19" required>
                                         <i class="fa-solid fa-lock"></i>
                                     </div>
+                                    <div class="error-msg">Invalid card number</div>
                                 </div>
                                 <div class="form-grid-payment">
                                     <div class="form-group">
                                         <label>Expiry Date</label>
-                                        <input type="text" id="expiry" placeholder="MM/YY" maxlength="5">
+                                        <input type="text" id="expiry" placeholder="MM/YY" maxlength="5" required>
+                                        <div class="error-msg">Invalid date</div>
                                     </div>
                                     <div class="form-group">
                                         <label>CVV</label>
-                                        <input type="password" id="cvv" placeholder="123" maxlength="3">
+                                        <input type="password" id="cvv" placeholder="123" maxlength="4" required>
+                                        <div class="error-msg">Invalid CVV</div>
                                     </div>
                                 </div>
                             </div>
@@ -166,9 +174,9 @@
                         <!-- Step 3: Processing & Success -->
                         <div class="checkout-step" id="step3">
                             <div class="processing-view" id="processingStatus">
-                                <div class="yume-loader">
-                                    <div class="loader-circle"></div>
-                                    <img src="assets/yume-light-sakura.png" alt="loading" class="loader-img">
+                                <div class="yume-payment-loader">
+                                    <div class="loader-ring"></div>
+                                    <div class="loader-inner-ring"></div>
                                 </div>
                                 <h3>Securing your haul...</h3>
                                 <p>Checking stock and brewing your order.</p>
@@ -185,14 +193,6 @@
                                     <span class="token-label">TRACKING TOKEN</span>
                                     <div class="token-value" id="orderToken">YME-A1B2-C3D4-E5F6</div>
                                     <p class="token-note">Keep this token to follow your order journey.</p>
-                                </div>
-
-                                <div class="delivery-estimate-box">
-                                    <i class="fa-solid fa-truck-fast"></i>
-                                    <div>
-                                        <span class="label">ESTIMATED ARRIVAL</span>
-                                        <span id="deliveryDate" class="date">Calculating...</span>
-                                    </div>
                                 </div>
 
                                 <a href="products.html" class="btn-primary">Return to Store</a>
@@ -229,7 +229,15 @@
                                 <span id="total">0.00€</span>
                             </div>
 
-                            <p class="shipping-info-text" id="finalNote">Taxes and shipping calculated at checkout</p>
+                            <div class="delivery-estimate-box" id="sidebarArrivalBox" style="display: none; margin-top: 1.5rem; margin-bottom: 0;">
+                                <i class="fa-solid fa-truck-fast"></i>
+                                <div>
+                                    <span class="label">ESTIMATED ARRIVAL</span>
+                                    <span id="deliveryDate" class="date">Calculating...</span>
+                                </div>
+                            </div>
+
+                            <p class="shipping-info-text" id="finalNote" style="display: none;">Taxes and shipping calculated at checkout</p>
 
                             <!-- Promo Code Box (Only in cart step) -->
                             <div class="promo-container" id="promoSection">
@@ -255,6 +263,9 @@
     </main>
 
     <!-- Custom Script for Cart rendering (matches Image 2 style) -->
+    <!-- Order Confirmation Email Service -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="scripts/email-service.js"></script>
     <script src="scripts/cart.js"></script>
 </body>
 

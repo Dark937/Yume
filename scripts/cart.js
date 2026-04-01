@@ -414,32 +414,20 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             const country = document.getElementById('country').value;
+            const rates = this.getContinentalRates(country);
 
-            let shipping = 11.50; // Eur/Am
-            let taxRate = 0.22;
-            let handling = 2.50;
-
-            if (country === 'JP') {
-                shipping = 2.50;
-                taxRate = 0.10;
-                handling = 0;
-            } else if (['AU', 'NZ', 'CN', 'KR', 'SG', 'TH', 'VN', 'PH'].includes(country)) {
-                shipping = 8.00; // Asia
-                taxRate = 0.15;
-                handling = 1.50;
-            } else if (country && !['IT', 'US', 'UK', 'CA', 'FR', 'DE', 'JP'].includes(country)) {
-                shipping = 15.00; // RoW
-                taxRate = 0.10;
-                handling = 3.00;
+            // Free Shipping check (Threshold 20€)
+            if (subtotal >= 20) {
+                rates.shipping = 0;
             }
 
             const discount = subtotal * currentDiscount;
             const taxed = subtotal - discount;
-            const customs = (taxed * taxRate) + handling;
-            const total = taxed + shipping + customs;
+            const customs = (taxed * rates.taxRate) + rates.handling;
+            const total = taxed + rates.shipping + customs;
 
             subtotalDisplay.textContent = `${subtotal.toFixed(2)}€`;
-            this.shippingCostDisplay.textContent = `${shipping.toFixed(2)}€`;
+            this.shippingCostDisplay.textContent = `${rates.shipping.toFixed(2)}€`;
             this.customsRow.style.display = (customs > 0) ? 'flex' : 'none';
             this.customsCostDisplay.textContent = `${customs.toFixed(2)}€`;
 
@@ -451,18 +439,41 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             totalDisplay.textContent = `${total.toFixed(2)}€`;
-            
-            // Calculate Arrival Date
-            const arrival = new Date();
-            let days = 8;
-            if (country === 'IT') days = 2;
-            if (country === 'JP') days = 2;
-            arrival.setDate(arrival.getDate() + days);
-            
-            const options = { weekday: 'short', month: 'short', day: 'numeric' };
-            const dateStr = arrival.toLocaleDateString('en-US', options);
-            
-            this.finalNote.textContent = country ? `ESTIMATED ARRIVAL: ${dateStr}` : "Taxes & shipping added";
+            this.finalNote.style.display = 'none'; // Replaced by sidebar box in success
+        }
+
+        getContinentalRates(country) {
+            // Default rates (RoW - Rest of World)
+            let rates = { shipping: 18.00, taxRate: 0.10, handling: 5.00, days: 12 };
+
+            if (!country) return { shipping: 0, taxRate: 0, handling: 0, days: 0 };
+
+            // EUROPE
+            const europe = ['IT', 'FR', 'DE', 'ES', 'UK', 'NL', 'BE', 'PT', 'AT', 'CH', 'SE', 'NO', 'DK', 'FI', 'IE', 'GR', 'PL', 'CZ', 'HU', 'RO', 'BG', 'HR', 'SI', 'SK', 'LT', 'LV', 'EE', 'MT', 'CY', 'IS', 'LI', 'MC', 'AD', 'SM', 'VA'];
+            // ASIA
+            const asia = ['CN', 'KR', 'SG', 'TH', 'VN', 'PH', 'MY', 'ID', 'IN', 'PK', 'BD', 'RU', 'TR', 'IL', 'SA', 'AE', 'QA', 'KW', 'OM', 'BH', 'JO', 'LB', 'TW', 'HK', 'MO'];
+            // NORTH AMERICA
+            const northAmerica = ['US', 'CA', 'MX', 'PR', 'CU', 'DO', 'GT', 'CR', 'PA'];
+            // OCEANIA
+            const oceania = ['AU', 'NZ', 'FJ', 'PG', 'SB', 'VU', 'WS', 'TO', 'KI', 'MH', 'FM', 'PW', 'NR', 'TV'];
+            // SOUTH AMERICA
+            const southAmerica = ['BR', 'AR', 'CL', 'CO', 'PE', 'VE', 'EC', 'BO', 'PY', 'UY', 'GY', 'SR'];
+
+            if (country === 'JP') {
+                rates = { shipping: 2.50, taxRate: 0.10, handling: 0.00, days: 2 };
+            } else if (europe.includes(country)) {
+                rates = { shipping: 11.50, taxRate: 0.22, handling: 2.50, days: 5 };
+            } else if (northAmerica.includes(country)) {
+                rates = { shipping: 12.50, taxRate: 0.10, handling: 3.50, days: 7 };
+            } else if (asia.includes(country)) {
+                rates = { shipping: 8.00, taxRate: 0.15, handling: 1.50, days: 4 };
+            } else if (oceania.includes(country)) {
+                rates = { shipping: 14.00, taxRate: 0.15, handling: 2.00, days: 8 };
+            } else if (southAmerica.includes(country)) {
+                rates = { shipping: 22.00, taxRate: 0.10, handling: 6.00, days: 14 };
+            }
+
+            return rates;
         }
 
         validateForm() {
@@ -524,9 +535,59 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         async handlePayment() {
+            const paymentType = document.querySelector('input[name="paymentType"]:checked').value;
+            
+            if (paymentType === 'card') {
+                if (!this.validateCardForm()) return;
+            }
+
             this.goToStep(3);
             await new Promise(r => setTimeout(r, 4500));
             this.completeOrder();
+        }
+
+        validateCardForm() {
+            let isValid = true;
+            const cardName = document.getElementById('cardName');
+            const cardNumber = document.getElementById('cardNumber');
+            const expiry = document.getElementById('expiry');
+            const cvv = document.getElementById('cvv');
+
+            // Name: At least 3 characters
+            if (cardName.value.trim().length < 3) {
+                this.setValidationError(cardName, "Enter full name (min 3 chars)");
+                isValid = false;
+            } else {
+                this.clearValidationError(cardName);
+            }
+
+            // Number: 13-19 digits
+            const cleanNum = cardNumber.value.replace(/\s+/g, '');
+            if (!/^\d{13,19}$/.test(cleanNum)) {
+                this.setValidationError(cardNumber, "Invalid card number (13-19 digits)");
+                isValid = false;
+            } else {
+                this.clearValidationError(cardNumber);
+                cardNumber.value = cleanNum.replace(/(.{4})/g, '$1 ').trim(); // Reformat
+            }
+
+            // Expiry: MM/YY
+            if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(expiry.value.trim())) {
+                this.setValidationError(expiry, "Format MM/YY");
+                isValid = false;
+            } else {
+                this.clearValidationError(expiry);
+            }
+
+            // CVV: 3-4 digits
+            if (!/^\d{3,4}$/.test(cvv.value.trim())) {
+                this.setValidationError(cvv, "3 or 4 digits");
+                isValid = false;
+            } else {
+                this.clearValidationError(cvv);
+            }
+
+            return isValid;
         }
 
         completeOrder() {
@@ -534,19 +595,43 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('orderToken').textContent = token;
 
             const country = document.getElementById('country').value;
-            const days = (country === 'JP') ? 2 : 8;
-            const arrival = new Date();
-            arrival.setDate(arrival.getDate() + days);
+            const rates = this.getContinentalRates(country);
+            const arrivalDate = new Date();
+            arrivalDate.setDate(arrivalDate.getDate() + rates.days);
+            const arrivalStr = arrivalDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
 
             if (this.deliveryDateDisplay) {
-                this.deliveryDateDisplay.textContent = arrival.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+                this.deliveryDateDisplay.textContent = arrivalStr;
             }
 
-            // Hide summary arrival note
-            if (this.finalNote) this.finalNote.style.display = 'none';
+            // Gather Order Data for Email
+            const orderData = {
+                token: token,
+                subtotal: document.getElementById('subtotal').textContent,
+                shipping: document.getElementById('shippingCost').textContent,
+                customs: document.getElementById('customsCost').textContent,
+                total: document.getElementById('total').textContent,
+                arrival: arrivalStr,
+                items: window.CartManager.getCart(),
+                customer: {
+                    name: document.getElementById('fullName').value,
+                    email: document.getElementById('email').value,
+                    address: `${document.getElementById('streetAddress').value}, ${document.getElementById('city').value}, ${document.getElementById('country').value}`
+                }
+            };
+
+            // Send Confirmation Email
+            if (window.EmailService) {
+                window.EmailService.sendOrderConfirmation(orderData);
+            }
+
+            // Show sidebar arrival box
+            const sidebarBox = document.getElementById('sidebarArrivalBox');
+            if (sidebarBox) sidebarBox.style.display = 'flex';
 
             document.getElementById('processingStatus').style.display = 'none';
             document.getElementById('successStatus').style.display = 'block';
+            
             window.CartManager.clearCart();
         }
     }

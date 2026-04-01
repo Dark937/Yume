@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yume | Track Your Order</title>
+    <link rel="icon" href="assets/yume-light.png" type="image/png">
+    <link rel="stylesheet" href="styles/cart.css">
+    <link rel="stylesheet" href="styles/tracking.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <nav class="cart-nav">
+        <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> BACK TO HOME</a>
+
+        <div class="cart-logo-container">
+            <img src="assets/yume-light-sakura.png" alt="YUME" class="brand-logo" style="filter: invert(1);">
+        </div>
+
+        <div class="cart-socials">
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+        </div>
+    </nav>
+
+    <main class="tracking-main">
+        <section class="tracking-hero">
+            <div class="tracking-decoration">
+                <img src="" id="leftCan" class="tracking-can-side left" alt="Decorative Can">
+                <img src="" id="rightCan" class="tracking-can-side right" alt="Decorative Can">
+            </div>
+            <div class="container text-center">
+                <h1 class="tracking-title">TRACK YOUR HAUL</h1>
+                <p class="tracking-subtitle">Enter your token to see where your dreams are currently brewing.</p>
+                
+                <form id="trackingForm" class="tracking-form-box" novalidate>
+                    <div class="tracking-input-wrapper">
+                        <input type="text" id="tokenInput" placeholder="YME-XXXX-XXXX-XXXX" autocomplete="off">
+                        <button type="submit" class="btn-track">TRACK NOW <i class="fa-solid fa-magnifying-glass"></i></button>
+                    </div>
+                    <div id="trackingError" class="tracking-error-msg">Order Not Found. Please check your token.</div>
+                </form>
+
+                <!-- Loading State -->
+                <div id="trackingLoader" class="tracking-loader-container" style="display: none;">
+                    <div class="yume-payment-loader"></div>
+                    <p>Fetching your haul from the database...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Order Results (Hidden by default) -->
+        <section id="trackingResults" class="tracking-results-section" style="display: none;">
+            <div class="container">
+                <div class="tracking-layout">
+                    <!-- Left: Status & Info -->
+                    <div class="tracking-details-column">
+                        <div class="status-card shadow-punk">
+                            <div class="status-header">
+                                <span class="status-badge" id="orderStatusLabel">PROCESSING</span>
+                                <span class="order-id-label" id="displayToken">YME-1234-5678</span>
+                            </div>
+                            
+                            <div class="status-stepper">
+                                <div class="status-step complete" data-status="placed">
+                                    <div class="step-dot"></div>
+                                    <span class="step-label">ORDER PLACED</span>
+                                </div>
+                                <div class="status-step active" data-status="processing">
+                                    <div class="step-dot"></div>
+                                    <span class="step-label">PROCESSING</span>
+                                </div>
+                                <div class="status-step" data-status="shipped">
+                                    <div class="step-dot"></div>
+                                    <span class="step-label">SHIPPED</span>
+                                </div>
+                                <div class="status-step" data-status="delivered">
+                                    <div class="step-dot"></div>
+                                    <span class="step-label">DELIVERED</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="info-grid">
+                            <div class="info-card shadow-punk">
+                                <h3>SHIPPING TO</h3>
+                                <div id="shippingInfo" class="info-content">
+                                    <p class="name" id="trackName">Zoro Roronoa</p>
+                                    <p id="trackAddress">123 Sakura Way, Kyoto, Japan</p>
+                                </div>
+                            </div>
+                            <div class="info-card shadow-punk highlight">
+                                <h3>ESTIMATED ARRIVAL</h3>
+                                <div class="info-content">
+                                    <i class="fa-solid fa-truck-fast"></i>
+                                    <p class="arrival-date" id="trackArrival">Friday, April 3</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Summary -->
+                    <div class="tracking-summary-column">
+                        <div class="summary-card shadow-punk">
+                            <h3>ORDER SUMMARY</h3>
+                            <div id="trackItemsList" class="track-items-list">
+                                <!-- Items injected here -->
+                            </div>
+                            <div class="track-total-row">
+                                <span>TOTAL</span>
+                                <span id="trackTotal">0.00€</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="cart-footer">
+        <p>&copy; 2026 Yume Drinks. Anime-Inspired Energy. All rights reserved.</p>
+    </footer>
+
+    <script src="scripts/tracking.js"></script>
+</body>
+
+</html>

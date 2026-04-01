@@ -1,0 +1,409 @@
+@import url('https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&family=Nunito:ital,wght@0,400;0,700;0,900;1,400&display=swap');
+
+:root {
+    --bg-dark: #111427;
+    --text-light: #f4f4f5;
+    --color-pink: #FABCDB;
+    --color-lavender: #E6DDFE;
+    --color-mint: #D1F5E1;
+    --color-purple: #8A2BE2;
+    --font-heading: 'Mochiy Pop One', sans-serif;
+    --font-body: 'Nunito', sans-serif;
+}
+
+body {
+    background: #fff;
+    color: var(--bg-dark);
+    font-family: var(--font-body);
+}
+
+.tracking-main {
+    padding: 6rem 2rem;
+    min-height: 80vh;
+    overflow: hidden; /* Prevent cans from overflowing */
+}
+
+.tracking-hero {
+    margin-top: 4rem; /* Lowered from top */
+    margin-bottom: 8rem;
+    position: relative;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.tracking-hero .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.tracking-decoration {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 60px; /* Moved cans lower with the box */
+    left: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.tracking-can-side {
+    position: absolute;
+    width: 220px; /* Slightly larger */
+    height: auto;
+    filter: drop-shadow(15px 15px 30px rgba(138, 43, 226, 0.2)); /* Softer colored shadow */
+    animation: float 4s ease-in-out infinite;
+    opacity: 0.9;
+    display: none; /* Injected by JS */
+}
+
+.tracking-can-side.left {
+    left: -120px;
+    top: 15%;
+    transform: rotate(-15deg);
+}
+
+.tracking-can-side.right {
+    right: -120px;
+    top: 55%;
+    transform: rotate(15deg);
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(var(--rot)); }
+    50% { transform: translateY(-20px) rotate(var(--rot)); }
+}
+
+/* Set specific rotation for floats */
+.tracking-can-side.left { --rot: -15deg; }
+.tracking-can-side.right { --rot: 15deg; }
+
+.tracking-loader-container {
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    animation: fadeIn 0.3s ease;
+}
+
+.tracking-loader-container p {
+    font-weight: 900;
+    color: var(--color-purple);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+}
+
+.tracking-title {
+    font-family: var(--font-heading);
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    letter-spacing: -2px;
+}
+
+.tracking-subtitle {
+    font-size: 1.25rem;
+    color: #666;
+    margin-bottom: 4rem;
+}
+
+.tracking-form-box {
+    width: 100%;
+    max-width: 650px; /* Lengthened box */
+    margin: 0 auto;
+}
+
+.tracking-input-wrapper {
+    display: flex;
+    border: 2px solid var(--bg-dark); /* Subtle border */
+    position: relative;
+    box-shadow: 0 20px 40px rgba(138, 43, 226, 0.15); /* Colored lavender glow instead of black shadow */
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fff;
+    transition: 0.3s;
+}
+
+.tracking-input-wrapper:focus-within {
+    box-shadow: 0 25px 50px rgba(250, 187, 219, 0.3); /* Pink glow on focus */
+}
+
+.tracking-input-wrapper input {
+    flex: 1;
+    padding: 1.8rem 2rem; /* More spacious */
+    border: none;
+    font-family: var(--font-body);
+    font-weight: 900;
+    font-size: 1.2rem;
+    outline: none;
+    background: transparent;
+    text-transform: uppercase;
+    letter-spacing: 3px; /* More letter space for tracking token */
+}
+
+.btn-track {
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 0 2rem;
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.btn-track:hover {
+    background: var(--color-purple);
+}
+
+.tracking-error-msg {
+    color: #ff4444;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-top: 1.5rem;
+    display: none;
+    animation: shake 0.3s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+}
+
+.tracking-results-section {
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.tracking-layout {
+    display: flex;
+    gap: 4rem;
+    align-items: flex-start;
+}
+
+.tracking-details-column {
+    flex: 2;
+}
+
+.tracking-summary-column {
+    flex: 1;
+}
+
+.shadow-punk {
+    box-shadow: 8px 8px 0px #000;
+    border: 3px solid #000;
+}
+
+.status-card {
+    background: #fff;
+    padding: 3rem;
+    margin-bottom: 2rem;
+    border-radius: 4px;
+}
+
+.status-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #eee;
+}
+
+.status-badge {
+    background: var(--color-mint);
+    color: #000;
+    padding: 0.5rem 1.5rem;
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    border: 2px solid #000;
+}
+
+.order-id-label {
+    font-weight: 900;
+    letter-spacing: 1px;
+    color: #888;
+}
+
+.status-stepper {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    padding: 0 1rem;
+}
+
+.status-stepper::before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: #eee;
+    z-index: 1;
+}
+
+.status-step {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.step-dot {
+    width: 34px;
+    height: 34px;
+    background: #fff;
+    border: 4px solid #eee;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+.step-label {
+    font-weight: 900;
+    font-size: 0.7rem;
+    color: #ccc;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.status-step.complete .step-dot {
+    background: var(--color-purple);
+    border-color: #000;
+}
+
+.status-step.complete .step-label {
+    color: #000;
+}
+
+.status-step.active .step-dot {
+    background: var(--color-pink);
+    border-color: #000;
+    transform: scale(1.2);
+    box-shadow: 0 0 15px rgba(250, 187, 219, 0.5);
+}
+
+.status-step.active .step-label {
+    color: #000;
+    font-weight: 900;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.info-card {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 4px;
+}
+
+.info-card h3 {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.5rem;
+}
+
+.info-content {
+    font-weight: 700;
+}
+
+.info-content .name {
+    color: var(--color-purple);
+    margin-bottom: 0.5rem;
+}
+
+.info-card.highlight {
+    background: var(--bg-dark);
+    color: #fff;
+    border-color: var(--color-purple);
+}
+
+.info-card.highlight i {
+    color: var(--color-mint);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.arrival-date {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    color: var(--color-mint);
+}
+
+.summary-card {
+    background: #fff;
+    padding: 2.5rem;
+}
+
+.summary-card h3 {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.track-items-list {
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1rem;
+}
+
+.track-total-row {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 900;
+    font-size: 1.5rem;
+    font-family: var(--font-heading);
+}
+
+/* Response */
+@media (max-width: 1000px) {
+    .tracking-layout {
+        flex-direction: column;
+    }
+    
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .tracking-title {
+        font-size: 3rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .status-stepper {
+        flex-direction: column;
+        gap: 2rem;
+        align-items: flex-start;
+    }
+    
+    .status-stepper::before {
+        width: 4px;
+        height: 100%;
+        left: 15px;
+        top: 0;
+    }
+    
+    .status-step {
+        flex-direction: row;
+        gap: 2rem;
+    }
+}
