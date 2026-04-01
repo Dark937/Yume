@@ -410,62 +410,20 @@
         </div>
     </div>
 
-    <style>
-        @keyframes spin67 {
-            0% {
-                filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.6));
-                transform: translateY(0);
-            }
+    <!-- ═══ EASTER EGG: Can 67 ═══ -->
+    <div id="egg67-overlay" class="egg-overlay">
+        <div id="egg67-inner" class="egg-inner">
+            <img src="assets/can-67.png" alt="Can 67" class="egg-can-img">
+            <h2 class="egg-title">Can #67</h2>
+            <p class="egg-text">
+                <strong class="egg-highlight">You found it.</strong><br>
+                The legendary Flavor 67 — a secret blend known only to true Yume believers.<br>
+                <span class="egg-subtext">Coming... when it's ready.</span>
+            </p>
+            <div class="egg-close-hint">Click anywhere to close</div>
+        </div>
+    </div>
 
-            25% {
-                filter: drop-shadow(0 0 50px rgba(255, 100, 0, 0.8));
-                transform: translateY(-10px);
-            }
-
-            50% {
-                filter: drop-shadow(0 0 50px rgba(138, 43, 226, 0.8));
-                transform: translateY(0);
-            }
-
-            75% {
-                filter: drop-shadow(0 0 50px rgba(0, 200, 255, 0.8));
-                transform: translateY(10px);
-            }
-
-            100% {
-                filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.6));
-                transform: translateY(0);
-            }
-        }
-    </style>
-
-    <script>
-        (function () {
-            const input = document.getElementById('newsletterEmail');
-            const overlay = document.getElementById('egg67-overlay');
-            const inner = document.getElementById('egg67-inner');
-            if (!input || !overlay) return;
-
-            input.addEventListener('input', () => {
-                const buffer = input.value;
-                if (buffer.includes('67')) {
-                    // :egg: Trigger Easter Egg
-                    overlay.style.display = 'flex';
-                    requestAnimationFrame(() => {
-                        requestAnimationFrame(() => {
-                            inner.style.transform = 'scale(1)';
-                        });
-                    });
-                    input.value = '';
-                }
-            });
-
-            overlay.addEventListener('click', () => {
-                inner.style.transform = 'scale(0)';
-                setTimeout(() => { overlay.style.display = 'none'; }, 500);
-            });
-        })();
-    </script>
     <script src="scripts/main.js"></script>
 </body>
 

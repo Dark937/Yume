@@ -438,4 +438,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
     revealElements.forEach(el => revealObserver.observe(el));
 
+    /* =========================================
+       7. Easter Egg: Can #67 Trigger
+       ========================================= */
+    const newsletterInput = document.getElementById('newsletterEmail');
+    const eggOverlay = document.getElementById('egg67-overlay');
+    const eggInner = document.getElementById('egg67-inner');
+
+    if (newsletterInput && eggOverlay && eggInner) {
+        newsletterInput.addEventListener('input', () => {
+            if (newsletterInput.value.includes('67')) {
+                // Trigger Easter Egg
+                eggOverlay.style.display = 'flex';
+                // Small delay to ensure display: flex is applied before scaling
+                setTimeout(() => {
+                    eggInner.style.transform = 'scale(1)';
+                }, 10);
+                newsletterInput.value = '';
+            }
+        });
+
+        eggOverlay.addEventListener('click', () => {
+            eggInner.style.transform = 'scale(0)';
+            setTimeout(() => {
+                eggOverlay.style.display = 'none';
+            }, 500);
+        });
+    }
+
 });
