@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -42,24 +42,182 @@
                 </div>
 
                 <div class="cart-layout">
-                    <!-- Products Column -->
+                    <!-- Products Column (Cart View) -->
                     <div class="cart-items-column" id="cartItemsList">
                         <!-- Items injected here by scripts/cart.js -->
-                        <div class="empty-cart-message">
-                            <i class="fa-solid fa-box-open"></i>
-                            <p>Your haul is empty. Time to dream bigger.</p>
-                            <a href="products.html" class="btn-primary">Go to Store</a>
+                    </div>
+
+                    <!-- Checkout Column (Hidden by default) -->
+                    <div class="checkout-flow-container" id="checkoutFlow" style="display: none;">
+                        <!-- Step Tracker -->
+                        <div class="step-tracker">
+                            <div class="step active" data-step="1">1<span>INFO</span></div>
+                            <div class="step" data-step="2">2<span>PAY</span></div>
+                            <div class="step" data-step="3">3<span>PROCESS</span></div>
+                        </div>
+
+                        <!-- Step 1: Shipping Information -->
+                        <div class="checkout-step active" id="step1">
+                            <h2 class="step-title">Delivery Details</h2>
+                            <form id="shippingForm" class="checkout-form" novalidate>
+                                <div class="form-group full">
+                                    <label>Full Name</label>
+                                    <input type="text" id="fullName" placeholder="Zoro Roronoa" required>
+                                    <div class="error-msg">Please enter your name</div>
+                                </div>
+                                <div class="form-group half">
+                                    <label>Email Address</label>
+                                    <input type="email" id="email" placeholder="swordsman@yume.com" required>
+                                    <div class="error-msg">Invalid email address</div>
+                                </div>
+                                <div class="form-group half">
+                                    <label>Phone Number</label>
+                                    <input type="tel" id="phone" placeholder="+39 333 123 4567" required>
+                                    <div class="error-msg">Phone number is required</div>
+                                </div>
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label>Country</label>
+                                        <select id="country" required>
+                                            <option value="">Loading countries...</option>
+                                        </select>
+                                        <div class="error-msg">Country is required</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Province</label>
+                                        <select id="province" required disabled>
+                                            <option value="">Select country first</option>
+                                        </select>
+                                        <div class="error-msg">Province is required</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>City</label>
+                                        <select id="city" required disabled>
+                                            <option value="">Select province first</option>
+                                        </select>
+                                        <div class="error-msg">City is required</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>ZIP Code</label>
+                                        <input type="text" id="zip" placeholder="00100" required>
+                                        <div class="error-msg" id="zipError">Invalid post code</div>
+                                    </div>
+                                    <div class="form-group full">
+                                        <label>Address</label>
+                                        <input type="text" id="streetAddress" placeholder="123 Sakura Way" required>
+                                        <div class="error-msg">Address is required</div>
+                                    </div>
+                                </div>
+                                <div class="form-group full">
+                                    <label>Order Note (Optional)</label>
+                                    <textarea id="orderNote" placeholder="Special brewing instructions or delivery tips..." maxlength="250"></textarea>
+                                </div>
+                                <button type="submit" class="btn-checkout-next">Continue to Payment <i class="fa-solid fa-arrow-right"></i></button>
+                            </form>
+                        </div>
+
+                        <!-- Step 2: Payment Selector -->
+                        <div class="checkout-step" id="step2">
+                            <h2 class="step-title">Secure Payment</h2>
+                            <div class="payment-methods">
+                                <label class="payment-option active">
+                                    <input type="radio" name="paymentType" value="card" checked>
+                                    <span class="pay-icon"><i class="fa-solid fa-credit-card"></i></span>
+                                    <span class="pay-text">Credit Card</span>
+                                </label>
+                                <label class="payment-option">
+                                    <input type="radio" name="paymentType" value="paypal">
+                                    <span class="pay-icon"><i class="fa-brands fa-paypal"></i></span>
+                                    <span class="pay-text">PayPal</span>
+                                </label>
+                                <label class="payment-option">
+                                    <input type="radio" name="paymentType" value="apple">
+                                    <span class="pay-icon"><i class="fa-brands fa-apple-pay"></i></span>
+                                    <span class="pay-text">Apple Pay</span>
+                                </label>
+                            </div>
+
+                            <div id="cardDetails" class="payment-details-form">
+                                <div class="form-group full">
+                                    <label>Card Number</label>
+                                    <div class="input-with-icon">
+                                        <input type="text" id="cardNumber" placeholder="0000 0000 0000 0000" maxlength="19">
+                                        <i class="fa-solid fa-lock"></i>
+                                    </div>
+                                </div>
+                                <div class="form-grid-payment">
+                                    <div class="form-group">
+                                        <label>Expiry Date</label>
+                                        <input type="text" id="expiry" placeholder="MM/YY" maxlength="5">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>CVV</label>
+                                        <input type="password" id="cvv" placeholder="123" maxlength="3">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="checkout-actions">
+                                <button type="button" class="btn-checkout-back" id="backToInfo"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                                <button type="button" class="btn-checkout-next" id="processPayment">Pay Now <span id="finalPaymentTotal">0.00€</span></button>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Processing & Success -->
+                        <div class="checkout-step" id="step3">
+                            <div class="processing-view" id="processingStatus">
+                                <div class="yume-loader">
+                                    <div class="loader-circle"></div>
+                                    <img src="assets/yume-light-sakura.png" alt="loading" class="loader-img">
+                                </div>
+                                <h3>Securing your haul...</h3>
+                                <p>Checking stock and brewing your order.</p>
+                            </div>
+
+                            <div class="success-view" id="successStatus" style="display: none;">
+                                <div class="success-icon">
+                                    <i class="fa-solid fa-circle-check"></i>
+                                </div>
+                                <h2>Dream Locked In!</h2>
+                                <p>Your order has been received and is being prepared.</p>
+                                
+                                <div class="order-token-box">
+                                    <span class="token-label">TRACKING TOKEN</span>
+                                    <div class="token-value" id="orderToken">YME-A1B2-C3D4-E5F6</div>
+                                    <p class="token-note">Keep this token to follow your order journey.</p>
+                                </div>
+
+                                <div class="delivery-estimate-box">
+                                    <i class="fa-solid fa-truck-fast"></i>
+                                    <div>
+                                        <span class="label">ESTIMATED ARRIVAL</span>
+                                        <span id="deliveryDate" class="date">Calculating...</span>
+                                    </div>
+                                </div>
+
+                                <a href="products.html" class="btn-primary">Return to Store</a>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Summary Column -->
+                    <!-- Summary Column (Persistent) -->
                     <div class="cart-summary-column">
                         <div class="summary-card">
                             <h3>Order Summary</h3>
-
+                            <div id="summaryItemsList" class="summary-items-preview">
+                                <!-- Minimal item preview for checkout flow -->
+                            </div>
                             <div class="summary-row">
                                 <span>SUBTOTAL</span>
                                 <span id="subtotal">0.00€</span>
+                            </div>
+                            <div class="summary-row" id="shippingRow">
+                                <span>SHIPPING</span>
+                                <span id="shippingCost">0.00€</span>
+                            </div>
+                            <div class="summary-row" id="customsRow" style="display: none;">
+                                <span>CUSTOMS & DUTIES</span>
+                                <span id="customsCost">0.00€</span>
                             </div>
                             <div class="summary-row discount" id="discountRow" style="display: none;">
                                 <span>SAVE - 10%</span>
@@ -71,18 +229,19 @@
                                 <span id="total">0.00€</span>
                             </div>
 
-                            <p class="shipping-info-text">Taxes and shipping calculated at checkout</p>
+                            <p class="shipping-info-text" id="finalNote">Taxes and shipping calculated at checkout</p>
 
-                            <!-- Promo Code Box -->
-                            <div class="promo-container">
+                            <!-- Promo Code Box (Only in cart step) -->
+                            <div class="promo-container" id="promoSection">
                                 <label class="promo-label">Promo Code</label>
-                                <div class="promo-box">
+                                <div class="promo-box" id="promoBox">
                                     <input type="text" placeholder="Enter promo code" id="promoInput">
                                     <button id="applyPromoBtn">Apply</button>
                                 </div>
+                                <div class="promo-error-msg" id="promoError">Invalid promo code</div>
                             </div>
 
-                            <button class="checkout-btn" id="checkoutBtn">Checkout</button>
+                            <button class="checkout-btn" id="checkoutBtn">Continue to Checkout</button>
                         </div>
                     </div>
                 </div>
