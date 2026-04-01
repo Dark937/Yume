@@ -405,7 +405,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 div.innerHTML = `
                     <div class="mini-img"><img src="${item.image}"></div>
                     <div class="mini-info">
-                        <div class="name">${item.name}</div>
+                        <div class="name">${Utils.escapeHTML(item.name)}</div>
                         <div class="qty">x${item.quantity}</div>
                     </div>
                     <div class="mini-price">${(item.price * item.quantity).toFixed(2)}€</div>
@@ -614,9 +614,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 arrival: arrivalStr,
                 items: window.CartManager.getCart(),
                 customer: {
-                    name: document.getElementById('fullName').value,
+                    name: Utils.escapeHTML(document.getElementById('fullName').value),
                     email: document.getElementById('email').value,
-                    address: `${document.getElementById('streetAddress').value}, ${document.getElementById('city').value}, ${document.getElementById('country').value}`
+                    address: Utils.escapeHTML(`${document.getElementById('streetAddress').value}, ${document.getElementById('city').value}, ${document.getElementById('country').value}`)
                 }
             };
 

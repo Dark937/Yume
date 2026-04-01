@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
             div.innerHTML = `
                 <div class="mini-img"><img src="${item.image}"></div>
                 <div class="mini-info">
-                    <div class="name">${item.name}</div>
+                    <div class="name">${Utils.escapeHTML(item.name)}</div>
                     <div class="qty">x${item.qty}</div>
                 </div>
                 <div class="mini-price">${item.price}</div>

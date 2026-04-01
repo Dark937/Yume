@@ -1,7 +1,8 @@
-/* ================================
-   YUME - Punk Cozy Styles & Variables
-   ================================ */
+/* =========================================
+   YUME - Core Design System & Variables
+   ========================================= */
 :root {
+    /* Brand Colors */
     --bg-dark: #111427;
     --bg-light: #ffffff;
     --color-lavender: #E6DDFE;
@@ -11,13 +12,20 @@
     --color-yellow: #FCF4A3;
     --color-peach: #FFDAB9;
     --color-purple: #8A2BE2;
+    --color-gold: #FFD700;
 
+    /* Text Colors */
     --text-dark: #1F2232;
     --text-light: #F4F4F9;
     --text-primary: #111427;
 
+    /* Typography */
     --font-heading: 'Mochiy Pop One', sans-serif;
     --font-body: 'Nunito', sans-serif;
+
+    /* Effects & Transitions */
+    --shadow-hard: 6px 6px 0px var(--text-primary);
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Custom Scrollbar Styles */
@@ -1597,14 +1605,14 @@ a {
     width: 250px;
     height: auto;
     filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.4));
-    animation: spin67 15s linear infinite;
+    animation: float67 3s ease-in-out infinite;
     user-select: none;
 }
 
-@keyframes spin67 {
-    0% { transform: perspective(1000px) rotateY(0deg) translateY(0); }
-    50% { transform: perspective(1000px) rotateY(180deg) translateY(-10px); }
-    100% { transform: perspective(1000px) rotateY(360deg) translateY(0); }
+@keyframes float67 {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0); }
 }
 
 .egg-title {

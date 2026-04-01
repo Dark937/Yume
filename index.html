@@ -15,6 +15,17 @@
         rel="stylesheet">
     <link rel="stylesheet" href="styles/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- SEO & Social Media -->
+    <meta name="description" content="Yume - The ultimate anime-inspired soft drink from Japan. Discover bold flavors and exclusive collaborations.">
+    <meta property="og:title" content="Yume | Anime-Inspired Japanese Soft Drink">
+    <meta property="og:description" content="Sip the anime sunset. Vibrant flavors, bold punk aesthetics, and exclusive limited edition drops.">
+    <meta property="og:image" content="http://yume.altervista.org/assets/hero-bg-main.png">
+    <meta property="og:url" content="http://yume.altervista.org">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Core Scripts -->
+    <script src="scripts/utils.js" defer></script>
     <script src="scripts/cart-manager.js" defer></script>
 </head>
 
@@ -109,8 +120,8 @@
             <div class="story-3d-model-wrapper parallax-element reveal-on-scroll unique-reveal-right" data-speed="-0.04"
                 style="transition-delay: 0.2s;">
                 <div class="model-3d-container slanted">
-                    <!-- The user's animated GIF asset goes here -->
-                    <img src="assets/yume-3d-can.gif" alt="Animazione Lattina Yume" class="model-gif"
+                    <!-- Loading="lazy" for performance -->
+                    <img src="assets/yume-3d-can.gif" alt="Animazione Lattina Yume" class="model-gif" loading="lazy"
                         style="width: 100%; height: auto; border-radius: 12px; filter: drop-shadow(8px 8px 0px var(--color-pink));">
                 </div>
             </div>
@@ -353,6 +364,11 @@
                 <h4>Join the Dreamers</h4>
                 <p class="small-text">Exclusive updates and anime drops.</p>
                 <form class="newsletter-form">
+                    <!-- Honey-pot field (Hidden from humans, bots will fill it) -->
+                    <div style="display:none; position:absolute; left:-9999px;">
+                        <input type="text" name="b_67_honeypot" tabindex="-1" value="">
+                    </div>
+                    
                     <input type="email" id="newsletterEmail" placeholder="Your email..." required class="shadow-punk"
                         autocomplete="off">
                     <button type="submit" class="btn-primary shadow-punk">Sign Up</button>

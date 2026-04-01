@@ -62,17 +62,17 @@
                             <form id="shippingForm" class="checkout-form" novalidate>
                                 <div class="form-group full">
                                     <label>Full Name</label>
-                                    <input type="text" id="fullName" placeholder="Zoro Roronoa" required>
-                                    <div class="error-msg">Please enter your name</div>
+                                    <input type="text" id="fullName" placeholder="Zoro Roronoa" required autocomplete="name" minlength="3">
+                                    <div class="error-msg">Please enter at least 3 characters</div>
                                 </div>
                                 <div class="form-group half">
                                     <label>Email Address</label>
-                                    <input type="email" id="email" placeholder="swordsman@yume.com" required>
+                                    <input type="email" id="email" placeholder="swordsman@yume.com" required autocomplete="email">
                                     <div class="error-msg">Invalid email address</div>
                                 </div>
                                 <div class="form-group half">
                                     <label>Phone Number</label>
-                                    <input type="tel" id="phone" placeholder="+39 333 123 4567" required>
+                                    <input type="tel" id="phone" placeholder="+39 333 123 4567" required autocomplete="tel" inputmode="tel">
                                     <div class="error-msg">Phone number is required</div>
                                 </div>
                                 <div class="form-grid">
@@ -99,12 +99,12 @@
                                     </div>
                                     <div class="form-group">
                                         <label>ZIP Code</label>
-                                        <input type="text" id="zip" placeholder="00100" required>
+                                        <input type="text" id="zip" placeholder="00100" required autocomplete="postal-code" inputmode="numeric">
                                         <div class="error-msg" id="zipError">Invalid post code</div>
                                     </div>
                                     <div class="form-group full">
                                         <label>Address</label>
-                                        <input type="text" id="streetAddress" placeholder="123 Sakura Way" required>
+                                        <input type="text" id="streetAddress" placeholder="123 Sakura Way" required autocomplete="street-address">
                                         <div class="error-msg">Address is required</div>
                                     </div>
                                 </div>
@@ -146,7 +146,7 @@
                                 <div class="form-group full">
                                     <label>Card Number</label>
                                     <div class="input-with-icon">
-                                        <input type="text" id="cardNumber" placeholder="0000 0000 0000 0000" maxlength="19" required>
+                                        <input type="text" id="cardNumber" placeholder="0000 0000 0000 0000" maxlength="19" required inputmode="numeric" autocomplete="cc-number">
                                         <i class="fa-solid fa-lock"></i>
                                     </div>
                                     <div class="error-msg">Invalid card number</div>
@@ -154,12 +154,12 @@
                                 <div class="form-grid-payment">
                                     <div class="form-group">
                                         <label>Expiry Date</label>
-                                        <input type="text" id="expiry" placeholder="MM/YY" maxlength="5" required>
+                                        <input type="text" id="expiry" placeholder="MM/YY" maxlength="5" required autocomplete="cc-exp" inputmode="numeric">
                                         <div class="error-msg">Invalid date</div>
                                     </div>
                                     <div class="form-group">
                                         <label>CVV</label>
-                                        <input type="password" id="cvv" placeholder="123" maxlength="4" required>
+                                        <input type="password" id="cvv" placeholder="123" maxlength="4" required autocomplete="cc-csc" inputmode="numeric">
                                         <div class="error-msg">Invalid CVV</div>
                                     </div>
                                 </div>
@@ -265,6 +265,7 @@
     <!-- Custom Script for Cart rendering (matches Image 2 style) -->
     <!-- Order Confirmation Email Service -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="scripts/utils.js"></script>
     <script src="scripts/email-service.js"></script>
     <script src="scripts/cart.js"></script>
 </body>

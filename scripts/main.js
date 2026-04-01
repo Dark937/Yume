@@ -439,24 +439,62 @@ document.addEventListener('DOMContentLoaded', () => {
     revealElements.forEach(el => revealObserver.observe(el));
 
     /* =========================================
-       7. Easter Egg: Can #67 Trigger
+       7. Easter Egg & Newsletter Subscription
        ========================================= */
+    const newsletterForm = document.querySelector('.newsletter-form');
     const newsletterInput = document.getElementById('newsletterEmail');
     const eggOverlay = document.getElementById('egg67-overlay');
-    const eggInner = document.getElementById('egg67-inner');
 
-    if (newsletterInput && eggOverlay && eggInner) {
+    if (newsletterForm && newsletterInput) {
+        
+        // Easter Egg Trigger (on typing '67')
         newsletterInput.addEventListener('input', () => {
-            // Trigger Easter Egg when '67' is typed
             if (newsletterInput.value.includes('67')) {
-                eggOverlay.classList.add('active');
+                if (eggOverlay) eggOverlay.classList.add('active');
                 newsletterInput.value = '';
-                
-                // Secret Console Log
                 console.log('%c✨ SECRET UNLOCKED: FLAVOR #67', 'color: #FFD700; font-weight: 900; font-size: 20px;');
             }
         });
 
+        // Functional Newsletter Submit
+        newsletterForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const btn = newsletterForm.querySelector('button');
+            const email = newsletterInput.value;
+            
+            // 🛡️ HONEY-POT CHECK: If this field is filled, it's a bot!
+            const honeypot = newsletterForm.querySelector('input[name="b_67_honeypot"]');
+            if (honeypot && honeypot.value !== "") {
+                console.warn('🤖 Bot detected via Honey-pot. Ignoring submission.');
+                newsletterForm.reset();
+                return;
+            }
+
+            // Simple validation
+            if (!email || !email.includes('@')) return;
+
+            // Loading State
+            btn.disabled = true;
+            newsletterInput.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> JOINING...';
+
+            // Simulate Network Delay (1.5s)
+            // Note: For a real backend or EmailJS notification, you'd add the call here.
+            await new Promise(resolve => setTimeout(resolve, 1500));
+
+            // Success State
+            btn.innerHTML = 'THANK YOU! 🌸';
+            btn.style.backgroundColor = 'var(--color-pink)';
+            btn.style.color = 'white';
+            
+            console.log(`📩 NEW SUBSCRIBER: ${email}`);
+            
+            // Optional: You could add EmailJS integration here like Service.sendNewsletter(email)
+        });
+    }
+
+    if (eggOverlay) {
         eggOverlay.addEventListener('click', () => {
             eggOverlay.classList.remove('active');
         });
