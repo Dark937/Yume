@@ -317,9 +317,33 @@ body {
     font-weight: 900;
     font-size: 1.6rem;
     color: var(--bg-dark);
-    border-top: 2px solid #eee;
+    border-top: 1px solid #eee;
     padding-top: 1.5rem;
     margin-top: 1.5rem;
+    margin-bottom: 0.2rem;
+}
+
+.final-arrival-note {
+    text-align: right;
+    font-size: 0.8rem;
+    color: var(--color-purple);
+    font-weight: 900;
+    margin-top: 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#customsRow {
+    margin-top: 0.8rem;
+    padding-top: 0.8rem;
+    border-top: 1px dashed #eee;
+    color: #666;
+    font-size: 0.95rem;
+}
+
+#customsRow span:first-child {
+    font-weight: 700;
+    letter-spacing: 0.5px;
 }
 
 .promo-container {
@@ -385,11 +409,56 @@ body {
     background: #333;
 }
 
-.shipping-info-text {
-    font-size: 0.85rem;
-    color: #888;
-    text-align: center;
-    margin-top: 1rem;
+/* Promo Box Error */
+.promo-box.error {
+    border-color: #ff4444 !important;
+}
+
+.promo-error-msg {
+    color: #ff4444;
+    font-size: 0.75rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-top: 0.5rem;
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+/* Toast Notification */
+.yume-toast {
+    position: fixed;
+    bottom: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-dark);
+    color: #fff;
+    padding: 1.2rem 2.5rem;
+    border-radius: 50px;
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    border: 1px solid var(--color-purple);
+    animation: toastUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards,
+               toastDown 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards 3.5s;
+}
+
+.yume-toast i {
+    color: var(--color-mint);
+    font-size: 1.2rem;
+}
+
+@keyframes toastUp {
+    from { opacity: 0; transform: translate(-50%, 50px); }
+    to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+@keyframes toastDown {
+    from { opacity: 1; transform: translate(-50%, 0); }
+    to { opacity: 0; transform: translate(-50%, 50px); }
 }
 
 /* Empty State */
@@ -453,6 +522,39 @@ body {
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.02);
 }
 
+.delivery-estimate-box {
+    background: var(--bg-dark);
+    color: #fff;
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    text-align: left;
+    border: 1px solid #333;
+}
+
+.delivery-estimate-box i {
+    font-size: 1.5rem;
+    color: var(--color-mint);
+}
+
+.delivery-estimate-box .label {
+    display: block;
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    color: #888;
+    margin-bottom: 0.3rem;
+    font-weight: 900;
+}
+
+.delivery-estimate-box .date {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    color: var(--color-mint);
+}
+
 .progress-fill {
     height: 100%;
     width: 0%;
@@ -498,5 +600,484 @@ body {
     .item-img-wrapper {
         width: 100px;
         height: 100px;
+    }
+}
+
+/* Checkout Flow Styles */
+.checkout-flow-container {
+    flex: 1.5;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.step-tracker {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 4rem;
+    position: relative;
+    padding: 0 1rem;
+}
+
+.step-tracker::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #000;
+    z-index: 1;
+    opacity: 0.1;
+}
+
+.step {
+    position: relative;
+    z-index: 2;
+    background: #fff;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-heading);
+    border: 2px solid #eee;
+    color: #ccc;
+    font-size: 0.9rem;
+    transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.step span {
+    position: absolute;
+    top: 50px;
+    font-family: var(--font-body);
+    font-weight: 900;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    color: #888;
+}
+
+.step.active {
+    border-color: var(--bg-dark);
+    color: var(--bg-dark);
+    background: var(--color-lavender);
+    transform: scale(1.1);
+}
+
+.step.active span {
+    color: var(--bg-dark);
+}
+
+.step.complete {
+    background: var(--bg-dark);
+    border-color: var(--bg-dark);
+    color: #fff;
+}
+
+.checkout-step {
+    display: none;
+    animation: slideIn 0.4s ease-out;
+}
+
+.checkout-step.active {
+    display: block;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.step-title {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    margin-bottom: 2.5rem;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+}
+
+.checkout-form, .payment-details-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group.full { width: 100%; }
+.form-group.half { width: calc(50% - 0.75rem); }
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    width: 100%;
+}
+
+.form-group label {
+    font-weight: 900;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #888;
+}
+
+.form-group input, .form-group select {
+    padding: 1.2rem;
+    border: 1px solid #eee;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    outline: none;
+    transition: 0.3s;
+    background: #fdfdfd;
+}
+
+#streetAddress {
+    padding: 1.8rem 1.2rem; /* Lengthened box */
+    font-size: 1.1rem;
+}
+
+.form-group input:focus {
+    border-color: var(--bg-dark);
+    background: #fff;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.form-group input.is-invalid, .form-group select.is-invalid, .form-group textarea.is-invalid {
+    border: 2px solid #ff4444 !important;
+    background-color: #fff9f9;
+}
+
+.error-msg {
+    color: #ff4444;
+    font-size: 0.7rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 0.3rem;
+    display: none;
+    animation: shake 0.3s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+#orderNote {
+    min-height: 100px;
+    resize: vertical;
+    border: 1px solid #eee;
+    padding: 1.2rem;
+    font-family: var(--font-body);
+    outline: none;
+    transition: 0.3s;
+}
+
+#orderNote:focus {
+    border-color: var(--bg-dark);
+}
+
+/* Payment Steps */
+.payment-methods {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.payment-option {
+    border: 2px solid #eee;
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+    position: relative;
+    border-radius: 4px;
+}
+
+.payment-option input {
+    position: absolute;
+    opacity: 0;
+}
+
+.payment-option .pay-icon {
+    font-size: 2rem;
+    color: #ccc;
+    transition: 0.3s;
+}
+
+.payment-option .pay-text {
+    font-weight: 900;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: #888;
+}
+
+.payment-option.active {
+    border-color: var(--bg-dark);
+    background: var(--color-mint);
+}
+
+.payment-option.active .pay-icon, 
+.payment-option.active .pay-text {
+    color: var(--bg-dark);
+}
+
+.input-with-icon {
+    position: relative;
+}
+
+.input-with-icon i {
+    position: absolute;
+    right: 1.2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #ccc;
+}
+
+.form-grid-payment {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    width: 100%;
+}
+
+.checkout-actions {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 3rem;
+    width: 100%;
+}
+
+.btn-checkout-next {
+    flex: 2;
+    padding: 1.5rem;
+    background: #000;
+    color: #fff;
+    border: none;
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: 0.3s;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.btn-checkout-next:hover {
+    background: #333;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.btn-checkout-back {
+    flex: 1;
+    padding: 1.5rem;
+    background: #fff;
+    color: #000;
+    border: 1px solid #000;
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: 0.3s;
+    text-transform: uppercase;
+}
+
+.btn-checkout-back:hover {
+    background: #f9f9f9;
+}
+
+/* Processing & Success */
+.success-view {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* Push children to the right */
+    padding: 4rem 0;
+    width: 100%;
+}
+
+.success-icon {
+    font-size: 6rem;
+    color: #4CAF50;
+    margin-bottom: 2rem;
+    align-self: center; /* keep icon centered */
+    animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.success-view h2, .success-view p {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.delivery-estimate-box {
+    background: var(--bg-dark);
+    color: #fff;
+    padding: 1.5rem 2.5rem;
+    border-radius: 12px;
+    margin-top: 3rem;
+    display: inline-flex; /* Use inline-flex to respect parent's flex-end */
+    align-items: center;
+    gap: 1.5rem;
+    text-align: left;
+    border: 1px solid #333;
+    animation: slideUp 0.8s ease forwards;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes popIn {
+    from { transform: scale(0); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.order-token-box {
+    background: #f9f9f9;
+    padding: 3rem 2rem;
+    margin: 4rem auto;
+    max-width: 550px;
+    border: 2px dashed #ddd;
+    position: relative;
+    border-radius: 12px;
+}
+
+.token-label {
+    display: block;
+    font-weight: 900;
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    color: #888;
+    margin-bottom: 1.5rem;
+}
+
+.token-value {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    color: var(--bg-dark);
+    letter-spacing: 2px;
+    background: #fff;
+    padding: 1rem;
+    display: inline-block;
+    border: 1px solid #eee;
+    border-radius: 8px;
+}
+
+.token-note {
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    color: #999;
+}
+
+/* Summary Persistent Preview */
+.summary-items-preview {
+    margin-bottom: 2.5rem;
+    max-height: 250px;
+    overflow-y: auto;
+    padding-right: 1rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1rem;
+}
+
+.summary-items-preview::-webkit-scrollbar {
+    width: 5px;
+}
+
+.summary-items-preview::-webkit-scrollbar-thumb {
+    background: #eee;
+    border-radius: 10px;
+}
+
+.summary-item-mini {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+}
+
+.summary-item-mini img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    background: #f9f9f9;
+    border-radius: 4px;
+}
+
+.summary-item-mini .name {
+    flex: 1;
+    font-weight: 900;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+}
+
+.summary-item-mini .qty {
+    color: #888;
+    font-weight: 900;
+    font-size: 0.8rem;
+}
+
+.summary-item-mini .price {
+    font-weight: 900;
+}
+
+/* Responsive */
+@media (max-width: 1000px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .checkout-flow-container {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .payment-methods {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-group.half {
+        width: 100%;
+    }
+    
+    .checkout-actions {
+        flex-direction: column-reverse;
+    }
+    
+    .step span {
+        display: none;
+    }
+    
+    .order-token-box {
+        padding: 2rem 1rem;
+    }
+    
+    .token-value {
+        font-size: 1.25rem;
+        word-break: break-all;
+    }
+
+    .form-grid-payment {
+        grid-template-columns: 1fr;
     }
 }
