@@ -12,15 +12,9 @@ Options -Indexes
 RewriteEngine On
 RewriteBase /
 
-# 1. Protect scripts/ and styles/ (Allow only if Referer is your site)
-RewriteCond %{HTTP_REFERER} !^https?://(www\.)?localhost [NC]
-RewriteCond %{HTTP_REFERER} !^https?://(www\.)?yume-store\.altervista\.org [NC]
-RewriteRule ^(scripts|styles)/ - [F,L]
 
-# 2. Protect api/ (Block direct GET requests if Referer is empty)
-RewriteCond %{REQUEST_FILENAME} \.php$
-RewriteCond %{HTTP_REFERER} ^$
-RewriteRule ^api/ - [F,L]
+
+
 
 # CLEAN URLS (.html extension removal)
 # 1. Redirect /page.html to /page
