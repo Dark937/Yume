@@ -602,7 +602,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return isValid;
         }
 
-        completeOrder() {
+        async completeOrder() {
             const token = `YME-${Math.random().toString(36).substr(2, 4).toUpperCase()}-${Math.random().toString(36).substr(2, 4).toUpperCase()}-${Math.random().toString(36).substr(2, 4).toUpperCase()}`;
             document.getElementById('orderToken').textContent = token;
 
@@ -616,14 +616,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 this.deliveryDateDisplay.textContent = arrivalStr;
             }
 
-            // Gather Order Data for Email
+            // Gather Order Data
             const orderData = {
                 token: token,
-                subtotal: document.getElementById('subtotal').textContent,
-                shipping: document.getElementById('shippingCost').textContent,
-                customs: document.getElementById('customsCost').textContent,
-                total: document.getElementById('total').textContent,
-                arrival: arrivalStr,
+                subtotal: parseFloat(subtotalDisplay.textContent.replace('€', '')),
+                shipping: rates.shipping,
+                customs: parseFloat(this.customsCostDisplay.textContent.replace('€', '') || 0),
+                total: parseFloat(totalDisplay.textContent.replace('€', '')),
+                arrival_date: arrivalDate.toISOString(), // Send ISO for PHP parsing
                 items: window.CartManager.getCart(),
                 customer: {
                     name: Utils.escapeHTML(document.getElementById('fullName').value),
@@ -632,9 +632,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             };
 
-            // Send Confirmation Email
+            // 1. SAVE TO DATABASE
+            try {
+                const response = await fetch('api/save_order.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(orderData)
+                });
+                const result = await response.json();
+                if (!result.success) console.error('DB Save error:', result.error);
+            } catch (e) {
+                console.error('Failed to connect to database API:', e);
+            }
+
+            // 2. SEND CONFIRMATION EMAIL
             if (window.EmailService) {
-                window.EmailService.sendOrderConfirmation(orderData);
+                // Email service uses formatted arrival string for display
+                window.EmailService.sendOrderConfirmation({
+                    ...orderData,
+                    arrival: arrivalStr,
+                    subtotal: subtotalDisplay.textContent,
+                    shipping: this.shippingCostDisplay.textContent,
+                    customs: this.customsCostDisplay.textContent,
+                    total: totalDisplay.textContent
+                });
             }
 
             // Show sidebar arrival box
@@ -646,6 +667,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             window.CartManager.clearCart();
         }
+
     }
 
     window.checkoutInstance = new CheckoutController();

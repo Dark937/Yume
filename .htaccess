@@ -1,0 +1,8 @@
+# Deny access to sensitive files
+<FilesMatch "^\.|\.env$|\.config\.env$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Prevent directory listing
+Options -Indexes

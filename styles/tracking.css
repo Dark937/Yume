@@ -301,7 +301,94 @@ body {
     font-weight: 900;
 }
 
+/* History Card */
+.history-card {
+    background: #fff;
+    padding: 2rem 3rem;
+    margin-bottom: 2rem;
+    border-radius: 4px;
+}
+
+.history-card h3 {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1rem;
+    color: var(--bg-dark);
+}
+
+.history-list {
+    position: relative;
+    padding-left: 2rem;
+}
+
+.history-list::before {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 5px;
+    bottom: 5px;
+    width: 2px;
+    background: #eee;
+}
+
+.history-item {
+    position: relative;
+    margin-bottom: 2rem;
+    animation: slideInLeft 0.4s ease forwards;
+    opacity: 0;
+}
+
+.history-item:last-child {
+    margin-bottom: 0;
+}
+
+.history-dot {
+    position: absolute;
+    left: -22px;
+    top: 5px;
+    width: 12px;
+    height: 12px;
+    background: #fff;
+    border: 2px solid var(--color-purple);
+    border-radius: 50%;
+    z-index: 2;
+}
+
+.history-item:first-child .history-dot {
+    background: var(--color-purple);
+    box-shadow: 0 0 8px var(--color-purple);
+}
+
+.history-time {
+    font-size: 0.75rem;
+    font-weight: 900;
+    color: #888;
+    margin-bottom: 0.3rem;
+    display: block;
+}
+
+.history-msg {
+    font-size: 0.95rem;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.history-placeholder {
+    color: #999;
+    font-style: italic;
+    text-align: center;
+    padding: 1rem 0;
+}
+
+@keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-10px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
 .info-grid {
+
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 2rem;

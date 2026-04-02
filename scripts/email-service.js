@@ -55,6 +55,10 @@ const EmailService = {
                     this.config.templateId = value;
                     console.log(`✅ Loaded TEMPLATE_ID (${logMask(value)})`);
                 }
+                if (key === 'EMAIL_ARRIVAL_TEMPLATE_ID') {
+                    this.config.arrivalTemplateId = value;
+                    console.log(`✅ Loaded ARRIVAL_TEMPLATE_ID (${logMask(value)})`);
+                }
                 if (key === 'EMAIL_PUBLIC_KEY') {
                     this.config.publicKey = value;
                     console.log(`✅ Loaded PUBLIC_KEY (${logMask(value)})`);
@@ -76,19 +80,15 @@ const EmailService = {
 
     /**
      * SENDS THE CONFIRMATION EMAIL
-     * 
-     * You will need to integrate your preferred service here (EmailJS, Nodemailer, etc.).
-     * This function currently logs the email payload for your review.
      */
     async sendOrderConfirmation(orderData) {
         console.group('📧 SENDING ORDER CONFIRMATION EMAIL');
         console.log('To:', orderData.customer.email);
         
-        // Prepare Template Parameters (Mapping to EmailJS tags)
         const templateParams = {
             customer_name: orderData.customer.name,
-            order_token: orderData.token, // Original token
-            order_id: orderData.token,    // Matching your template tag!
+            order_token: orderData.token,
+            order_id: orderData.token,
             subtotal: orderData.subtotal,
             shipping: orderData.shipping,
             customs: orderData.customs,
@@ -102,7 +102,6 @@ const EmailService = {
         };
 
         try {
-            // Ensure Env is loaded before sending
             await this.loadEnv();
 
             if (!this.config.serviceId || !this.config.templateId) {
@@ -125,10 +124,48 @@ const EmailService = {
     },
 
     /**
+     * SENDS THE ARRIVAL NOTIFICATION EMAIL
+     */
+    async sendArrivalNotice(orderData, token) {
+        console.group('📧 SENDING ARRIVAL NOTIFICATION');
+        console.log('To:', orderData.customer.email);
+        
+        const templateParams = {
+            customer_name: orderData.customer.name,
+            order_token: token,
+            order_id: token,
+            total_price: orderData.total,
+            to_email: orderData.customer.email,
+            from_name: 'Yume'
+        };
+
+        try {
+            await this.loadEnv();
+
+            if (!this.config.serviceId || !this.config.arrivalTemplateId) {
+                throw new Error("Missing EmailJS Arrival template credentials in .env");
+            }
+
+            const res = await emailjs.send(
+                this.config.serviceId,
+                this.config.arrivalTemplateId,
+                templateParams
+            );
+            console.log('SUCCESS!', res.status, res.text);
+            return true;
+        } catch (error) {
+            console.error('FAILED...', error);
+            return false;
+        } finally {
+            console.groupEnd();
+        }
+    },
+
+    /**
      * GENERATES THE ITEMS LIST HTML
-     * For the {{items_list_html}} variable in EmailJS.
      */
     generateItemsHTML(items) {
+
         return items.map(item => {
             // Fix images to use your live domain assets
             let imagePath = item.image;

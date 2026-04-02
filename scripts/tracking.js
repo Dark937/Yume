@@ -79,62 +79,52 @@ document.addEventListener('DOMContentLoaded', () => {
         // Show Loader
         trackingLoader.style.display = 'block';
 
-        // 2. Format Check (YME-XXXX-XXXX-XXXX)
+        // 1. Format Check (YME-XXXX-XXXX-XXXX)
         const formatRegex = /^YME-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}$/;
         if (!formatRegex.test(token)) {
-            await new Promise(r => setTimeout(r, 1000)); // Short delay for feel
+            await new Promise(r => setTimeout(r, 1000));
             trackingLoader.style.display = 'none';
             showError(window.I18nManager ? window.I18nManager.get('tracking.error_invalid_format') : "Invalid format. Use YME-XXXX-XXXX-XXXX");
             return;
         }
 
-        // 3. Database Check (Simulated Delay)
-        const order = await fetchOrderFromDatabase(token);
-        
-        // Simulate network delay
-        await new Promise(r => setTimeout(r, 2500));
-        trackingLoader.style.display = 'none';
+        // 2. Fetch from Database API
+        try {
+            const order = await fetchOrderFromDatabase(token);
+            trackingLoader.style.display = 'none';
 
-        if (order) {
-            showOrderDetails(order, token);
-        } else {
-            showError(window.I18nManager ? window.I18nManager.get('tracking.error') : "Order Not Found. Please check your token.");
+            if (order) {
+                showOrderDetails(order, token);
+                
+                // 3. Handle Arrival Email Trigger
+                if (order.trigger_arrival_email && window.EmailService) {
+                    console.log('📦 Order delivered! Triggering arrival notification...');
+                    window.EmailService.sendArrivalNotice(order, token);
+                }
+            } else {
+                showError(window.I18nManager ? window.I18nManager.get('tracking.error') : "Order Not Found. Please check your token.");
+            }
+        } catch (e) {
+            trackingLoader.style.display = 'none';
+            showError("Server Connection Error. Try again later.");
+            console.error(e);
         }
     }
 
-    checkUrlParams();
-
-    /**
-     * MOCK DATABASE FETCH
-     * Currently returns null for all tokens as requested.
-     * Replace null with order data object to test UI.
-     */
     async function fetchOrderFromDatabase(token) {
-        // Return null to simulate "No orders saved yet"
-        return null;
-
-        /* 
-        EXAMPLE SUCCESS DATA:
-        return {
-            status: 'processing',
-            customer: {
-                name: 'Zoro Roronoa',
-                address: '123 Sakura Way, Kyoto, Japan'
-            },
-            arrival: 'Friday, April 3',
-            total: '24.77€',
-            items: [
-                { name: 'CHAKRA BURST', qty: 1, price: '19.00€', image: 'assets/can-naruto.png' },
-                { name: 'GOMU GOMU FIZZ', qty: 1, price: '3.50€', image: 'assets/can-onepiece.png' }
-            ]
-        };
-        */
+        const response = await fetch(`api/get_order.php?token=${encodeURIComponent(token)}`);
+        const result = await response.json();
+        return result.success ? result.order : null;
     }
 
     function showOrderDetails(order, token) {
         trackingResults.style.display = 'block';
         displayToken.textContent = token;
-        orderStatusLabel.textContent = window.I18nManager ? window.I18nManager.get(`tracking.${order.status}`) : order.status.toUpperCase();
+        
+        // Status Labels
+        const statusKey = `tracking.${order.status}`;
+        orderStatusLabel.textContent = window.I18nManager ? window.I18nManager.get(statusKey) : order.status.toUpperCase();
+        
         trackName.textContent = order.customer.name;
         trackAddress.textContent = order.customer.address;
         trackArrival.textContent = order.arrival;
@@ -149,12 +139,36 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="mini-img"><img src="${item.image}"></div>
                 <div class="mini-info">
                     <div class="name">${Utils.escapeHTML(item.name)}</div>
-                    <div class="qty">x${item.qty}</div>
+                    <div class="qty">x${item.quantity}</div>
                 </div>
-                <div class="mini-price">${item.price}</div>
+                <div class="mini-price">${(item.price * item.quantity).toFixed(2)}€</div>
             `;
             trackItemsList.appendChild(div);
         });
+
+        // Render Journey Logs (Realistic History)
+        const historyList = document.getElementById('trackHistoryList');
+        if (historyList) {
+            historyList.innerHTML = '';
+            if (order.history && order.history.length > 0) {
+                order.history.forEach(event => {
+                    const date = new Date(event.time);
+                    const timeStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+                    
+                    const item = document.createElement('div');
+                    item.className = 'history-item';
+                    item.innerHTML = `
+                        <div class="history-dot"></div>
+                        <span class="history-time">${timeStr}</span>
+                        <div class="history-msg">${event.msg}</div>
+                    `;
+                    historyList.appendChild(item);
+                });
+            } else {
+                historyList.innerHTML = '<p class="history-placeholder">No logs available yet.</p>';
+            }
+        }
 
         // Update Stepper
         updateStepper(order.status);
@@ -169,9 +183,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         document.querySelectorAll('.status-step').forEach((step, index) => {
             step.classList.remove('active', 'complete');
-            if (index < currentIndex) {
+            const stepStatus = step.dataset.status;
+            const stepIndex = statuses.indexOf(stepStatus);
+
+            if (stepIndex < currentIndex) {
                 step.classList.add('complete');
-            } else if (index === currentIndex) {
+            } else if (stepIndex === currentIndex) {
                 step.classList.add('active');
             }
         });
@@ -185,3 +202,4 @@ document.addEventListener('DOMContentLoaded', () => {
         tokenInput.focus();
     }
 });
+
