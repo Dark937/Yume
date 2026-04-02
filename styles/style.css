@@ -259,7 +259,7 @@ a {
     background: var(--color-lavender);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
     .lang-toggle {
         margin-right: 0.2rem;
         padding: 0.2rem 0.4rem;
@@ -1450,12 +1450,45 @@ a {
     }
 
     .hero-title-animated {
-        font-size: 5rem;
+        font-size: 3.5rem;
+        -webkit-text-stroke: 1px #b0658a;
+    }
+
+    .hero-subtitle-static {
+        font-size: 1.1rem;
+        margin-top: 1rem;
     }
 
     .carousel-btn {
         width: 50px;
         height: 50px;
+    }
+
+    .navbar {
+        height: 70px;
+        padding: 0 1.5rem;
+    }
+
+    .desktop-socials {
+        display: none !important;
+    }
+
+    .mobile-menu-extras {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        margin-top: 2rem;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        width: 100%;
+    }
+
+    .mobile-social-icons {
+        display: flex;
+        gap: 1.5rem;
+        font-size: 1.8rem;
+        align-items: center;
+        flex-wrap: wrap;
     }
 
     .floating-shop-btn {
@@ -1470,11 +1503,42 @@ a {
         display: block;
     }
 
-    .desktop-socials {
-        display: flex;
+    .mobile-socials {
+        display: block !important;
+        margin-top: auto;
+    }
+
+    .mobile-social-icons a {
+        color: var(--text-light);
+    }
+
+    .lang-toggle-mobile {
+        margin: 0;
+        width: 60px;
+        height: 40px;
+        font-size: 1rem;
+    }
+
+    .newsletter-form {
         flex-direction: column;
-        gap: 1rem;
-        margin-bottom: 2rem;
+        width: 100%;
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .newsletter-form input,
+    .newsletter-form button {
+        width: 100%;
+    }
+
+    .footer-bottom {
+        padding-bottom: 9rem;
+        border-top: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .footer-logo {
+        max-height: 45px;
     }
 
     .nav-links {

@@ -1,8 +1,28 @@
+# Prevent directory listing
+Options -Indexes
+
 # Deny access to sensitive files
 <FilesMatch "^\.|\.env$|\.config\.env$">
     Order allow,deny
     Deny from all
 </FilesMatch>
 
-# Prevent directory listing
-Options -Indexes
+# CLEAN URLS (.html extension removal)
+RewriteEngine On
+
+# 1. Redirect /page.html to /page (External redirect for SEO)
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /(.+)\.html\ HTTP/
+RewriteRule ^(.+)\.html$ /$1 [R=301,L]
+
+# 3. Specific fix for /products conflict
+# Map /products or /products/ to shop.html (to avoid folder conflict)
+RewriteCond %{REQUEST_URI} ^/products/?$ [NC]
+RewriteRule ^products/?$ shop.html [NC,L]
+
+# 4. Handle internal mapping for other pages
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.html -f
+RewriteRule ^(.*)$ $1.html [NC,L]
+
+
+

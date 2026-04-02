@@ -7,6 +7,30 @@
 (function() {
     'use strict';
 
+    // Check for debug mode in URL (e.g., index.html?debug=true) or LocalStorage
+    const urlParams = new URLSearchParams(window.location.search);
+    const debugParam = urlParams.get('debug');
+    
+    // Manage persistence
+    if (debugParam === 'true') {
+        localStorage.setItem('yume_debug', 'true');
+        console.warn('🛠️ Yume Debug Mode PERSISTED');
+    } else if (debugParam === 'false') {
+        localStorage.removeItem('yume_debug');
+        console.warn('🛡️ Yume Debug Mode REMOVED');
+    }
+
+    const isDebug = localStorage.getItem('yume_debug') === 'true' || debugParam === 'true';
+
+    if (isDebug) {
+        console.warn('🛠️ Yume Security Layer BYPASSED (Debug Mode Active)');
+        // Ensure ALL pages have debug=true in console
+        if (!window.location.search.includes('debug=true')) {
+            console.info('%c To persist debug mode, use ?debug=true in the URL once. ', 'background: #222; color: #bada55');
+        }
+        return; // Exit and don't bind any listeners
+    }
+
     // 1. DISABLE RIGHT CLICK
     document.addEventListener('contextmenu', (e) => {
         e.preventDefault();

@@ -387,46 +387,13 @@ body {
     to { opacity: 1; transform: translateX(0); }
 }
 
-.info-grid {
-
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
+.info-grid.single {
+    grid-template-columns: 1fr;
 }
 
-.info-card {
-    background: #fff;
-    padding: 2rem;
-    border-radius: 4px;
-}
-
-.info-card h3 {
-    font-family: var(--font-heading);
-    font-size: 1.1rem;
-    margin-bottom: 1.5rem;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 0.5rem;
-}
-
-.info-content {
-    font-weight: 700;
-}
-
-.info-content .name {
-    color: var(--color-purple);
-    margin-bottom: 0.5rem;
-}
-
-.info-card.highlight {
-    background: var(--bg-dark);
-    color: #fff;
-    border-color: var(--color-purple);
-}
-
-.info-card.highlight i {
-    color: var(--color-mint);
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
+.info-card.highlight.est-arrival-sidebar {
+    margin-top: 2rem;
+    padding: 2.5rem;
 }
 
 .arrival-date {

@@ -2,32 +2,35 @@
 <html lang="en">
 
 <head>
+    <base href="/">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yume | Melon</title>
-    <link rel="icon" href="../assets/yume-light.png" type="image/png">
-    <link rel="stylesheet" href="../styles/cans.css">
+    <link rel="icon" href="assets/yume-light.png" type="image/png">
+    <link rel="stylesheet" href="styles/cans.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="../scripts/translations.js" defer></script>
-    <script src="../scripts/i18n.js" defer></script>
-    <script src="../scripts/security.js" defer></script>
-    <script src="../scripts/cart-manager.js" defer></script>
+    <script src="scripts/translations.js" defer></script>
+    <script src="scripts/i18n.js" defer></script>
+    <script src="scripts/security.js" defer></script>
+    <script src="scripts/cart-manager.js" defer></script>
 </head>
 
 
 <body class="flavor-melon">
     <nav class="product-nav">
-        <a href="../products.html" class="back-btn" id="dynamicBackBtn"><i class="fa-solid fa-arrow-left"></i>
+        <a href="products" class="back-btn" id="dynamicBackBtn"><i class="fa-solid fa-arrow-left"></i>
             <span class="i18n-text" data-i18n="shop.title">STOREFRONT</span></a>
-        <a href="../index.html" class="nav-logo-link">
-            <img src="../assets/yume-light-sakura.png" alt="YUME" class="brand-logo">
+        <a href="index" class="nav-logo-link">
+
+            <img src="assets/yume-light-sakura.png" alt="YUME" class="brand-logo">
         </a>
         <div class="nav-cart-link">
             <button class="lang-toggle" id="lang-toggle">
                 <span id="lang-toggle-text">IT</span>
             </button>
-            <a href="../cart.html" class="cart-link">
+            <a href="cart" class="cart-link">
                 <i class="fa-solid fa-cart-shopping"></i>
+
                 <span class="cart-count">0</span>
             </a>
         </div>
@@ -41,10 +44,10 @@
                     <div class="slider-container">
                         <div class="slider-track">
                             <div class="slider-item">
-                                <img src="../assets/melon-nobg.png" alt="Yume Cyber Melon">
+                                <img src="assets/melon-nobg.png" alt="Yume Cyber Melon">
                             </div>
                             <div class="slider-item">
-                                <img src="../assets/melon.png" alt="Yume Cyber Melon">
+                                <img src="assets/melon.png" alt="Yume Cyber Melon">
                             </div>
                         </div>
                         <button class="slider-arrow prev-arrow"><i class="fa-solid fa-chevron-left"></i></button>
@@ -68,14 +71,14 @@
                             <span class="detail-tag" data-i18n="product.pack6">Pack of 6</span>
                             <div class="price-side">
                                 <span class="bundle-price-tag">16.50€</span>
-                                <span class="bundle-save" data-i18n="product.save">SAVE 1.5€</span>
+                                <span class="bundle-save" data-i18n="product.save" data-i18n-params='{"amount": "1.5€"}'>SAVE 1.5€</span>
                             </div>
                         </div>
                         <div class="bundle-option" data-bundle="pack12" data-price="32.00">
                             <span class="detail-tag" data-i18n="product.pack12">Pack of 12</span>
                             <div class="price-side">
                                 <span class="bundle-price-tag">32.00€</span>
-                                <span class="bundle-save" data-i18n="product.save">SAVE 4€</span>
+                                <span class="bundle-save" data-i18n="product.save" data-i18n-params='{"amount": "4€"}'>SAVE 4€</span>
                             </div>
                         </div>
                     </div>
@@ -151,7 +154,7 @@
         <p data-i18n="footer.rights">&copy; 2026 Yume Drinks. Anime-Inspired Energy.</p>
     </footer>
 
-    <script src="../scripts/cans.js"></script>
+    <script src="scripts/cans.js"></script>
 </body>
 
 </html>

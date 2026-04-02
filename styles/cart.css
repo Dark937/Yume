@@ -1140,17 +1140,24 @@ body {
 }
 
 /* Responsive */
-@media (max-width: 1000px) {
-    .form-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .checkout-flow-container {
-        width: 100%;
-    }
-}
-
 @media (max-width: 768px) {
+    .cart-nav {
+        padding: 1rem 1.5rem;
+        grid-template-columns: auto 1fr;
+    }
+
+    .cart-socials {
+        display: none !important;
+    }
+
+    .cart-logo-container {
+        justify-self: end;
+    }
+
+    .brand-logo {
+        max-height: 40px;
+    }
+
     .payment-methods {
         grid-template-columns: 1fr;
     }

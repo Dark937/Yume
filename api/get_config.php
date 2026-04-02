@@ -8,14 +8,27 @@
 header('Content-Type: application/json');
 header("Access-Control-Allow-Origin: *");
 
-$env_path = dirname(__DIR__) . '/config.env';
-
-if (!file_exists($env_path)) {
-    echo json_encode(['success' => false, 'error' => 'Config file not found']);
-    exit;
+function get_env_data($path) {
+    if (!file_exists($path)) return [];
+    $lines = file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    $data = [];
+    foreach ($lines as $line) {
+        $line = trim($line);
+        if (!$line || strpos($line, '#') === 0) continue;
+        if (strpos($line, '=') === false) continue;
+        list($name, $value) = explode('=', $line, 2);
+        $data[trim($name)] = trim($value);
+    }
+    return $data;
 }
 
-$env = parse_ini_file($env_path);
+$env_path = dirname(__DIR__) . '/config.env';
+$env = get_env_data($env_path);
+
+if (empty($env)) {
+    echo json_encode(['success' => false, 'error' => 'Config file empty or not found']);
+    exit;
+}
 
 // ONLY output public EmailJS keys. NEVER output DB passwords.
 $config = [

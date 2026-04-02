@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
     <title>Yume | Track Your Order</title>
     <link rel="icon" href="assets/yume-light.png" type="image/png">
     <link rel="stylesheet" href="styles/cart.css">
@@ -19,7 +20,8 @@
 
 <body>
     <nav class="cart-nav">
-        <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> <span class="i18n-text" data-i18n="nav.back_home">BACK TO HOME</span></a>
+        <a href="index" class="back-link"><i class="fa-solid fa-arrow-left"></i> <span class="i18n-text" data-i18n="nav.back_home">BACK TO HOME</span></a>
+
 
         <div class="cart-logo-container">
             <img src="assets/yume-light-sakura.png" alt="YUME" class="brand-logo" style="filter: invert(1);">
@@ -27,7 +29,7 @@
 
         <div class="cart-socials">
             <button class="lang-toggle" id="lang-toggle">
-                <span id="lang-toggle-text">IT</span>
+                <span class="lang-toggle-text" id="lang-toggle-text">IT</span>
             </button>
             <a href="#"><i class="fa-brands fa-instagram"></i></a>
             <a href="#"><i class="fa-brands fa-tiktok"></i></a>
@@ -35,7 +37,7 @@
     </nav>
 
     <main class="tracking-main">
-        <section class="tracking-hero">
+        <section class="tracking-hero" id="trackingHero">
             <div class="tracking-decoration">
                 <img src="" id="leftCan" class="tracking-can-side left" alt="Decorative Can">
                 <img src="" id="rightCan" class="tracking-can-side right" alt="Decorative Can">
@@ -69,7 +71,7 @@
                         <div class="status-card shadow-punk">
                             <div class="status-header">
                                 <span class="status-badge" id="orderStatusLabel" data-i18n="tracking.processing">PROCESSING</span>
-                                <span class="order-id-label" id="displayToken">YME-1234-5678</span>
+                                <!-- Token display removed as requested -->
                             </div>
                             
                             <div class="status-stepper">
@@ -103,8 +105,7 @@
                             </div>
                         </div>
 
-                        <div class="info-grid">
-
+                        <div class="info-grid single">
                             <div class="info-card shadow-punk">
                                 <h3 data-i18n="tracking.shipping_to">SHIPPING TO</h3>
                                 <div id="shippingInfo" class="info-content">
@@ -112,17 +113,10 @@
                                     <p id="trackAddress">123 Sakura Way, Kyoto, Japan</p>
                                 </div>
                             </div>
-                            <div class="info-card shadow-punk highlight">
-                                <h3 data-i18n="tracking.est_arrival">ESTIMATED ARRIVAL</h3>
-                                <div class="info-content">
-                                    <i class="fa-solid fa-truck-fast"></i>
-                                    <p class="arrival-date" id="trackArrival">Friday, April 3</p>
-                                </div>
-                            </div>
                         </div>
                     </div>
 
-                    <!-- Right: Summary -->
+                    <!-- Right: Summary & Arrival -->
                     <div class="tracking-summary-column">
                         <div class="summary-card shadow-punk">
                             <h3 data-i18n="tracking.summary">ORDER SUMMARY</h3>
@@ -132,6 +126,14 @@
                             <div class="track-total-row">
                                 <span data-i18n="tracking.total">TOTAL</span>
                                 <span id="trackTotal">0.00€</span>
+                            </div>
+                        </div>
+
+                        <div class="info-card shadow-punk highlight est-arrival-sidebar">
+                            <h3 data-i18n="tracking.est_arrival">ESTIMATED ARRIVAL</h3>
+                            <div class="info-content">
+                                <i class="fa-solid fa-truck-fast"></i>
+                                <p class="arrival-date" id="trackArrival">Friday, April 3</p>
                             </div>
                         </div>
                     </div>

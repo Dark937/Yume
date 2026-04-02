@@ -114,11 +114,10 @@ const I18nManager = {
             }
         });
 
-        // Update Language Toggle Button Text
-        const toggleBtn = document.getElementById('lang-toggle-text');
-        if (toggleBtn) {
-            toggleBtn.textContent = this.currentLang.toUpperCase();
-        }
+        // Update All Language Toggle Button Texts
+        document.querySelectorAll('.lang-toggle-text').forEach(span => {
+            span.textContent = this.currentLang.toUpperCase();
+        });
     },
 
     /**

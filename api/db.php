@@ -4,18 +4,26 @@
  * Loads credentials from ../config.env
  */
 
+function get_env_data($path) {
+    if (!file_exists($path)) return [];
+    $lines = file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    $data = [];
+    foreach ($lines as $line) {
+        if (strpos(trim($line), '#') === 0) continue;
+        list($name, $value) = explode('=', $line, 2);
+        $data[trim($name)] = trim($value);
+    }
+    return $data;
+}
+
 function get_db_connection() {
     $env_path = dirname(__DIR__) . '/config.env';
+    $env = get_env_data($env_path);
     
-    if (!file_exists($env_path)) {
-        die("Error: config.env not found.");
-    }
-
-    $env = parse_ini_file($env_path);
-    
+    // Fallback for default Altervista values
     $host = $env['DB_HOST'] ?? 'localhost';
-    $dbname = $env['DB_NAME'] ?? '';
-    $user = $env['DB_USER'] ?? '';
+    $dbname = $env['DB_NAME'] ?? 'my_yume';
+    $user = $env['DB_USER'] ?? 'yume';
     $pass = $env['DB_PASS'] ?? '';
 
     try {

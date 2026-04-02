@@ -12,7 +12,7 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET");
 header("Access-Control-Allow-Headers: Content-Type");
 
-$token = $_GET['token'] ?? '';
+$token = strtoupper(trim($_GET['token'] ?? ''));
 
 if (!$token) {
     echo json_encode(['success' => false, 'error' => 'No token provided']);
@@ -23,10 +23,6 @@ $pdo = get_db_connection();
 $token_hash = hash('sha256', $token);
 
 try {
-    // 1. CLEANUP OLD ORDERS (Arrival > 7 days ago)
-    $cleanup_sql = "DELETE FROM orders WHERE arrival_date < DATE_SUB(NOW(), INTERVAL 7 DAY)";
-    $pdo->exec($cleanup_sql);
-
     // 2. FETCH ORDER
     $stmt = $pdo->prepare("SELECT * FROM orders WHERE token_hash = ?");
     $stmt->execute([$token_hash]);

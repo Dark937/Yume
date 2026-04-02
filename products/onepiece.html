@@ -2,36 +2,74 @@
 <html lang="en">
 
 <head>
+    <base href="/">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yume | Gomu Gomu Fizz</title>
-    <link rel="icon" href="../assets/yume-light.png" type="image/png">
-    <link rel="stylesheet" href="../styles/cans.css">
+    <link rel="icon" href="assets/yume-light.png" type="image/png">
+    <link rel="stylesheet" href="styles/cans.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="../scripts/translations.js" defer></script>
-    <script src="../scripts/i18n.js" defer></script>
-    <script src="../scripts/security.js" defer></script>
-    <script src="../scripts/cart-manager.js" defer></script>
+    <script src="scripts/translations.js" defer></script>
+    <script src="scripts/i18n.js" defer></script>
+    <script src="scripts/security.js" defer></script>
+    <script src="scripts/cart-manager.js" defer></script>
 </head>
 
 
-<body class="flavor-onepiece">
-    <nav class="product-nav">
-        <a href="../products.html" class="back-btn" id="dynamicBackBtn"><i class="fa-solid fa-arrow-left"></i>
-            <span class="i18n-text" data-i18n="shop.title">STOREFRONT</span></a>
-        <a href="../index.html" class="nav-logo-link">
-            <img src="../assets/yume-light-sakura.png" alt="YUME" class="brand-logo">
-        </a>
-        <div class="nav-cart-link">
-            <button class="lang-toggle" id="lang-toggle">
-                <span id="lang-toggle-text">IT</span>
-            </button>
-            <a href="../cart.html" class="cart-link">
-                <i class="fa-solid fa-cart-shopping"></i>
-                <span class="cart-count">0</span>
+<header class="navbar product-navbar">
+        <nav class="product-nav">
+            <a href="products" class="back-btn" id="dynamicBackBtn"><i class="fa-solid fa-arrow-left"></i>
+                <span class="i18n-text" data-i18n="shop.title">STOREFRONT</span></a>
+            
+            <a href="index" class="nav-logo-link">
+                <img src="assets/yume-light-sakura.png" alt="YUME" class="brand-logo">
             </a>
-        </div>
-    </nav>
+
+            <!-- Mobile Hamburger Icon -->
+            <div class="menu-toggle" id="mobile-menu-btn">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+
+            <div class="nav-cart-link desktop-socials">
+                <button class="lang-toggle" id="lang-toggle">
+                    <span id="lang-toggle-text">IT</span>
+                </button>
+                <a href="cart" class="cart-link">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span class="cart-count">0</span>
+                </a>
+            </div>
+            
+            <!-- Mobile Navigation Drawer -->
+            <nav class="nav-links" id="nav-links">
+                <div class="menu-items-container">
+                    <a href="index" class="menu-item">
+                        <span class="menu-text i18n-text" data-i18n="nav.home">HOME</span>
+                    </a>
+                    <a href="products" class="menu-item active">
+                        <span class="menu-text i18n-text" data-i18n="shop.title">STOREFRONT</span>
+                    </a>
+                    <a href="tracking" class="menu-item">
+                        <span class="menu-text i18n-text" data-i18n="nav.go_tracking">TRACKING</span>
+                    </a>
+                    
+                    <div class="mobile-menu-extras">
+                        <div class="mobile-social-icons">
+                            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                            <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                            <a href="cart" class="cart-link-mobile">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                                <span class="cart-count">0</span>
+                            </a>
+                            <button class="lang-toggle lang-toggle-mobile" id="mobile-lang-toggle">
+                                <span class="lang-toggle-text" id="mobile-lang-toggle-text">IT</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </nav>
+    </header>
 
     <main class="product-main-container">
         <!-- Main Product Section - LIGHT -->
@@ -41,10 +79,10 @@
                     <div class="slider-container">
                         <div class="slider-track">
                             <div class="slider-item">
-                                <img src="../assets/onepiece-nobg.png" alt="Yume One Piece Edition">
+                                <img src="assets/onepiece-nobg.png" alt="Yume One Piece">
                             </div>
                             <div class="slider-item">
-                                <img src="../assets/onepiece.png" alt="Yume One Piece Edition">
+                                <img src="assets/onepiece.png" alt="Yume One Piece">
                             </div>
                         </div>
                         <button class="slider-arrow prev-arrow"><i class="fa-solid fa-chevron-left"></i></button>
@@ -53,32 +91,33 @@
                     </div>
                 </div>
                 <div class="product-info">
-                    <span class="badge" data-i18n="collab.onepiece.tag">YUME x ONE PIECE</span>
-                    <h1 class="product-title" data-i18n="collab.onepiece.name">Gum-Gum Sparks</h1>
-                    <div class="product-price" data-base-price="3.50">3.50€</div>
-                    <p class="product-desc" data-i18n="collab.onepiece.desc">Exotic pineapple and tropical mango. A legendary flavor that tastes like freedom and the Grand Line.</p>
-
+                    <span class="badge" data-i18n="shop.badge_premium">Limited Edition</span>
+                    <h1 class="product-title" data-i18n="flavor.onepiece.name">Grand Line</h1>
+                    <div class="product-price" data-base-price="4.50">4.50€</div>
+                    <p class="product-desc" data-i18n="flavor.onepiece.desc">A bold tropical storm of exotic fruits. Crafted for those who seek adventure across the grand seas.</p>
+ 
                     <!-- Bundle Selector -->
                     <div class="bundle-selector">
-                        <div class="bundle-option active" data-bundle="single" data-price="3.50">
+                        <div class="bundle-option active" data-bundle="single" data-price="4.50">
                             <span class="detail-tag" data-i18n="product.single">Single Can</span>
-                            <span class="bundle-price-tag">3.50€</span>
+                            <span class="bundle-price-tag">4.50€</span>
                         </div>
-                        <div class="bundle-option" data-bundle="pack6" data-price="19.50">
+                        <div class="bundle-option" data-bundle="pack6" data-price="25.00">
                             <span class="detail-tag" data-i18n="product.pack6">Pack of 6</span>
                             <div class="price-side">
-                                <span class="bundle-price-tag">19.50€</span>
-                                <span class="bundle-save" data-i18n="product.save">SAVE 1.5€</span>
+                                <span class="bundle-price-tag">25.00€</span>
+                                <span class="bundle-save" data-i18n="product.save" data-i18n-params='{"amount": "2€"}'>SAVE 2€</span>
                             </div>
                         </div>
-                        <div class="bundle-option" data-bundle="pack12" data-price="38.00">
+                        <div class="bundle-option" data-bundle="pack12" data-price="48.00">
                             <span class="detail-tag" data-i18n="product.pack12">Pack of 12</span>
                             <div class="price-side">
-                                <span class="bundle-price-tag">38.00€</span>
-                                <span class="bundle-save" data-i18n="product.save">SAVE 4€</span>
+                                <span class="bundle-price-tag">48.00€</span>
+                                <span class="bundle-save" data-i18n="product.save" data-i18n-params='{"amount": "6€"}'>SAVE 6€</span>
                             </div>
                         </div>
                     </div>
+     </div>
 
                     <button class="buy-btn" data-i18n="product.add_to_cart">Add to Cart</button>
 
@@ -151,7 +190,7 @@
         <p data-i18n="footer.rights">&copy; 2026 Yume Drinks. Anime-Inspired Energy.</p>
     </footer>
 
-    <script src="../scripts/cans.js"></script>
+    <script src="scripts/cans.js"></script>
 </body>
 
 </html>

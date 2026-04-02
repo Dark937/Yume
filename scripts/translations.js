@@ -129,6 +129,7 @@ const Translations = {
         "cart.est_arrival": "ARRIVO ESTIMATO",
         "cart.promo_label": "Codice Promo",
         "cart.promo_btn": "Applica",
+        "cart.track_now": "SEGUI IL TUO HAUL",
 
         "tracking.title": "TRACCIA IL TUO ORDINE",
         "tracking.subtitle": "Inserisci il tuo token per vedere dove i tuoi sogni stanno bollendo.",
@@ -329,6 +330,7 @@ const Translations = {
         "cart.est_arrival": "ESTIMATED ARRIVAL",
         "cart.promo_label": "Promo Code",
         "cart.promo_btn": "Apply",
+        "cart.track_now": "FOLLOW YOUR HAUL",
 
         "tracking.title": "TRACK YOUR HAUL",
         "tracking.subtitle": "Enter your token to see where your dreams are currently brewing.",
@@ -514,6 +516,7 @@ const Translations = {
         "cart.est_arrival": "到着予定日",
         "cart.promo_label": "プロモーションコード",
         "cart.promo_btn": "適用",
+        "cart.track_now": "ハウルを追跡する",
 
         "tracking.title": "配送状況を確認する",
         "tracking.subtitle": "トークンを入力して、あなたの夢が現在どこにあるかを確認してください。",

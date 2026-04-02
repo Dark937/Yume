@@ -45,26 +45,28 @@ if (!$token || !$customer || !$arrival_date_str) {
 $pdo = get_db_connection();
 
 // Create table if not exists (Safety check)
+// Using LONGTEXT for order_items and status_history for maximum compatibility across MySQL versions
 $sql_create = "CREATE TABLE IF NOT EXISTS orders (
     id INT AUTO_INCREMENT PRIMARY KEY,
     token_hash VARCHAR(64) NOT NULL UNIQUE,
     customer_name VARCHAR(255) NOT NULL,
     customer_email VARCHAR(255) NOT NULL,
     customer_address TEXT NOT NULL,
-    order_items JSON NOT NULL,
+    order_items LONGTEXT NOT NULL,
     subtotal DECIMAL(10, 2) NOT NULL,
     shipping DECIMAL(10, 2) NOT NULL,
     customs DECIMAL(10, 2) NOT NULL,
     total DECIMAL(10, 2) NOT NULL,
     order_date DATETIME DEFAULT CURRENT_TIMESTAMP,
     arrival_date DATETIME NOT NULL,
-    status_history JSON NOT NULL,
+    status_history LONGTEXT NOT NULL,
     arrival_email_sent TINYINT(1) DEFAULT 0,
     INDEX (token_hash)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
 $pdo->exec($sql_create);
 
-// Hash the token
+// Hash the token (Ensure consistent cleaning)
+$token = strtoupper(trim($token));
 $token_hash = hash('sha256', $token);
 
 // Generate Realistic Status History
@@ -142,7 +144,11 @@ try {
         echo json_encode(['success' => false, 'error' => 'Order already exists']);
     } else {
         error_log($e->getMessage());
-        echo json_encode(['success' => false, 'error' => 'Database error']);
+        echo json_encode([
+            'success' => false, 
+            'error' => 'Database error',
+            'debug' => $e->getMessage()
+        ]);
     }
 }
 ?>

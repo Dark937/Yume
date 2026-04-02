@@ -640,9 +640,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     body: JSON.stringify(orderData)
                 });
                 const result = await response.json();
-                if (!result.success) console.error('DB Save error:', result.error);
+                if (!result.success) {
+                    console.error('❌ DB Save error:', result.error, result.debug || '');
+                } else {
+                    console.log('✅ Order Saved to Database successfully');
+                }
             } catch (e) {
-                console.error('Failed to connect to database API:', e);
+                console.error('❌ Failed to connect to database API:', e);
             }
 
             // 2. SEND CONFIRMATION EMAIL
@@ -658,9 +662,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
 
-            // Show sidebar arrival box
+            // Show sidebar arrival and tracking boxes
             const sidebarBox = document.getElementById('sidebarArrivalBox');
             if (sidebarBox) sidebarBox.style.display = 'flex';
+
+            const trackShortcut = document.getElementById('trackOrderShortcut');
+            const trackLink = document.getElementById('trackLink');
+            if (trackShortcut && trackLink) {
+                trackLink.href = `tracking.html?token=${token}`;
+                trackShortcut.style.display = 'flex';
+            }
+
+            // Update Success View Button
+            const successTrackBtn = document.getElementById('successTrackBtn');
+            if (successTrackBtn) {
+                successTrackBtn.href = `tracking.html?token=${token}`;
+            }
 
             document.getElementById('processingStatus').style.display = 'none';
             document.getElementById('successStatus').style.display = 'block';

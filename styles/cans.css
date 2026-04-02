@@ -75,6 +75,97 @@ body {
     align-items: center;
 }
 
+/* Navbar container */
+.product-navbar {
+    z-index: 1000;
+}
+
+/* Mobile Menu Toggle */
+.menu-toggle {
+    display: none;
+    border: none;
+    background: none;
+    color: var(--text-light);
+    font-size: 1.5rem;
+    cursor: pointer;
+    justify-self: end;
+}
+
+.menu-toggle.active {
+    color: var(--color-pink);
+}
+
+/* Reuse nav-links drawer styles from main style.css for consistency */
+.nav-links {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 8rem 2rem 4rem;
+    transform: translateY(-100%);
+    transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+    z-index: 100;
+    visibility: hidden;
+}
+
+.nav-links.active {
+    transform: translateY(0);
+    visibility: visible;
+}
+
+.menu-items-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+}
+
+.menu-item {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    text-decoration: none;
+    color: var(--text-light);
+    transition: 0.3s;
+}
+
+.menu-item:hover {
+    color: var(--color-pink);
+    padding-left: 10px;
+}
+
+.mobile-menu-extras {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    width: 100%;
+}
+
+.mobile-social-icons {
+    display: flex;
+    gap: 1.5rem;
+    font-size: 1.8rem;
+    align-items: center;
+}
+
+.mobile-social-icons a {
+    color: var(--text-light);
+}
+
+.cart-link-mobile {
+    position: relative;
+    color: var(--color-mint);
+}
+
 /* Language Toggle Button (Standardized) */
 .lang-toggle {
     all: unset;
@@ -430,8 +521,17 @@ body {
 @media (max-width: 900px) {
     .product-container { flex-direction: column; gap: 4rem; text-align: center; }
     .item-details-grid { grid-template-columns: 1fr; gap: 1rem; }
-    .product-nav { padding: 1rem 1.5rem; }
+    .product-nav { 
+        padding: 1rem 1.5rem;
+        display: flex;
+        justify-content: space-between;
+    }
     .product-title { font-size: 3rem; }
+    
+    .desktop-socials { display: none !important; }
+    .menu-toggle { display: block; }
+    
+    .back-btn span { display: none; } /* Hide "STOREFRONT" text to save space */
 }
 
 /* Cleanup: Remove Related Products */

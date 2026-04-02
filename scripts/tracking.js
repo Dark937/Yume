@@ -46,6 +46,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     setupDecorations();
+    
+    // Auto-load token if present in URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const tokenFromUrl = urlParams.get('token');
+    if (tokenFromUrl) {
+        const cleanToken = tokenFromUrl.trim().toUpperCase();
+        console.log(`🔍 Auto-tracking token: ${cleanToken}`);
+        
+        // Hide hero IMMEDIATELY to avoid blink
+        if (trackingHero) trackingHero.style.display = 'none';
+        
+        // Ensure input is filled
+        if (tokenInput) tokenInput.value = cleanToken;
+        
+        // Use a small delay to ensure other services (i18n) are ready
+        setTimeout(() => triggerTracking(cleanToken), 300);
+    }
 
     if (trackingForm) {
         trackingForm.onsubmit = async (e) => {
@@ -55,38 +72,29 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 
-    // CHECK FOR URL PARAMETERS
-    function checkUrlParams() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const tokenFromUrl = urlParams.get('token');
-        if (tokenFromUrl) {
-            tokenInput.value = tokenFromUrl;
-            triggerTracking(tokenFromUrl);
-        }
-    }
-
     async function triggerTracking(token) {
         if (!token) {
             showError(window.I18nManager ? window.I18nManager.get('tracking.error_no_token') : "Please enter a token.");
             return;
         }
 
-        // Reset UI
+        token = token.trim().toUpperCase();
+
+        // 1. Format Check (YME-XXXX-XXXX-XXXX)
+        const formatRegex = /^YME-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}$/;
+        if (!formatRegex.test(token)) {
+            showError(window.I18nManager ? window.I18nManager.get('tracking.error_invalid_format') : "Invalid format. Use YME-XXXX-XXXX-XXXX");
+            return;
+        }
+
+        // Reset UI & Hide Hero early for a cleaner transition
+        if (trackingHero) trackingHero.style.display = 'none';
         trackingError.style.display = 'none';
         trackingResults.style.display = 'none';
         tokenInput.classList.remove('is-invalid');
         
         // Show Loader
         trackingLoader.style.display = 'block';
-
-        // 1. Format Check (YME-XXXX-XXXX-XXXX)
-        const formatRegex = /^YME-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}$/;
-        if (!formatRegex.test(token)) {
-            await new Promise(r => setTimeout(r, 1000));
-            trackingLoader.style.display = 'none';
-            showError(window.I18nManager ? window.I18nManager.get('tracking.error_invalid_format') : "Invalid format. Use YME-XXXX-XXXX-XXXX");
-            return;
-        }
 
         // 2. Fetch from Database API
         try {
@@ -102,26 +110,43 @@ document.addEventListener('DOMContentLoaded', () => {
                     window.EmailService.sendArrivalNotice(order, token);
                 }
             } else {
+                // If not found, show hero again so user can fix token
+                if (trackingHero) trackingHero.style.display = 'block';
                 showError(window.I18nManager ? window.I18nManager.get('tracking.error') : "Order Not Found. Please check your token.");
             }
         } catch (e) {
             trackingLoader.style.display = 'none';
-            showError("Server Connection Error. Try again later.");
-            console.error(e);
+            if (trackingHero) trackingHero.style.display = 'block';
+            
+            const isDebug = localStorage.getItem('yume_debug') === 'true';
+            let message = window.I18nManager ? window.I18nManager.get('tracking.error_server') : "Server Connection Error. Try again later.";
+            
+            if (isDebug) {
+                message = `Debug Error: ${e.message}`;
+            }
+            
+            showError(message);
+            console.error('🔍 FETCH ERROR:', e);
         }
     }
 
     async function fetchOrderFromDatabase(token) {
+        // Ensure we handle potential errors better
         const response = await fetch(`api/get_order.php?token=${encodeURIComponent(token)}`);
+        if (!response.ok) {
+            throw new Error(`HTTP Error ${response.status}`);
+        }
         const result = await response.json();
         return result.success ? result.order : null;
     }
 
     function showOrderDetails(order, token) {
+        // Ensure Result Section is visible
         trackingResults.style.display = 'block';
-        displayToken.textContent = token;
         
-        // Status Labels
+        // Scroll to top of results
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
         const statusKey = `tracking.${order.status}`;
         orderStatusLabel.textContent = window.I18nManager ? window.I18nManager.get(statusKey) : order.status.toUpperCase();
         
@@ -196,6 +221,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function showError(message) {
         trackingResults.style.display = 'none';
+        const hero = document.getElementById('trackingHero');
+        if (hero) hero.style.display = 'block';
+
         trackingError.textContent = message;
         trackingError.style.display = 'block';
         tokenInput.classList.add('is-invalid');
