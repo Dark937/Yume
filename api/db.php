@@ -24,9 +24,16 @@ function get_db_connection() {
         $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         return $pdo;
     } catch (PDOException $e) {
-        // Log error and die with generic message
+        // Log error and return JSON instead of dying with 500
         error_log($e->getMessage());
-        die("Database connection failed. Please try again later.");
+        header('Content-Type: application/json');
+        echo json_encode([
+            'success' => false, 
+            'error' => 'Database connection failed',
+            'debug' => $e->getMessage() // This helps identifying the issue (e.g. Access Denied)
+        ]);
+        exit;
     }
 }
 ?>
+

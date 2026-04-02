@@ -19,51 +19,27 @@ const EmailService = {
      * Since this is a static site, we fetch the .env file directly for local dev.
      */
     async loadEnv() {
-        if (this.config.serviceId && this.config.publicKey) return; // Already loaded
+        if (this.config.serviceId && this.config.publicKey) return;
 
         try {
-            console.log('🔄 Fetching config.env file...');
-            const response = await fetch('config.env');
-            if (!response.ok) throw new Error('Could not find config.env file');
+            console.log('🔄 Fetching config via PHP Bridge...');
+            const response = await fetch('api/get_config.php');
+            if (!response.ok) throw new Error('Could not contact config bridge');
             
-            const data = await response.text();
-            const lines = data.split('\n');
+            const data = await response.json();
+            if (!data.success) throw new Error(data.error || 'Failed to load config');
 
-            lines.forEach(line => {
-                const trimmed = line.trim();
-                // Skip comments and empty lines
-                if (!trimmed || trimmed.startsWith('#')) return;
+            const cfg = data.config;
+            this.config.serviceId = cfg.EMAIL_SERVICE_ID;
+            this.config.templateId = cfg.EMAIL_TEMPLATE_ID;
+            this.config.arrivalTemplateId = cfg.EMAIL_ARRIVAL_TEMPLATE_ID;
+            this.config.publicKey = cfg.EMAIL_PUBLIC_KEY;
 
-                const firstEqual = trimmed.indexOf('=');
-                if (firstEqual === -1) return;
+            const logMask = val => val && val.length > 4 ? `${val.slice(0, 2)}...${val.slice(-2)}` : '***';
+            console.log(`✅ Loaded SERVICE_ID (${logMask(this.config.serviceId)})`);
+            console.log(`✅ Loaded TEMPLATE_ID (${logMask(this.config.templateId)})`);
+            console.log(`✅ Loaded PUBLIC_KEY (${logMask(this.config.publicKey)})`);
 
-                const key = trimmed.slice(0, firstEqual).trim();
-                let value = trimmed.slice(firstEqual + 1).trim();
-
-                // Strip quotes (single or double) if present
-                if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) {
-                    value = value.slice(1, -1);
-                }
-
-                const logMask = val => val.length > 4 ? `${val.slice(0, 2)}...${val.slice(-2)}` : '***';
-
-                if (key === 'EMAIL_SERVICE_ID') {
-                    this.config.serviceId = value;
-                    console.log(`✅ Loaded SERVICE_ID (${logMask(value)})`);
-                }
-                if (key === 'EMAIL_TEMPLATE_ID') {
-                    this.config.templateId = value;
-                    console.log(`✅ Loaded TEMPLATE_ID (${logMask(value)})`);
-                }
-                if (key === 'EMAIL_ARRIVAL_TEMPLATE_ID') {
-                    this.config.arrivalTemplateId = value;
-                    console.log(`✅ Loaded ARRIVAL_TEMPLATE_ID (${logMask(value)})`);
-                }
-                if (key === 'EMAIL_PUBLIC_KEY') {
-                    this.config.publicKey = value;
-                    console.log(`✅ Loaded PUBLIC_KEY (${logMask(value)})`);
-                }
-            });
 
             if (this.config.publicKey) {
                 if (typeof emailjs !== 'undefined') {

@@ -28,19 +28,22 @@
     <script src="scripts/utils.js" defer></script>
     <script src="scripts/translations.js" defer></script>
     <script src="scripts/i18n.js" defer></script>
+    <script src="scripts/security.js" defer></script>
     <script src="scripts/cart-manager.js" defer></script>
 </head>
 
 <body>
     <!-- Screen Preloader -->
     <div id="preloader" class="preloader">
-        <img src="assets/yume-light-sakura.png" alt="Loading Yume" class="preloader-logo">
+        <img src="assets/yume-light-sakura.png" alt="Loading Yume" class="preloader-logo" loading="lazy">
     </div> <!-- Sticky Navigation -->
+
     <header class="navbar">
         <div class="logo-container">
             <!-- Using Logo 1/4 (Light standard) for Top Nav -->
             <img src="assets/yume-light.png" alt="Yume Logo Light" class="brand-logo"
-                title="Place your attached logo image here">
+                title="Place your attached logo image here" loading="lazy">
+
         </div>
 
         <!-- Mobile Hamburger Icon -->
@@ -340,8 +343,9 @@
     <footer class="footer" data-theme="light">
         <div class="footer-content container reveal-on-scroll" style="padding-bottom: 1rem;">
             <div class="footer-brand">
-                <img src="assets/yume-dark.png" alt="Yume Logo Dark" class="footer-logo">
+                <img src="assets/yume-dark.png" alt="Yume Logo Dark" class="footer-logo" loading="lazy">
                 <p data-i18n="hero.subtitle">Drink the dream. Feel the vibe.</p>
+
                 <div class="socials-footer margin-top-sm">
                     <a href="#"><i class="fa-brands fa-instagram"></i></a>
                     <a href="#"><i class="fa-brands fa-tiktok"></i></a>
@@ -401,8 +405,9 @@
     <!-- ═══ EASTER EGG: Can 67 ═══ -->
     <div id="egg67-overlay" class="egg-overlay">
         <div id="egg67-inner" class="egg-inner">
-            <img src="assets/can-67.png" alt="Can 67" class="egg-can-img">
+            <img src="assets/can-67.png" alt="Can 67" class="egg-can-img" loading="lazy">
             <h2 class="egg-title">Can #67</h2>
+
             <p class="egg-text">
                 <strong class="egg-highlight">You found it.</strong><br>
                 The legendary Flavor 67 — a secret blend known only to true Yume believers.<br>
