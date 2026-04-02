@@ -8,17 +8,22 @@
     <link rel="icon" href="../assets/yume-light.png" type="image/png">
     <link rel="stylesheet" href="../styles/cans.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="../scripts/translations.js" defer></script>
+    <script src="../scripts/i18n.js" defer></script>
     <script src="../scripts/cart-manager.js" defer></script>
 </head>
 
 <body class="flavor-blue">
     <nav class="product-nav">
         <a href="../products.html" class="back-btn" id="dynamicBackBtn"><i class="fa-solid fa-arrow-left"></i>
-            STOREFRONT</a>
+            <span class="i18n-text" data-i18n="shop.title">STOREFRONT</span></a>
         <a href="../index.html" class="nav-logo-link">
             <img src="../assets/yume-light-sakura.png" alt="YUME" class="brand-logo">
         </a>
         <div class="nav-cart-link">
+            <button class="lang-toggle" id="lang-toggle">
+                <span id="lang-toggle-text">IT</span>
+            </button>
             <a href="../cart.html" class="cart-link">
                 <i class="fa-solid fa-cart-shopping"></i>
                 <span class="cart-count">0</span>
@@ -98,14 +103,13 @@
         <section class="product-section dark">
             <div class="product-container" style="display: block; max-width: 800px; text-align: center;">
                 <div class="ingredients-box">
-                    <h3>Ingredients & Magic</h3>
-                    <p>Filtered Carbonated Water, Cane Sugar, Mystery Berry Essence, Natural Flavors, Citric Acid, Sea
-                        Salt, Caffeine (from Green Tea).</p>
+                    <h3 data-i18n="product.ingredients_title">Ingredients & Magic</h3>
+                    <p data-i18n="product.blue.ingredients">Filtered Carbonated Water, Cane Sugar, Mystery Berry Essence, Natural Flavors, Citric Acid, Sea Salt, Caffeine (from Green Tea).</p>
 
                     <div class="nutrition-grid">
 
                         <div class="nutrition-item">
-                            <span class="nutrition-label">Energy</span>
+                            <span class="nutrition-label" data-i18n="nutrition.energy">Energy</span>
                             <span class="nutrition-value">35 kcal</span>
                         </div>
                         <div class="nutrition-item">
@@ -142,7 +146,7 @@
     </main>
 
     <footer class="product-footer">
-        <p>&copy; 2026 Yume Drinks. Anime-Inspired Energy.</p>
+        <p data-i18n="footer.rights">&copy; 2026 Yume Drinks. Anime-Inspired Energy.</p>
     </footer>
 
     <script src="../scripts/cans.js"></script>

@@ -97,7 +97,8 @@ const EmailService = {
             items_list_html: this.generateItemsHTML(orderData.items),
             delivery_address: orderData.customer.address,
             delivery_date: orderData.arrival,
-            to_email: orderData.customer.email
+            to_email: orderData.customer.email,
+            from_name: 'Yume'
         };
 
         try {

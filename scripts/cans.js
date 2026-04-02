@@ -185,12 +185,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Visual Feedback
             const originalText = buyBtn.textContent;
-            buyBtn.textContent = 'ADDED TO CART ✓'; 
+            const addedText = window.I18nManager ? window.I18nManager.get('product.added_msg') : 'ADDED TO CART ✓';
+            buyBtn.textContent = addedText; 
             buyBtn.style.color = '#fff';
             buyBtn.style.backgroundColor = '#4CAF50';
             
             setTimeout(() => { 
-                buyBtn.textContent = originalText; 
+                buyBtn.textContent = window.I18nManager ? window.I18nManager.get('product.add_to_cart') : originalText; 
                 buyBtn.style.color = ''; 
                 buyBtn.style.backgroundColor = '';
             }, 2000);
@@ -198,14 +199,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Back Button Logic
-    const backBtn = document.getElementById('dynamicBackBtn');
-    if (backBtn && document.referrer) {
-        if (document.referrer.includes('products.html')) { 
-            backBtn.href = '../products.html'; 
-            backBtn.innerHTML = '<i class="fa-solid fa-arrow-left"></i> STOREFRONT'; 
-        } else { 
-            backBtn.href = '../index.html'; 
-            backBtn.innerHTML = '<i class="fa-solid fa-arrow-left"></i> HOME'; 
-        }
+    function updateBackBtn() {
+        const backBtn = document.getElementById('dynamicBackBtn');
+        if (!backBtn) return;
+        
+        const isStorefront = document.referrer && document.referrer.includes('products.html');
+        const key = isStorefront ? 'shop.title' : 'nav.home';
+        const defaultText = isStorefront ? 'STOREFRONT' : 'HOME';
+        const translatedText = window.I18nManager ? window.I18nManager.get(key) : defaultText;
+        
+        backBtn.href = isStorefront ? '../products.html' : '../index.html';
+        backBtn.innerHTML = `<i class="fa-solid fa-arrow-left"></i> <span class="i18n-text" data-i18n="${key}">${translatedText}</span>`;
     }
+
+    updateBackBtn();
+
+    // Re-render on language change
+    window.addEventListener('yume:lang:changed', () => {
+        updateBackBtn();
+    });
 });

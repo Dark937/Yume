@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function triggerTracking(token) {
         if (!token) {
-            showError("Please enter a token.");
+            showError(window.I18nManager ? window.I18nManager.get('tracking.error_no_token') : "Please enter a token.");
             return;
         }
 
@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!formatRegex.test(token)) {
             await new Promise(r => setTimeout(r, 1000)); // Short delay for feel
             trackingLoader.style.display = 'none';
-            showError("Invalid format. Use YME-XXXX-XXXX-XXXX");
+            showError(window.I18nManager ? window.I18nManager.get('tracking.error_invalid_format') : "Invalid format. Use YME-XXXX-XXXX-XXXX");
             return;
         }
 
@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (order) {
             showOrderDetails(order, token);
         } else {
-            showError("Order Not Found. Please check your token.");
+            showError(window.I18nManager ? window.I18nManager.get('tracking.error') : "Order Not Found. Please check your token.");
         }
     }
 
@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function showOrderDetails(order, token) {
         trackingResults.style.display = 'block';
         displayToken.textContent = token;
-        orderStatusLabel.textContent = order.status.toUpperCase();
+        orderStatusLabel.textContent = window.I18nManager ? window.I18nManager.get(`tracking.${order.status}`) : order.status.toUpperCase();
         trackName.textContent = order.customer.name;
         trackAddress.textContent = order.customer.address;
         trackArrival.textContent = order.arrival;

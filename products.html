@@ -8,18 +8,23 @@
     <link rel="icon" href="assets/yume-light.png" type="image/png">
     <link rel="stylesheet" href="styles/shop.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="scripts/translations.js" defer></script>
+    <script src="scripts/i18n.js" defer></script>
     <script src="scripts/cart-manager.js" defer></script>
 </head>
 
 <body class="shop-page">
     <nav class="shop-nav">
-        <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> BACK TO HOME</a>
+        <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> <span class="i18n-text" data-i18n="nav.back_home">BACK TO HOME</span></a>
 
         <div class="shop-logo-container">
             <img src="assets/yume-light-sakura.png" alt="YUME" class="brand-logo">
         </div>
 
         <div class="shop-socials">
+            <button class="lang-toggle" id="lang-toggle">
+                <span id="lang-toggle-text">IT</span>
+            </button>
             <a href="cart.html" class="cart-link">
                 <i class="fa-solid fa-cart-shopping"></i>
                 <span class="cart-count">0</span>
@@ -31,8 +36,8 @@
         <!-- Header Section - NOW WHITE -->
         <section class="shop-section light">
             <div class="shop-container shop-header">
-                <h1 class="shop-title">STOREFRONT</h1>
-                <p class="flavor-profile">Crave the dream. Drink the vibe.</p>
+                <h1 class="shop-title" data-i18n="shop.title">STOREFRONT</h1>
+                <p class="flavor-profile" data-i18n="shop.subtitle">Crave the dream. Drink the vibe.</p>
             </div>
         </section>
 
@@ -40,13 +45,13 @@
         <section class="shop-section dark">
             <div class="shop-container">
                 <header class="section-label">
-                    <span>Limited Time</span>
-                    Collaboration Drops
+                    <span data-i18n="shop.limited_label">Limited Time</span>
+                    <span data-i18n="shop.collab_title">Collaboration Drops</span>
                 </header>
                 <div class="special-row">
                     <a href="products/onepiece.html" class="product-card featured-card" data-reveal="0">
                         <div class="card-image-box">
-                            <span class="limited-badge">COLLAB</span>
+                            <span class="limited-badge" data-i18n="shop.badge_collab">COLLAB</span>
                             <img src="assets/onepiece-nobg.png" alt="One Piece" class="card-img">
                         </div>
                         <div class="card-info">
@@ -58,7 +63,7 @@
 
                     <a href="products/naruto.html" class="product-card featured-card" data-reveal="1">
                         <div class="card-image-box">
-                            <span class="limited-badge">COLLAB</span>
+                            <span class="limited-badge" data-i18n="shop.badge_collab">COLLAB</span>
                             <img src="assets/naruto-nobg.png" alt="Naruto" class="card-img">
                         </div>
                         <div class="card-info">
@@ -70,7 +75,7 @@
 
                     <a href="products/moonlight.html" class="product-card featured-card" data-reveal="2">
                         <div class="card-image-box">
-                            <span class="limited-badge"
+                            <span class="limited-badge" data-i18n="shop.badge_limited"
                                 style="background: #FF7043; border-color: #FF7043; color: #111427;">LIMITED</span>
                             <img src="assets/moonlight-nobg.png" alt="Moonlight" class="card-img">
                         </div>
@@ -87,7 +92,7 @@
         <!-- Originals Section - LIGHT LAVENDER -->
         <section class="shop-section lavender">
             <div class="shop-container">
-                <h2 class="regular-label">Yume Originals Collection</h2>
+                <h2 class="regular-label" data-i18n="shop.originals_title">Yume Originals Collection</h2>
                 <div class="product-grid">
                     <!-- Standard Lineup -->
                     <a href="products/original.html" class="product-card" data-reveal="0">
@@ -184,7 +189,7 @@
 
     <footer
         style="background-color: var(--bg-dark); color: var(--text-light); padding: 4rem 2rem; border-top: 1px solid rgba(255,255,255,0.05); text-align: center;">
-        <p>&copy; 2026 Yume Drinks. Anime-Inspired Energy.</p>
+        <p data-i18n="footer.rights">&copy; 2026 Yume Drinks. Anime-Inspired Energy.</p>
     </footer>
 
     <div class="scroll-hint">

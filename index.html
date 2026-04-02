@@ -26,6 +26,8 @@
 
     <!-- Core Scripts -->
     <script src="scripts/utils.js" defer></script>
+    <script src="scripts/translations.js" defer></script>
+    <script src="scripts/i18n.js" defer></script>
     <script src="scripts/cart-manager.js" defer></script>
 </head>
 
@@ -49,19 +51,19 @@
         <nav class="nav-links" id="nav-links">
             <div class="menu-items-container">
                 <a href="#hero" class="menu-item">
-                    <span class="menu-text">HOME</span>
+                    <span class="menu-text i18n-text" data-i18n="nav.home">HOME</span>
                 </a>
                 <a href="#story" class="menu-item">
-                    <span class="menu-text">OUR STORY</span>
+                    <span class="menu-text i18n-text" data-i18n="nav.story">OUR STORY</span>
                 </a>
                 <a href="#flavors" class="menu-item">
-                    <span class="menu-text">FLAVORS</span>
+                    <span class="menu-text i18n-text" data-i18n="nav.flavors">FLAVORS</span>
                 </a>
                 <a href="#collabs" class="menu-item">
-                    <span class="menu-text">COLLABS</span>
+                    <span class="menu-text i18n-text" data-i18n="nav.collabs">COLLABS</span>
                 </a>
                 <a href="#moonlight" class="menu-item">
-                    <span class="menu-text">MOONLIGHT</span>
+                    <span class="menu-text i18n-text" data-i18n="nav.moonlight">MOONLIGHT</span>
                 </a>
             </div>
 
@@ -74,6 +76,9 @@
         </nav>
 
         <div class="socials desktop-socials">
+            <button class="lang-toggle" id="lang-toggle">
+                <span id="lang-toggle-text">IT</span>
+            </button>
             <a href="#"><i class="fa-brands fa-instagram"></i></a>
             <a href="#"><i class="fa-brands fa-tiktok"></i></a>
             <a href="cart.html" class="cart-link-nav">
@@ -95,12 +100,12 @@
         <!-- Hero Content Overlay (Z-index 5) -->
         <div class="hero-content parallax-element" data-speed="-0.2"
             style="opacity: 0; animation: fadeUp 1s ease 0.5s forwards;">
-            <h1 class="hero-title-animated">TASTE THE DREAM</h1>
-            <h2 class="hero-subtitle-static">Sip the anime sunset, feeling cozy.</h2>
+            <h1 class="hero-title-animated" data-i18n="hero.title">TASTE THE DREAM</h1>
+            <h2 class="hero-subtitle-static" data-i18n="hero.subtitle">Sip the anime sunset, feeling cozy.</h2>
         </div>
 
         <div class="hero-bottom-detail">
-            <p>Anime-inspired Japanese soft drink.</p>
+            <p data-i18n="hero.detail">Anime-inspired Japanese soft drink.</p>
         </div>
     </section>
 
@@ -109,9 +114,9 @@
         <div class="container split-story">
 
             <div class="story-content parallax-element reveal-on-scroll unique-reveal-left" data-speed="0.1">
-                <div class="punk-tag box-lavender shadow-punk">Beyond the taste</div>
-                <h2 class="shadow-text-dark story-huge-title">DREAM IN EVERY SIP.</h2>
-                <p><strong>Yume (夢)</strong> brings you back to a nostalgic, dreamy anime sunset. We didn't just bottle
+                <div class="punk-tag box-lavender shadow-punk" data-i18n="story.tag">Beyond the taste</div>
+                <h2 class="shadow-text-dark story-huge-title" data-i18n="story.title">DREAM IN EVERY SIP.</h2>
+                <p data-i18n="story.text"><strong>Yume (夢)</strong> brings you back to a nostalgic, dreamy anime sunset. We didn't just bottle
                     a flavor; we bottled a vibe. Balancing traditional Japanese tastes with an unapologetic, bold modern
                     twist.</p>
             </div>
@@ -132,8 +137,8 @@
     <!-- Flavors Carousel Section (Pastel Lavander Background, Angled) -->
     <section id="flavors" class="section-lavender slanted-section-reverse" data-theme="light">
         <div class="container text-center parallax-element" data-speed="0.05">
-            <div class="title-badge slanted-box box-yellow shadow-punk">The Lineup</div>
-            <h2 class="section-title shadow-text">Pick your aesthetic</h2>
+            <div class="title-badge slanted-box box-yellow shadow-punk" data-i18n="flavors.tag">The Lineup</div>
+            <h2 class="section-title shadow-text" data-i18n="flavors.title">Pick your aesthetic</h2>
 
             <div class="carousel-container">
                 <button class="carousel-btn prev-btn"><i class="fa-solid fa-chevron-left"></i></button>
@@ -143,8 +148,8 @@
                     <div class="carousel-item" data-flavor="melon">
                         <div class="can-placeholder can-green shadow-punk"></div>
                         <div class="flavor-info slanted box-white shadow-punk">
-                            <h3>Melon</h3>
-                            <p>Sweet green melon vibes.</p>
+                            <h3 data-i18n="flavor.melon.name">Melon</h3>
+                            <p data-i18n="flavor.melon.desc">Sweet green melon vibes.</p>
                         </div>
                     </div>
 
@@ -152,8 +157,8 @@
                     <div class="carousel-item" data-flavor="strawberry">
                         <div class="can-placeholder can-pink shadow-punk"></div>
                         <div class="flavor-info slanted box-white shadow-punk">
-                            <h3>Strawberry</h3>
-                            <p>Soft candy, sweet heart.</p>
+                            <h3 data-i18n="flavor.strawberry.name">Strawberry</h3>
+                            <p data-i18n="flavor.strawberry.desc">Soft candy, sweet heart.</p>
                         </div>
                     </div>
 
@@ -161,8 +166,8 @@
                     <div class="carousel-item" data-flavor="original">
                         <div class="can-placeholder can-original shadow-punk"></div>
                         <div class="flavor-info slanted box-white shadow-punk">
-                            <h3>Original</h3>
-                            <p>Vanilla Cream Soda. Light caramel.</p>
+                            <h3 data-i18n="flavor.original.name">Original</h3>
+                            <p data-i18n="flavor.original.desc">Vanilla Cream Soda. Light caramel.</p>
                         </div>
                     </div>
 
@@ -170,8 +175,8 @@
                     <div class="carousel-item" data-flavor="yuzu">
                         <div class="can-placeholder can-yellow shadow-punk"></div>
                         <div class="flavor-info slanted box-white shadow-punk">
-                            <h3>Yuzu</h3>
-                            <p>Premium crisp citrus.</p>
+                            <h3 data-i18n="flavor.yuzu.name">Yuzu</h3>
+                            <p data-i18n="flavor.yuzu.desc">Premium crisp citrus.</p>
                         </div>
                     </div>
 
@@ -179,8 +184,8 @@
                     <div class="carousel-item" data-flavor="lychee">
                         <div class="can-placeholder can-peach shadow-punk"></div>
                         <div class="flavor-info slanted box-white shadow-punk">
-                            <h3>Lychee</h3>
-                            <p>Tropical and floral breeze.</p>
+                            <h3 data-i18n="flavor.lychee.name">Lychee</h3>
+                            <p data-i18n="flavor.lychee.desc">Tropical and floral breeze.</p>
                         </div>
                     </div>
 
@@ -188,8 +193,8 @@
                     <div class="carousel-item" data-flavor="blue">
                         <div class="can-placeholder can-blue shadow-punk"></div>
                         <div class="flavor-info slanted box-white shadow-punk">
-                            <h3>Blue Mystery</h3>
-                            <p>Apple + citrus + bubblegum!</p>
+                            <h3 data-i18n="flavor.blue.name">Blue Mystery</h3>
+                            <p data-i18n="flavor.blue.desc">Apple + citrus + bubblegum!</p>
                         </div>
                     </div>
 
@@ -197,8 +202,8 @@
                     <div class="carousel-item" data-flavor="grape">
                         <div class="can-placeholder can-grape shadow-punk"></div>
                         <div class="flavor-info slanted box-white shadow-punk">
-                            <h3>Grape</h3>
-                            <p>Intense purple sweetness.</p>
+                            <h3 data-i18n="flavor.grape.name">Grape</h3>
+                            <p data-i18n="flavor.grape.desc">Intense purple sweetness.</p>
                         </div>
                     </div>
 
@@ -206,8 +211,8 @@
                     <div class="carousel-item" data-flavor="calpis">
                         <div class="can-placeholder can-calpis shadow-punk"></div>
                         <div class="flavor-info slanted box-white shadow-punk">
-                            <h3>Calpis Soda</h3>
-                            <p>Sparkling yogurt dream.</p>
+                            <h3 data-i18n="flavor.calpis.name">Calpis Soda</h3>
+                            <p data-i18n="flavor.calpis.desc">Sparkling yogurt dream.</p>
                         </div>
                     </div>
                 </div>
@@ -227,12 +232,12 @@
 
         <div class="container text-center parallax-element" data-speed="0.05" style="position: relative; z-index: 5;">
             <div class="title-badge slanted-box box-glass-dark shadow-punk"
-                style="color:var(--color-yellow); border-color:var(--color-yellow); font-size: 1.2rem; margin-bottom: 1.5rem;">
+                style="color:var(--color-yellow); border-color:var(--color-yellow); font-size: 1.2rem; margin-bottom: 1.5rem;" data-i18n="collabs.tag">
                 Exclusive Drops</div>
             <h2 class="section-title shadow-text"
-                style="font-size: 5rem; margin-top:0; letter-spacing: -2px; line-height: 1;">Anime Collabs</h2>
+                style="font-size: 5rem; margin-top:0; letter-spacing: -2px; line-height: 1;" data-i18n="collabs.title">Anime Collabs</h2>
             <p
-                style="font-size: 1.3rem; max-width: 600px; margin: 2rem auto 0; font-weight: bold; color: rgba(255, 255, 255, 0.8);">
+                style="font-size: 1.3rem; max-width: 600px; margin: 2rem auto 0; font-weight: bold; color: rgba(255, 255, 255, 0.8);" data-i18n="collabs.desc">
                 Two legendary worlds collide in this ultra-limited edition release. Witness the ultimate crossover and
                 choose your power.</p>
         </div>
@@ -250,15 +255,15 @@
                     style="text-align: left; color: white;">
                     <div style="display: block; width: fit-content; margin: 0 0 1rem 0;">
                         <span class="punk-tag shadow-punk slanted"
-                            style="background: #D32F2F; color: white; border-color: white; margin-bottom: 0;">YUME x ONE
+                            style="background: #D32F2F; color: white; border-color: white; margin-bottom: 0;" data-i18n="collab.onepiece.tag">YUME x ONE
                             PIECE</span>
                     </div>
-                    <h3 class="op-text slanted">Gomu Gomu Fizz</h3>
-                    <p style="margin-bottom: 0.5rem; font-size: 1.2rem;">An energetic, tropical burst of freedom.
+                    <h3 class="op-text slanted" data-i18n="collab.onepiece.name">Gomu Gomu Fizz</h3>
+                    <p style="margin-bottom: 0.5rem; font-size: 1.2rem;" data-i18n="collab.onepiece.desc">An energetic, tropical burst of freedom.
                         Capturing the spirit of the sea.</p>
-                    <p style="font-weight: bold;">Tropical Mango + Fresh Pineapple + Light Citrus.</p>
+                    <p style="font-weight: bold;" data-i18n="collab.onepiece.flavor">Tropical Mango + Fresh Pineapple + Light Citrus.</p>
                     <a href="products/onepiece.html" class="btn-primary shadow-punk"
-                        style="margin-top: 1rem; display: inline-block; transform: rotate(-2deg); background-color: #FFA726; color: #111427; border-color: #111427;">DISCOVER
+                        style="margin-top: 1rem; display: inline-block; transform: rotate(-2deg); background-color: #FFA726; color: #111427; border-color: #111427;" data-i18n="collab.onepiece.btn">DISCOVER
                         THE DROP</a>
                 </div>
                 <div class="can-showcase-wrapper reveal-on-scroll unique-reveal-right" style="flex-shrink: 0;">
@@ -284,15 +289,15 @@
                     style="text-align: right; color: white;">
                     <div style="display: block; width: fit-content; margin: 0 0 1rem auto;">
                         <span class="punk-tag shadow-punk slanted"
-                            style="background: #03A9F4; color: white; border-color: white; margin-bottom: 0;">YUME x
+                            style="background: #03A9F4; color: white; border-color: white; margin-bottom: 0;" data-i18n="collab.naruto.tag">YUME x
                             NARUTO</span>
                     </div>
-                    <h3 class="naruto-text slanted">Chakra Burst</h3>
-                    <p style="margin-bottom: 0.5rem; font-size: 1.2rem;">A dual sensation of calm strength and explosive
+                    <h3 class="naruto-text slanted" data-i18n="collab.naruto.name">Chakra Burst</h3>
+                    <p style="margin-bottom: 0.5rem; font-size: 1.2rem;" data-i18n="collab.naruto.desc">A dual sensation of calm strength and explosive
                         energy. First sweet, then it hits you.</p>
-                    <p style="font-weight: bold;">Blood Orange + Peach + Sharp Ginger.</p>
+                    <p style="font-weight: bold;" data-i18n="collab.naruto.flavor">Blood Orange + Peach + Sharp Ginger.</p>
                     <a href="products/naruto.html" class="btn-primary shadow-punk"
-                        style="margin-top: 1rem; display: inline-block; transform: rotate(2deg); background-color: #FF7043; color: #111427; border-color: #111427;">UNLEASH
+                        style="margin-top: 1rem; display: inline-block; transform: rotate(2deg); background-color: #FF7043; color: #111427; border-color: #111427;" data-i18n="collab.naruto.btn">UNLEASH
                         CHAKRA</a>
                 </div>
                 <div class="can-showcase-wrapper reveal-on-scroll unique-reveal-left" style="flex-shrink: 0;">
@@ -312,14 +317,14 @@
         <div class="container moonlight-container">
             <div class="moonlight-text parallax-element reveal-on-scroll unique-reveal-left" data-speed="0.05">
                 <!-- Restyled glowing neon badge -->
-                <span class="badge neon-badge">Limited Edition</span>
-                <h2 class="glow-text slanted">Yume Moonlight</h2>
+                <span class="badge neon-badge" data-i18n="moonlight.tag">Limited Edition</span>
+                <h2 class="glow-text slanted" data-i18n="moonlight.title">Yume Moonlight</h2>
                 <div class="story-note box-glass-dark slanted">
-                    <p>Japanese grape + blueberry + vanilla + floral note.</p>
-                    <p>"Under a starry anime sky, magic becomes reality. A sweet dream you can drink."</p>
+                    <p data-i18n="moonlight.flavor">Japanese grape + blueberry + vanilla + floral note.</p>
+                    <p data-i18n="moonlight.desc">"Under a starry anime sky, magic becomes reality. A sweet dream you can drink."</p>
                 </div>
                 <a href="products/moonlight.html" class="btn-primary"
-                    style="margin-top: 2rem; display: inline-block; text-decoration: none; transform: rotate(-2deg);">DISCOVER
+                    style="margin-top: 2rem; display: inline-block; text-decoration: none; transform: rotate(-2deg);" data-i18n="moonlight.btn">DISCOVER
                     THE CAN</a>
             </div>
             <div class="moonlight-can parallax-element reveal-on-scroll unique-reveal-right" data-speed="-0.04">
@@ -336,7 +341,7 @@
         <div class="footer-content container reveal-on-scroll" style="padding-bottom: 1rem;">
             <div class="footer-brand">
                 <img src="assets/yume-dark.png" alt="Yume Logo Dark" class="footer-logo">
-                <p>Drink the dream. Feel the vibe.</p>
+                <p data-i18n="hero.subtitle">Drink the dream. Feel the vibe.</p>
                 <div class="socials-footer margin-top-sm">
                     <a href="#"><i class="fa-brands fa-instagram"></i></a>
                     <a href="#"><i class="fa-brands fa-tiktok"></i></a>
@@ -346,23 +351,23 @@
 
             <div class="footer-links">
                 <div class="link-column">
-                    <h4>Company</h4>
-                    <a href="#">About Yume</a>
-                    <a href="#">Careers</a>
-                    <a href="#">Press</a>
-                    <a href="#">Stockists</a>
+                    <h4 data-i18n="footer.company">Company</h4>
+                    <a href="#" data-i18n="footer.about">About Yume</a>
+                    <a href="#" data-i18n="footer.careers">Careers</a>
+                    <a href="#" data-i18n="footer.press">Press</a>
+                    <a href="#" data-i18n="footer.stockists">Stockists</a>
                 </div>
                 <div class="link-column">
-                    <h4>Help & Info</h4>
-                    <a href="#">FAQ</a>
-                    <a href="#">Shipping</a>
-                    <a href="#">Contact Us</a>
+                    <h4 data-i18n="footer.help">Help & Info</h4>
+                    <a href="#" data-i18n="footer.faq">FAQ</a>
+                    <a href="#" data-i18n="footer.shipping">Shipping</a>
+                    <a href="#" data-i18n="footer.contact">Contact Us</a>
                 </div>
             </div>
 
             <div class="footer-newsletter">
-                <h4>Join the Dreamers</h4>
-                <p class="small-text">Exclusive updates and anime drops.</p>
+                <h4 data-i18n="footer.newsletter_title">Join the Dreamers</h4>
+                <p class="small-text" data-i18n="footer.newsletter_desc">Exclusive updates and anime drops.</p>
                 <form class="newsletter-form">
                     <!-- Honey-pot field (Hidden from humans, bots will fill it) -->
                     <div style="display:none; position:absolute; left:-9999px;">
@@ -370,28 +375,28 @@
                     </div>
                     
                     <input type="email" id="newsletterEmail" placeholder="Your email..." required class="shadow-punk"
-                        autocomplete="off">
-                    <button type="submit" class="btn-primary shadow-punk">Sign Up</button>
+                        autocomplete="off" data-i18n="footer.newsletter_placeholder">
+                    <button type="submit" class="btn-primary shadow-punk" data-i18n="footer.newsletter_btn">Sign Up</button>
                 </form>
             </div>
 
             <!-- New Tracking Section -->
             <div class="footer-tracking reveal-on-scroll" style="transition-delay: 0.1s;">
-                <h4>Track Your Order</h4>
-                <p>Check the status of your shipment using the token from your email.</p>
+                <h4 data-i18n="footer.tracking_title">Track Your Order</h4>
+                <p data-i18n="footer.tracking_desc">Check the status of your shipment using the token from your email.</p>
                 <a href="tracking.html" class="track-link">
-                    <i class="fa-solid fa-box-open"></i> GO TO TRACKING
+                    <i class="fa-solid fa-box-open"></i> <span class="i18n-text" data-i18n="footer.tracking_btn">GO TO TRACKING</span>
                 </a>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 Yume Drinks. Anime-Inspired Energy. All rights reserved.</p>
+            <p data-i18n="footer.rights">&copy; 2026 Yume Drinks. Anime-Inspired Energy. All rights reserved.</p>
         </div>
     </footer>
 
     <!-- Sticky Storefront Floating Button -->
     <a href="products.html" class="floating-shop-btn">
-        <i class="fa-solid fa-cart-shopping"></i> SHOP NOW
+        <i class="fa-solid fa-cart-shopping"></i> <span class="i18n-text" data-i18n="nav.shop_now">SHOP NOW</span>
     </a>
     <!-- ═══ EASTER EGG: Can 67 ═══ -->
     <div id="egg67-overlay" class="egg-overlay">

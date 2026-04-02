@@ -20,7 +20,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const itemCount = cart.reduce((acc, item) => acc + item.quantity, 0);
 
         if (cartCountTitle) {
-            cartCountTitle.textContent = `[ ${itemCount} ITEMS ]`;
+            const itemsWord = window.I18nManager ? window.I18nManager.get('cart.items') : 'ITEMS';
+            cartCountTitle.textContent = `[ ${itemCount} ${itemsWord} ]`;
         }
 
         if (cart.length === 0) {
@@ -28,10 +29,11 @@ document.addEventListener('DOMContentLoaded', () => {
             cartItemsList.innerHTML = `
                 <div class="empty-cart-message">
                     <i class="fa-solid fa-box-open"></i>
-                    <p>Your haul is empty. Time to dream bigger.</p>
-                    <a href="products.html" class="btn-primary">Go to Store</a>
+                    <p data-i18n="cart.empty_msg">Your haul is empty. Time to dream bigger.</p>
+                    <a href="products.html" class="btn-primary" data-i18n="cart.return_store">Go to Store</a>
                 </div>
             `;
+            if (window.I18nManager) window.I18nManager.updateDOM(cartItemsList);
             const checkoutFlow = document.getElementById('checkoutFlow');
             if (checkoutFlow) checkoutFlow.style.display = 'none';
             
@@ -65,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <h3>${item.name}</h3>
                         <span class="item-price">${item.price.toFixed(2)}€</span>
                     </div>
-                    <p class="item-bundle">${formatBundleName(item.bundleType)}</p>
+                    <p class="item-bundle" data-i18n="product.${item.bundleType}">${formatBundleName(item.bundleType)}</p>
                     
                     <div class="item-actions">
                         <div class="qty-control-wrapper">
@@ -77,13 +79,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                         <div class="item-secondary-actions">
                             <button class="action-icon-btn remove-btn" data-id="${item.id}" data-bundle="${item.bundleType}">
-                                <i class="fa-solid fa-trash-can"></i> REMOVE
+                                <i class="fa-solid fa-trash-can"></i> <span class="i18n-text" data-i18n="cart.remove">REMOVE</span>
                             </button>
                         </div>
                     </div>
                 </div>
             `;
             cartItemsList.appendChild(itemElement);
+            if (window.I18nManager) window.I18nManager.updateDOM(itemElement);
         });
 
         updateSummary(subtotal);
@@ -140,19 +143,26 @@ document.addEventListener('DOMContentLoaded', () => {
         const progressFill = document.getElementById('progressFill');
         const shippingMsg = document.getElementById('shippingMsg');
 
+        // Note: Listener moved outside to avoid duplication
+
         if (!progressFill || !shippingMsg) return;
 
         const percentage = Math.min((subtotal / threshold) * 100, 100);
         progressFill.style.width = `${percentage}%`;
 
         if (subtotal >= threshold) {
-            shippingMsg.textContent = "YOU'VE UNLOCKED FREE SHIPPING!";
+            shippingMsg.setAttribute('data-i18n', 'cart.shipping_free');
+            shippingMsg.removeAttribute('data-i18n-params');
             shippingMsg.style.color = 'var(--color-purple)';
         } else {
             const remaining = (threshold - subtotal).toFixed(2);
-            shippingMsg.textContent = `Only ${remaining}€ away from FREE shipping!`;
+            shippingMsg.setAttribute('data-i18n', 'cart.shipping_away');
+            shippingMsg.setAttribute('data-i18n-params', JSON.stringify({ amount: remaining }));
             shippingMsg.style.color = 'var(--bg-dark)';
         }
+
+        // Trigger translation refresh for this element
+        if (window.I18nManager) window.I18nManager.updateDOM();
     }
 
     // --- Checkout Logic (Final Precision) ---
@@ -250,7 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         currentDiscount = this.codes[encoded];
                         document.getElementById('promoBox').classList.remove('error');
                         document.getElementById('promoError').style.display = 'none';
-                        this.showToast(`COUPON ${code} APPLIED!`);
+                        this.showToast(window.I18nManager ? window.I18nManager.get('cart.toast_coupon', { code: code }) : `COUPON ${code} APPLIED!`);
                         renderCart();
                         if (this.currentStep > 0) this.renderSummaryPreview();
                     } else {
@@ -267,7 +277,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const res = await fetch(this.apiBase);
                 const data = await res.json();
                 const list = data.data.sort((a, b) => a.country.localeCompare(b.country));
-                select.innerHTML = '<option value="">Select Country</option>';
+                const selectLabel = window.I18nManager ? window.I18nManager.get('cart.select_country') : 'Select Country';
+                select.innerHTML = `<option value="">${selectLabel}</option>`;
                 list.forEach(c => select.innerHTML += `<option value="${c.iso2}">${c.country}</option>`);
             } catch (e) {
                 select.innerHTML = '<option value="">Error loading</option>';
@@ -278,7 +289,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const stateSelect = document.getElementById('province');
             const citySelect = document.getElementById('city');
             stateSelect.disabled = false;
-            stateSelect.innerHTML = '<option value="">Loading...</option>';
+            stateSelect.innerHTML = `<option value="">${window.I18nManager ? window.I18nManager.get('cart.loading') : 'Loading...'}</option>`;
             citySelect.disabled = true;
 
             if (countryIso === 'IT') {
@@ -293,7 +304,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 // Get unique province names
                 const provinces = [...new Set(this.italyData.map(c => c.provincia.nome))].sort();
-                stateSelect.innerHTML = '<option value="">Select Province</option>';
+                stateSelect.innerHTML = `<option value="">${window.I18nManager ? window.I18nManager.get('cart.select_province') : 'Select Province'}</option>`;
                 provinces.forEach(p => {
                     stateSelect.innerHTML += `<option value="${p}">${p}</option>`;
                 });
@@ -306,7 +317,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
                     const data = await res.json();
                     if (data.data && data.data.states && data.data.states.length > 0) {
-                        stateSelect.innerHTML = '<option value="">Select Region</option>';
+                        stateSelect.innerHTML = `<option value="">${window.I18nManager ? window.I18nManager.get('cart.select_province') : 'Select Region'}</option>`;
                         data.data.states.sort((a, b) => a.name.localeCompare(b.name)).forEach(s => {
                             stateSelect.innerHTML += `<option value="${s.name}">${s.name}</option>`;
                         });
@@ -324,11 +335,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const citySelect = document.getElementById('city');
             const countryIso = document.getElementById('country').value;
             citySelect.disabled = false;
-            citySelect.innerHTML = '<option value="">Loading...</option>';
+            citySelect.innerHTML = `<option value="">${window.I18nManager ? window.I18nManager.get('cart.loading') : 'Loading...'}</option>`;
 
             if (countryIso === 'IT' && this.italyData) {
                 const cities = this.italyData.filter(c => c.provincia.nome === stateName).map(c => c.nome).sort();
-                citySelect.innerHTML = '<option value="">Select Municipality</option>';
+                citySelect.innerHTML = `<option value="">${window.I18nManager ? window.I18nManager.get('cart.select_city') : 'Select Municipality'}</option>`;
                 cities.forEach(c => citySelect.innerHTML += `<option value="${c}">${c}</option>`);
             } else {
                 try {
@@ -339,7 +350,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
                     const data = await res.json();
                     if (data.data && data.data.length > 0) {
-                        citySelect.innerHTML = '<option value="">Select City</option>';
+                        citySelect.innerHTML = `<option value="">${window.I18nManager ? window.I18nManager.get('cart.select_city') : 'Select City'}</option>`;
                         data.data.sort().forEach(c => citySelect.innerHTML += `<option value="${c}">${c}</option>`);
                     } else {
                         citySelect.innerHTML = '<option value="Central">Central District</option>';
@@ -483,11 +494,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             required.forEach(el => {
                 const val = el.value.trim();
+                const label = el.previousElementSibling ? el.previousElementSibling.textContent : "Field";
                 if (!val) {
-                    this.setValidationError(el, "Required field");
+                    this.setValidationError(el, window.I18nManager ? window.I18nManager.get('cart.error_required') : "Required field");
                     isValid = false;
                 } else if (el.type === 'email' && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(val)) {
-                    this.setValidationError(el, "Invalid email format");
+                    this.setValidationError(el, window.I18nManager ? window.I18nManager.get('cart.error_email') : "Invalid email format");
                     isValid = false;
                 } else {
                     this.clearValidationError(el);
@@ -507,12 +519,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Check if zip is in entry.cap array (can be one or more)
                     const caps = Array.isArray(entry.cap) ? entry.cap : [entry.cap];
                     if (!caps.includes(zip)) {
-                        this.setValidationError(zipInput, `ZIP must match ${city}`);
+                        this.setValidationError(zipInput, window.I18nManager ? window.I18nManager.get('cart.error_zip_it') : `ZIP must match ${city}`);
                         isValid = false;
                     }
                 }
             } else if (country === 'JP' && !/^\d{3}-?\d{4}$/.test(zip)) {
-                this.setValidationError(zipInput, "Invalid Japan ZIP format");
+                this.setValidationError(zipInput, window.I18nManager ? window.I18nManager.get('cart.error_zip_jp') : "Invalid Japan ZIP format");
                 isValid = false;
             }
 
@@ -636,5 +648,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    new CheckoutController();
+    window.checkoutInstance = new CheckoutController();
+
+    // Handle language changes (Single listener)
+    window.addEventListener('yume:lang:changed', () => {
+        renderCart();
+        // If checkout is active, re-render summary preview to update labels
+        if (window.checkoutInstance && window.checkoutInstance.currentStep > 0) {
+            window.checkoutInstance.renderSummaryPreview();
+        }
+    });
 });

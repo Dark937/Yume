@@ -8,18 +8,23 @@
     <link rel="icon" href="assets/yume-light.png" type="image/png">
     <link rel="stylesheet" href="styles/cart.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="scripts/translations.js" defer></script>
+    <script src="scripts/i18n.js" defer></script>
     <script src="scripts/cart-manager.js" defer></script>
 </head>
 
 <body>
     <nav class="cart-nav">
-        <a href="products.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> CONTINUE SHOPPING</a>
+        <a href="products.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> <span class="i18n-text" data-i18n="cart.continue">CONTINUE SHOPPING</span></a>
 
         <div class="cart-logo-container">
             <img src="assets/yume-light-sakura.png" alt="YUME" class="brand-logo" style="filter: invert(1);">
         </div>
 
         <div class="cart-socials">
+            <button class="lang-toggle" id="lang-toggle">
+                <span id="lang-toggle-text">IT</span>
+            </button>
             <a href="#"><i class="fa-brands fa-instagram"></i></a>
             <a href="#"><i class="fa-brands fa-tiktok"></i></a>
         </div>
@@ -30,11 +35,11 @@
         <section class="cart-section light">
             <div class="cart-container">
                 <div class="cart-header">
-                    <h1 class="cart-title">CART <span class="cart-count-title" id="cartCountTitle">[ 0 ITEMS ]</span>
+                    <h1 class="cart-title"><span class="i18n-text" data-i18n="cart.title">CART</span> <span class="cart-count-title" id="cartCountTitle">[ 0 ITEMS ]</span>
                     </h1>
 
                     <div class="shipping-progress-container" id="shippingProgress">
-                        <div class="shipping-msg" id="shippingMsg">Only 20.00€ away from FREE shipping!</div>
+                        <div class="shipping-msg" id="shippingMsg" data-i18n="cart.shipping_away" data-i18n-params='{"amount": "20.00"}'></div>
                         <div class="progress-bar-track">
                             <div class="progress-fill" id="progressFill"></div>
                         </div>
@@ -51,79 +56,79 @@
                     <div class="checkout-flow-container" id="checkoutFlow" style="display: none;">
                         <!-- Step Tracker -->
                         <div class="step-tracker">
-                            <div class="step active" data-step="1">1<span>INFO</span></div>
-                            <div class="step" data-step="2">2<span>PAY</span></div>
-                            <div class="step" data-step="3">3<span>PROCESS</span></div>
+                            <div class="step active" data-step="1">1<span data-i18n="cart.step_info">INFO</span></div>
+                            <div class="step" data-step="2">2<span data-i18n="cart.step_pay">PAY</span></div>
+                            <div class="step" data-step="3">3<span data-i18n="cart.step_process">PROCESS</span></div>
                         </div>
 
                         <!-- Step 1: Shipping Information -->
                         <div class="checkout-step active" id="step1">
-                            <h2 class="step-title">Delivery Details</h2>
+                            <h2 class="step-title" data-i18n="cart.delivery_details">Delivery Details</h2>
                             <form id="shippingForm" class="checkout-form" novalidate>
                                 <div class="form-group full">
-                                    <label>Full Name</label>
+                                    <label data-i18n="cart.full_name">Full Name</label>
                                     <input type="text" id="fullName" placeholder="Zoro Roronoa" required autocomplete="name" minlength="3">
                                     <div class="error-msg">Please enter at least 3 characters</div>
                                 </div>
                                 <div class="form-group half">
-                                    <label>Email Address</label>
+                                    <label data-i18n="cart.email">Email Address</label>
                                     <input type="email" id="email" placeholder="swordsman@yume.com" required autocomplete="email">
                                     <div class="error-msg">Invalid email address</div>
                                 </div>
                                 <div class="form-group half">
-                                    <label>Phone Number</label>
+                                    <label data-i18n="cart.phone">Phone Number</label>
                                     <input type="tel" id="phone" placeholder="+39 333 123 4567" required autocomplete="tel" inputmode="tel">
                                     <div class="error-msg">Phone number is required</div>
                                 </div>
                                 <div class="form-grid">
                                     <div class="form-group">
-                                        <label>Country</label>
+                                        <label data-i18n="cart.country">Country</label>
                                         <select id="country" required>
                                             <option value="">Loading countries...</option>
                                         </select>
                                         <div class="error-msg">Country is required</div>
                                     </div>
                                     <div class="form-group">
-                                        <label>Province</label>
+                                        <label data-i18n="cart.province">Province</label>
                                         <select id="province" required disabled>
                                             <option value="">Select country first</option>
                                         </select>
                                         <div class="error-msg">Province is required</div>
                                     </div>
                                     <div class="form-group">
-                                        <label>City</label>
+                                        <label data-i18n="cart.city">City</label>
                                         <select id="city" required disabled>
                                             <option value="">Select province first</option>
                                         </select>
                                         <div class="error-msg">City is required</div>
                                     </div>
                                     <div class="form-group">
-                                        <label>ZIP Code</label>
+                                        <label data-i18n="cart.zip">ZIP Code</label>
                                         <input type="text" id="zip" placeholder="00100" required autocomplete="postal-code" inputmode="numeric">
                                         <div class="error-msg" id="zipError">Invalid post code</div>
                                     </div>
                                     <div class="form-group full">
-                                        <label>Address</label>
+                                        <label data-i18n="cart.address">Address</label>
                                         <input type="text" id="streetAddress" placeholder="123 Sakura Way" required autocomplete="street-address">
                                         <div class="error-msg">Address is required</div>
                                     </div>
                                 </div>
                                 <div class="form-group full">
-                                    <label>Order Note (Optional)</label>
-                                    <textarea id="orderNote" placeholder="Special brewing instructions or delivery tips..." maxlength="250"></textarea>
+                                    <label data-i18n="cart.note">Order Note (Optional)</label>
+                                    <textarea id="orderNote" placeholder="Special brewing instructions or delivery tips..." maxlength="250" data-i18n="cart.note_placeholder"></textarea>
                                 </div>
-                                <button type="submit" class="btn-checkout-next">Continue to Payment <i class="fa-solid fa-arrow-right"></i></button>
+                                <button type="submit" class="btn-checkout-next"><span class="i18n-text" data-i18n="cart.next_payment">Continue to Payment</span> <i class="fa-solid fa-arrow-right"></i></button>
                             </form>
                         </div>
 
                         <!-- Step 2: Payment Selector -->
                         <div class="checkout-step" id="step2">
-                            <h2 class="step-title">Secure Payment</h2>
+                            <h2 class="step-title" data-i18n="cart.secure_payment">Secure Payment</h2>
                             <div class="payment-methods">
                                 <label class="payment-option active">
                                     <input type="radio" name="paymentType" value="card" checked>
                                     <span class="pay-icon"><i class="fa-solid fa-credit-card"></i></span>
-                                    <span class="pay-text">Credit Card</span>
+                                    <span class="pay-text" data-i18n="cart.credit_card">Credit Card</span>
                                 </label>
                                 <label class="payment-option">
                                     <input type="radio" name="paymentType" value="paypal">
@@ -166,8 +171,8 @@
                             </div>
                             
                             <div class="checkout-actions">
-                                <button type="button" class="btn-checkout-back" id="backToInfo"><i class="fa-solid fa-arrow-left"></i> Back</button>
-                                <button type="button" class="btn-checkout-next" id="processPayment">Pay Now <span id="finalPaymentTotal">0.00€</span></button>
+                                <button type="button" class="btn-checkout-back" id="backToInfo"><i class="fa-solid fa-arrow-left"></i> <span class="i18n-text" data-i18n="cart.back">Back</span></button>
+                                <button type="button" class="btn-checkout-next" id="processPayment"><span class="i18n-text" data-i18n="cart.pay_now">Pay Now</span> <span id="finalPaymentTotal">0.00€</span></button>
                             </div>
                         </div>
 
@@ -178,24 +183,24 @@
                                     <div class="loader-ring"></div>
                                     <div class="loader-inner-ring"></div>
                                 </div>
-                                <h3>Securing your haul...</h3>
-                                <p>Checking stock and brewing your order.</p>
+                                <h3 data-i18n="cart.processing">Securing your haul...</h3>
+                                <p data-i18n="cart.processing_sub">Checking stock and brewing your order.</p>
                             </div>
 
                             <div class="success-view" id="successStatus" style="display: none;">
                                 <div class="success-icon">
                                     <i class="fa-solid fa-circle-check"></i>
                                 </div>
-                                <h2>Dream Locked In!</h2>
-                                <p>Your order has been received and is being prepared.</p>
+                                <h2 data-i18n="cart.success_title">Dream Locked In!</h2>
+                                <p data-i18n="cart.success_msg">Your order has been received and is being prepared.</p>
                                 
                                 <div class="order-token-box">
-                                    <span class="token-label">TRACKING TOKEN</span>
+                                    <span class="token-label" data-i18n="cart.token_label">TRACKING TOKEN</span>
                                     <div class="token-value" id="orderToken">YME-A1B2-C3D4-E5F6</div>
-                                    <p class="token-note">Keep this token to follow your order journey.</p>
+                                    <p class="token-note" data-i18n="cart.token_note">Keep this token to follow your order journey.</p>
                                 </div>
 
-                                <a href="products.html" class="btn-primary">Return to Store</a>
+                                <a href="products.html" class="btn-primary" data-i18n="cart.return_store">Return to Store</a>
                             </div>
                         </div>
                     </div>
@@ -203,20 +208,20 @@
                     <!-- Summary Column (Persistent) -->
                     <div class="cart-summary-column">
                         <div class="summary-card">
-                            <h3>Order Summary</h3>
+                            <h3 data-i18n="cart.summary">Order Summary</h3>
                             <div id="summaryItemsList" class="summary-items-preview">
                                 <!-- Minimal item preview for checkout flow -->
                             </div>
                             <div class="summary-row">
-                                <span>SUBTOTAL</span>
+                                <span data-i18n="cart.subtotal">SUBTOTAL</span>
                                 <span id="subtotal">0.00€</span>
                             </div>
                             <div class="summary-row" id="shippingRow">
-                                <span>SHIPPING</span>
+                                <span data-i18n="cart.shipping">SHIPPING</span>
                                 <span id="shippingCost">0.00€</span>
                             </div>
                             <div class="summary-row" id="customsRow" style="display: none;">
-                                <span>CUSTOMS & DUTIES</span>
+                                <span data-i18n="cart.customs">CUSTOMS & DUTIES</span>
                                 <span id="customsCost">0.00€</span>
                             </div>
                             <div class="summary-row discount" id="discountRow" style="display: none;">
@@ -225,14 +230,14 @@
                             </div>
 
                             <div class="summary-row total">
-                                <span>TOTAL</span>
+                                <span data-i18n="cart.total">TOTAL</span>
                                 <span id="total">0.00€</span>
                             </div>
 
                             <div class="delivery-estimate-box" id="sidebarArrivalBox" style="display: none; margin-top: 1.5rem; margin-bottom: 0;">
                                 <i class="fa-solid fa-truck-fast"></i>
                                 <div>
-                                    <span class="label">ESTIMATED ARRIVAL</span>
+                                    <span class="label" data-i18n="cart.est_arrival">ESTIMATED ARRIVAL</span>
                                     <span id="deliveryDate" class="date">Calculating...</span>
                                 </div>
                             </div>
@@ -241,15 +246,15 @@
 
                             <!-- Promo Code Box (Only in cart step) -->
                             <div class="promo-container" id="promoSection">
-                                <label class="promo-label">Promo Code</label>
+                                <label class="promo-label" data-i18n="cart.promo_label">Promo Code</label>
                                 <div class="promo-box" id="promoBox">
                                     <input type="text" placeholder="Enter promo code" id="promoInput">
-                                    <button id="applyPromoBtn">Apply</button>
+                                    <button id="applyPromoBtn" data-i18n="cart.promo_btn">Apply</button>
                                 </div>
                                 <div class="promo-error-msg" id="promoError">Invalid promo code</div>
                             </div>
 
-                            <button class="checkout-btn" id="checkoutBtn">Continue to Checkout</button>
+                            <button class="checkout-btn" id="checkoutBtn" data-i18n="cart.checkout">Continue to Checkout</button>
                         </div>
                     </div>
                 </div>
@@ -258,7 +263,7 @@
 
         <!-- Footer - DARK -->
         <footer class="cart-footer">
-            <p>&copy; 2026 Yume Drinks. Anime-Inspired Energy. All rights reserved.</p>
+            <p data-i18n="footer.rights">&copy; 2026 Yume Drinks. Anime-Inspired Energy. All rights reserved.</p>
         </footer>
     </main>
 

@@ -68,7 +68,42 @@ body {
 .brand-logo { max-height: 50px; transition: 0.3s; }
 .brand-logo:hover { transform: scale(1.05); }
 
-.nav-cart-link { justify-self: end; }
+.nav-cart-link {
+    justify-self: end;
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+/* Language Toggle Button (Standardized) */
+.lang-toggle {
+    all: unset;
+    background: var(--color-yellow, #FCF4A3);
+    color: var(--bg-dark);
+    border: 3px solid var(--bg-dark);
+    box-shadow: 4px 4px 0px var(--bg-dark);
+    font-family: var(--font-heading);
+    font-weight: 900;
+    font-size: 0.9rem;
+    padding: 0.3rem 0.6rem;
+    cursor: pointer;
+    transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform: rotate(-2deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 45px;
+    height: 32px;
+    z-index: 10;
+    box-sizing: border-box;
+}
+
+.lang-toggle:hover {
+    transform: rotate(2deg) scale(1.1);
+    box-shadow: 2px 2px 0px var(--bg-dark);
+    background: var(--color-pink);
+}
+
 .cart-link { 
     color: var(--color-mint); font-size: 1.3rem; text-decoration: none; position: relative; 
     transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);

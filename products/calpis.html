@@ -8,17 +8,22 @@
     <link rel="icon" href="../assets/yume-light.png" type="image/png">
     <link rel="stylesheet" href="../styles/cans.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="../scripts/translations.js" defer></script>
+    <script src="../scripts/i18n.js" defer></script>
     <script src="../scripts/cart-manager.js" defer></script>
 </head>
 
 <body class="flavor-calpis">
     <nav class="product-nav">
         <a href="../products.html" class="back-btn" id="dynamicBackBtn"><i class="fa-solid fa-arrow-left"></i>
-            STOREFRONT</a>
+            <span class="i18n-text" data-i18n="shop.title">STOREFRONT</span></a>
         <a href="../index.html" class="nav-logo-link">
             <img src="../assets/yume-light-sakura.png" alt="YUME" class="brand-logo">
         </a>
         <div class="nav-cart-link">
+            <button class="lang-toggle" id="lang-toggle">
+                <span id="lang-toggle-text">IT</span>
+            </button>
             <a href="../cart.html" class="cart-link">
                 <i class="fa-solid fa-cart-shopping"></i>
                 <span class="cart-count">0</span>
@@ -46,47 +51,47 @@
                     </div>
                 </div>
                 <div class="product-info">
-                    <span class="badge">Smooth Vibe</span>
-                    <h1 class="product-title">Calpis</h1>
+                    <span class="badge" data-i18n="shop.badge_premium">Natural Bliss</span>
+                    <h1 class="product-title" data-i18n="flavor.calpis.name">Calpis Soda</h1>
                     <div class="product-price" data-base-price="3.00">3.00€</div>
-                    <p class="product-desc">That unique, creamy-tangy yogurt flavor in a light or sparkling soda. It's the ultimate refreshing experience, pure and simple.</p>
+                    <p class="product-desc" data-i18n="flavor.calpis.desc">Tangy, creamy, and uniquely Japanese. A sparkling yogurt-inspired dream that transcends time.</p>
 
                     <!-- Bundle Selector -->
                     <div class="bundle-selector">
                         <div class="bundle-option active" data-bundle="single" data-price="3.00">
-                            <span class="detail-tag">Single Can</span>
+                            <span class="detail-tag" data-i18n="product.single">Single Can</span>
                             <span class="bundle-price-tag">3.00€</span>
                         </div>
-                        <div class="bundle-option" data-bundle="pack6" data-price="16.00">
-                            <span class="detail-tag">Pack of 6</span>
+                        <div class="bundle-option" data-bundle="pack6" data-price="16.50">
+                            <span class="detail-tag" data-i18n="product.pack6">Pack of 6</span>
                             <div class="price-side">
-                                <span class="bundle-price-tag">16.00€</span>
-                                <span class="bundle-save">SAVE 2€</span>
+                                <span class="bundle-price-tag">16.50€</span>
+                                <span class="bundle-save" data-i18n="product.save">SAVE 1.5€</span>
                             </div>
                         </div>
-                        <div class="bundle-option" data-bundle="pack12" data-price="31.00">
-                            <span class="detail-tag">Pack of 12</span>
+                        <div class="bundle-option" data-bundle="pack12" data-price="32.00">
+                            <span class="detail-tag" data-i18n="product.pack12">Pack of 12</span>
                             <div class="price-side">
-                                <span class="bundle-price-tag">31.00€</span>
-                                <span class="bundle-save">SAVE 5€</span>
+                                <span class="bundle-price-tag">32.00€</span>
+                                <span class="bundle-save" data-i18n="product.save">SAVE 4€</span>
                             </div>
                         </div>
                     </div>
 
-                    <button class="buy-btn">Add to Cart</button>
+                    <button class="buy-btn" data-i18n="product.add_to_cart">Add to Cart</button>
 
                     <!-- Item Details Grid -->
                     <div class="item-details-grid">
                         <div class="detail-item">
-                            <span class="detail-label">Type:</span>
-                            <span class="detail-value">Soft Drink</span>
+                            <span class="detail-label" data-i18n="product.type">Type:</span>
+                            <span class="detail-value" data-i18n="product.soft_drink">Soft Drink</span>
                         </div>
                         <div class="detail-item">
-                            <span class="detail-label">Material:</span>
-                            <span class="detail-value">Aluminum Can</span>
+                            <span class="detail-label" data-i18n="product.material">Material:</span>
+                            <span class="detail-value" data-i18n="product.aluminum">Aluminum Can</span>
                         </div>
                         <div class="detail-item">
-                            <span class="detail-label">Model:</span>
+                            <span class="detail-label" data-i18n="product.model">Model:</span>
                             <span class="detail-value">330ml</span>
                         </div>
                     </div>
@@ -98,42 +103,41 @@
         <section class="product-section dark">
             <div class="product-container" style="display: block; max-width: 800px; text-align: center;">
                 <div class="ingredients-box">
-                    <h3>Ingredients & Magic</h3>
-                    <p>Filtered Carbonated Water, Nonfat Dry Milk (Lactic Acid Fermented), Cane Sugar, Natural Creamy
-                        Flavors, Citric Acid, Sea Salt, Caffeine (from Green Tea).</p>
+                    <h3 data-i18n="product.ingredients_title">Ingredients & Info</h3>
+                    <p data-i18n="product.calpis.ingredients">Carbonated Water, Fermented Milk, Sugar, Skimmed Milk Powder, Lactic Acid, Natural Flavors.</p>
 
                     <div class="nutrition-grid">
 
                         <div class="nutrition-item">
-                            <span class="nutrition-label">Energy</span>
-                            <span class="nutrition-value">35 kcal</span>
+                            <span class="nutrition-label" data-i18n="product.nutrition_energy">Energy</span>
+                            <span class="nutrition-value">46 kcal</span>
                         </div>
                         <div class="nutrition-item">
-                            <span class="nutrition-label">Fat</span>
+                            <span class="nutrition-label" data-i18n="product.nutrition_fat">Fat</span>
                             <span class="nutrition-value">0g</span>
                         </div>
                         <div class="nutrition-item">
-                            <span class="nutrition-label">Carbs</span>
-                            <span class="nutrition-value">8.5g</span>
+                            <span class="nutrition-label" data-i18n="product.nutrition_carbs">Carbs</span>
+                            <span class="nutrition-value">11g</span>
                         </div>
                         <div class="nutrition-item">
-                            <span class="nutrition-label">Sugars</span>
-                            <span class="nutrition-value">8.5g</span>
+                            <span class="nutrition-label" data-i18n="product.nutrition_sugars">Sugars</span>
+                            <span class="nutrition-value">11g</span>
                         </div>
                         <div class="nutrition-item">
-                            <span class="nutrition-label">Protein</span>
-                            <span class="nutrition-value">0g</span>
+                            <span class="nutrition-label" data-i18n="product.nutrition_protein">Protein</span>
+                            <span class="nutrition-value">0.3g</span>
                         </div>
                         <div class="nutrition-item">
-                            <span class="nutrition-label">Salt</span>
-                            <span class="nutrition-value">0.01g</span>
+                            <span class="nutrition-label" data-i18n="product.nutrition_salt">Salt</span>
+                            <span class="nutrition-value">0.05g</span>
                         </div>
                     </div>
 
                     <div class="allergen-section">
-                        <span class="allergen-title">Allergens</span>
+                        <span class="allergen-title" data-i18n="product.allergens">Allergens</span>
                         <div class="allergen-list">
-                            <span>Caffeine</span>
+                            <span data-i18n="product.milk">Milk</span>
                         </div>
                     </div>
                 </div>
@@ -142,7 +146,7 @@
     </main>
 
     <footer class="product-footer">
-        <p>&copy; 2026 Yume Drinks. Anime-Inspired Energy.</p>
+        <p data-i18n="footer.rights">&copy; 2026 Yume Drinks. Anime-Inspired Energy.</p>
     </footer>
 
     <script src="../scripts/cans.js"></script>
