@@ -8,14 +8,14 @@ document.addEventListener('DOMContentLoaded', () => {
        0. Preloader Logic
        ========================================= */
     const preloader = document.getElementById('preloader');
-    
+
     if (preloader) {
         const navEntries = performance.getEntriesByType("navigation");
         const isReload = navEntries.length > 0 && navEntries[0].type === "reload";
         const hasPlayedThisSession = sessionStorage.getItem('yume_preloader_played');
 
         // Hard scroll lock helpers
-        const scrollKeys = ['ArrowUp','ArrowDown','PageUp','PageDown','Home','End',' '];
+        const scrollKeys = ['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' '];
         const preventScroll = (e) => e.preventDefault();
         const preventKeyScroll = (e) => { if (scrollKeys.includes(e.key)) e.preventDefault(); };
 
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
             window.removeEventListener('touchmove', preventScroll);
             window.removeEventListener('keydown', preventKeyScroll);
         };
-        
+
         if (!hasPlayedThisSession || isReload) {
             lockScroll();
             window.addEventListener('load', () => {
@@ -55,16 +55,16 @@ document.addEventListener('DOMContentLoaded', () => {
        ========================================= */
     const mobileMenuBtn = document.getElementById('mobile-menu-btn');
     const navLinks = document.getElementById('nav-links');
-    
+
     if (mobileMenuBtn && navLinks) {
         mobileMenuBtn.addEventListener('click', () => {
             navLinks.classList.toggle('active');
             mobileMenuBtn.classList.toggle('active');
             navbar.classList.toggle('menu-open');
-            
+
             // X Icon Toggle
             const icon = mobileMenuBtn.querySelector('i');
-            if(mobileMenuBtn.classList.contains('active')) {
+            if (mobileMenuBtn.classList.contains('active')) {
                 icon.classList.remove('fa-bars');
                 icon.classList.add('fa-xmark');
             } else {
@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 navLinks.classList.remove('active');
                 mobileMenuBtn.classList.remove('active');
                 const icon = mobileMenuBtn.querySelector('i');
-                if(icon) {
+                if (icon) {
                     icon.classList.remove('fa-xmark');
                     icon.classList.add('fa-bars');
                 }
@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const bottom = top + sec.offsetHeight;
             if (scrollPosition >= top && scrollPosition < bottom) {
                 currentTheme = sec.getAttribute('data-theme');
-                
+
                 // Update active nav link
                 const id = sec.getAttribute('id');
                 if (id) {
@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('scroll', () => {
         const scrollY = window.pageYOffset;
-        
+
         // Background Hero Layers (only if near top)
         if (scrollY < window.innerHeight * 1.5) {
             layers.forEach(layer => {
@@ -154,12 +154,12 @@ document.addEventListener('DOMContentLoaded', () => {
         parallaxElements.forEach(el => {
             const rect = el.getBoundingClientRect();
             // Move based on distance from center of screen
-            if(rect.top < window.innerHeight && rect.bottom > 0) {
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
                 const speed = parseFloat(el.getAttribute('data-speed'));
                 // Offset is 0 when item is dead center
                 const distanceFromCenter = (window.innerHeight / 2) - (rect.top + rect.height / 2);
                 const offset = distanceFromCenter * speed * -1; // inverted for natural scroll direction
-                
+
                 // Keep its existing transform and add Y translate
                 const orig = el.dataset.origTransform || '';
                 el.style.transform = `${orig} translateY(${offset}px)`;
@@ -174,23 +174,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const items = Array.from(document.querySelectorAll('.carousel-item'));
     const nextBtn = document.querySelector('.next-btn');
     const prevBtn = document.querySelector('.prev-btn');
-    
+
     // Default start at Yume Original (Index 2)
-    let currentIndex = 2; 
-    
+    let currentIndex = 2;
+
     const updateCarousel = () => {
         items.forEach((item, index) => {
             // Calculate wrapped difference for infinite scrolling
             const totalItems = items.length;
             let diff = index - currentIndex;
-            
+
             // Wrap the difference so it stays within [-half, +half]
             const half = Math.floor(totalItems / 2);
             if (diff > half) diff -= totalItems;
             else if (diff < -half + (totalItems % 2 === 0 ? 1 : 0)) diff += totalItems;
 
             item.classList.remove('active', 'prev', 'next');
-            
+
             // Assign active classes
             if (diff === 0) item.classList.add('active');
             else if (diff === -1) item.classList.add('prev');
@@ -199,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Visual Mathematics
             const gap = 200; // Evenly balanced pixel distance
             let xOffset = diff * gap;
-            
+
             let scale = 1;
             let opacity = 1;
             let zIndex = 10 - Math.abs(diff);
@@ -221,7 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Evaluate previous physical interval state to spot Cross-void wrapping triggers
             const oldDiff = item.dataset.prevDiff !== undefined ? parseInt(item.dataset.prevDiff) : diff;
             item.dataset.prevDiff = diff;
-            
+
             // Instantly strip transitions to snap wrapping items without physical dragging visuals
             if (Math.abs(oldDiff - diff) > 1) {
                 item.style.transition = 'none';
@@ -235,7 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             item.style.zIndex = zIndex;
-            
+
             // Hide items too far away from interactions
             if (Math.abs(diff) > 2 || opacity === 0) {
                 item.style.pointerEvents = 'none';
@@ -269,8 +269,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const half = Math.floor(items.length / 2);
             if (diff > half) diff -= items.length;
             else if (diff < -half + (items.length % 2 === 0 ? 1 : 0)) diff += items.length;
-            
-            if(Math.abs(diff) === 1) {
+
+            if (Math.abs(diff) === 1) {
                 currentIndex = index;
                 updateCarousel();
             }
@@ -291,7 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Unleash CSS transforms
                 container.classList.remove('unrevealed');
-                
+
                 // Scrub the delays after completion so user manual skipping doesn't lag
                 setTimeout(() => {
                     items.forEach(item => { item.style.transitionDelay = '0s'; });
@@ -301,8 +301,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }, { threshold: 0.3 }); // Trigger when 30% of the carousel comes into view
-    
-    if(container) lineupObserver.observe(container);
+
+    if (container) lineupObserver.observe(container);
 
     window.addEventListener('resize', () => {
         if (!container.classList.contains('unrevealed')) updateCarousel();
@@ -313,17 +313,17 @@ document.addEventListener('DOMContentLoaded', () => {
        ========================================= */
     const canvas = document.getElementById('starsCanvas');
     const ctx = canvas.getContext('2d');
-    
+
     let w, h;
     let stars = [];
 
     const resizeCanvas = () => {
         const section = document.getElementById('moonlight');
-        if(!section) return;
+        if (!section) return;
         w = canvas.width = section.offsetWidth;
         h = canvas.height = section.offsetHeight;
     };
-    
+
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
 
@@ -340,7 +340,7 @@ document.addEventListener('DOMContentLoaded', () => {
         update() {
             this.y += this.speedY;
             this.glow += 0.02 * this.sign;
-            if(this.glow >= 1 || this.glow <= 0) this.sign *= -1;
+            if (this.glow >= 1 || this.glow <= 0) this.sign *= -1;
 
             if (this.y < -10) {
                 this.y = h + 10;
@@ -353,7 +353,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
             ctx.fillStyle = `rgba(184, 130, 255, ${this.glow})`; // Pastel purple
             ctx.fill();
-            
+
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.size * 0.5, 0, Math.PI * 2);
             ctx.fillStyle = `rgba(255, 255, 255, 1)`;
@@ -378,13 +378,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         requestAnimationFrame(animateStars);
     };
-    
+
     let animationRunning = false;
     const moonlightSection = document.getElementById('moonlight');
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                if(!animationRunning) {
+                if (!animationRunning) {
                     animationRunning = true;
                     animateStars();
                 }
@@ -393,19 +393,19 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-    
-    if(moonlightSection) observer.observe(moonlightSection);
+
+    if (moonlightSection) observer.observe(moonlightSection);
 
     /* =========================================
        5. Sakura Petals Injection (Hero Effect)
        ========================================= */
     const petalsContainer = document.getElementById('petals-container');
-    if(petalsContainer) {
+    if (petalsContainer) {
         const petalCount = 20;
-        for(let i=0; i<petalCount; i++) {
+        for (let i = 0; i < petalCount; i++) {
             const petal = document.createElement('div');
             petal.className = 'petal';
-            
+
             // Randomize position, size, and animation duration/delay
             const left = Math.random() * 100;
             const size = Math.random() * 10 + 8; // 8px to 18px
@@ -446,7 +446,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const eggOverlay = document.getElementById('egg67-overlay');
 
     if (newsletterForm && newsletterInput) {
-        
+
         // Easter Egg Trigger (on typing '67')
         newsletterInput.addEventListener('input', () => {
             if (newsletterInput.value.includes('67')) {
@@ -459,10 +459,10 @@ document.addEventListener('DOMContentLoaded', () => {
         // Functional Newsletter Submit
         newsletterForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            
+
             const btn = newsletterForm.querySelector('button');
             const email = newsletterInput.value;
-            
+
             // 🛡️ HONEY-POT CHECK: If this field is filled, it's a bot!
             const honeypot = newsletterForm.querySelector('input[name="b_67_honeypot"]');
             if (honeypot && honeypot.value !== "") {
@@ -487,9 +487,9 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.innerHTML = 'THANK YOU! 🌸';
             btn.style.backgroundColor = 'var(--color-pink)';
             btn.style.color = 'white';
-            
+
             console.log(`📩 NEW SUBSCRIBER: ${email}`);
-            
+
             // Optional: You could add EmailJS integration here like Service.sendNewsletter(email)
         });
     }

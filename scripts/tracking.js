@@ -18,13 +18,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const trackArrival = document.getElementById('trackArrival');
     const trackTotal = document.getElementById('trackTotal');
     const trackItemsList = document.getElementById('trackItemsList');
+    const trackingHero = document.getElementById('trackingHero');
 
     // Decoration Logic
     const cans = [
-        'assets/blue-nobg.png', 'assets/calpis-nobg.png', 'assets/grape-nobg.png',
-        'assets/lychee-nobg.png', 'assets/melon-nobg.png', 'assets/moonlight-nobg.png',
-        'assets/naruto-nobg.png', 'assets/onepiece-nobg.png', 'assets/original-nobg.png',
-        'assets/strawberry-nobg.png', 'assets/yuzu-nobg.png'
+        'assets/blue-nobg.webp', 'assets/calpis-nobg.webp', 'assets/grape-nobg.webp',
+        'assets/lychee-nobg.webp', 'assets/melon-nobg.webp', 'assets/moonlight-nobg.webp',
+        'assets/naruto-nobg.webp', 'assets/onepiece-nobg.webp', 'assets/original-nobg.webp',
+        'assets/strawberry-nobg.webp', 'assets/yuzu-nobg.webp'
     ];
 
     function setupDecorations() {
@@ -39,10 +40,14 @@ document.addEventListener('DOMContentLoaded', () => {
             randomRight = cans[Math.floor(Math.random() * cans.length)];
         }
 
-        leftCan.src = randomLeft;
-        rightCan.src = randomRight;
-        leftCan.style.display = 'block';
-        rightCan.style.display = 'block';
+        if (leftCan) {
+            leftCan.src = randomLeft;
+            leftCan.style.display = 'block';
+        }
+        if (rightCan) {
+            rightCan.src = randomRight;
+            rightCan.style.display = 'block';
+        }
     }
 
     setupDecorations();
@@ -50,6 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Auto-load token if present in URL
     const urlParams = new URLSearchParams(window.location.search);
     const tokenFromUrl = urlParams.get('token');
+
     if (tokenFromUrl) {
         const cleanToken = tokenFromUrl.trim().toUpperCase();
         console.log(`🔍 Auto-tracking token: ${cleanToken}`);
@@ -60,8 +66,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // Ensure input is filled
         if (tokenInput) tokenInput.value = cleanToken;
         
-        // Use a small delay to ensure other services (i18n) are ready
-        setTimeout(() => triggerTracking(cleanToken), 300);
+        // Slight delay to ensure I18n is ready and Hero is fully hidden
+        setTimeout(() => triggerTracking(cleanToken), 100);
     }
 
     if (trackingForm) {
@@ -94,12 +100,12 @@ document.addEventListener('DOMContentLoaded', () => {
         tokenInput.classList.remove('is-invalid');
         
         // Show Loader
-        trackingLoader.style.display = 'block';
+        if (trackingLoader) trackingLoader.style.display = 'block';
 
         // 2. Fetch from Database API
         try {
             const order = await fetchOrderFromDatabase(token);
-            trackingLoader.style.display = 'none';
+            if (trackingLoader) trackingLoader.style.display = 'none';
 
             if (order) {
                 showOrderDetails(order, token);
@@ -115,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 showError(window.I18nManager ? window.I18nManager.get('tracking.error') : "Order Not Found. Please check your token.");
             }
         } catch (e) {
-            trackingLoader.style.display = 'none';
+            if (trackingLoader) trackingLoader.style.display = 'none';
             if (trackingHero) trackingHero.style.display = 'block';
             
             const isDebug = localStorage.getItem('yume_debug') === 'true';
@@ -141,35 +147,38 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function showOrderDetails(order, token) {
-        // Ensure Result Section is visible
+        if (!trackingResults) return;
         trackingResults.style.display = 'block';
         
         // Scroll to top of results
         window.scrollTo({ top: 0, behavior: 'smooth' });
 
         const statusKey = `tracking.${order.status}`;
-        orderStatusLabel.textContent = window.I18nManager ? window.I18nManager.get(statusKey) : order.status.toUpperCase();
+        if (orderStatusLabel) {
+            orderStatusLabel.textContent = window.I18nManager ? window.I18nManager.get(statusKey) : order.status.toUpperCase();
+        }
         
-        trackName.textContent = order.customer.name;
-        trackAddress.textContent = order.customer.address;
-        trackArrival.textContent = order.arrival;
-        trackTotal.textContent = order.total;
+        if (trackName) trackName.textContent = order.customer.name;
+        if (trackAddress) trackAddress.textContent = order.customer.address;
+        if (trackArrival) trackArrival.textContent = order.arrival;
+        if (trackTotal) trackTotal.textContent = order.total;
 
         // Render Items
-        trackItemsList.innerHTML = '';
-        order.items.forEach(item => {
-            const div = document.createElement('div');
-            div.className = 'summary-item-mini';
-            div.innerHTML = `
-                <div class="mini-img"><img src="${item.image}"></div>
-                <div class="mini-info">
-                    <div class="name">${Utils.escapeHTML(item.name)}</div>
-                    <div class="qty">x${item.quantity}</div>
-                </div>
-                <div class="mini-price">${(item.price * item.quantity).toFixed(2)}€</div>
-            `;
-            trackItemsList.appendChild(div);
-        });
+        if (trackItemsList) {
+            trackItemsList.innerHTML = '';
+            order.items.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'track-item';
+                div.innerHTML = `
+                    <div class="item-info">
+                        <span class="item-qty">x${item.quantity}</span>
+                        <span class="item-name">${item.name}</span>
+                    </div>
+                    <span class="item-price">${(item.price * item.quantity).toFixed(2)}€</span>
+                `;
+                trackItemsList.appendChild(div);
+            });
+        }
 
         // Render Journey Logs (Realistic History)
         const historyList = document.getElementById('trackHistoryList');
@@ -220,14 +229,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function showError(message) {
-        trackingResults.style.display = 'none';
+        if (trackingResults) trackingResults.style.display = 'none';
         const hero = document.getElementById('trackingHero');
         if (hero) hero.style.display = 'block';
 
-        trackingError.textContent = message;
-        trackingError.style.display = 'block';
-        tokenInput.classList.add('is-invalid');
-        tokenInput.focus();
+        if (trackingError) {
+            trackingError.textContent = message;
+            trackingError.style.display = 'block';
+        }
+        if (tokenInput) {
+            tokenInput.classList.add('is-invalid');
+            tokenInput.focus();
+        }
     }
 });
 

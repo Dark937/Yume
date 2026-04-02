@@ -8,8 +8,9 @@
     <title>Yume | Anime-Inspired Japanese Soft Drink</title>
 
     <!-- Favicon -->
-    <link rel="icon" href="assets/yume-light.png" type="image/png">
-    <!-- Fonts -->
+    <link rel="icon" href="assets/yume-light.webp" type="image/png">
+    <!-- Performance Hints -->
+    <link rel="preload" href="assets/hero-bg-main.webp" as="image">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -17,12 +18,14 @@
         rel="stylesheet">
     <link rel="stylesheet" href="styles/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- SEO & Social Media -->
-    <meta name="description" content="Yume - The ultimate anime-inspired soft drink from Japan. Discover bold flavors and exclusive collaborations.">
+    <meta name="description"
+        content="Yume - The ultimate anime-inspired soft drink from Japan. Discover bold flavors and exclusive collaborations.">
     <meta property="og:title" content="Yume | Anime-Inspired Japanese Soft Drink">
-    <meta property="og:description" content="Sip the anime sunset. Vibrant flavors, bold punk aesthetics, and exclusive limited edition drops.">
-    <meta property="og:image" content="http://yume.altervista.org/assets/hero-bg-main.png">
+    <meta property="og:description"
+        content="Sip the anime sunset. Vibrant flavors, bold punk aesthetics, and exclusive limited edition drops.">
+    <meta property="og:image" content="http://yume.altervista.org/assets/hero-bg-main.webp">
     <meta property="og:url" content="http://yume.altervista.org">
     <meta name="twitter:card" content="summary_large_image">
 
@@ -34,27 +37,22 @@
     <script src="scripts/cart-manager.js" defer></script>
 </head>
 
-<body>
+<body class="index-page">
     <!-- Screen Preloader -->
     <div id="preloader" class="preloader">
-        <img src="assets/yume-light-sakura.png" alt="Loading Yume" class="preloader-logo" loading="lazy">
+        <img src="assets/yume-light-sakura.webp" alt="Loading Yume" class="preloader-logo" loading="lazy">
     </div> <!-- Sticky Navigation -->
 
     <header class="navbar">
-        <div class="logo-container">
-            <!-- Using Logo 1/4 (Light standard) for Top Nav -->
-            <img src="assets/yume-light.png" alt="Yume Logo Light" class="brand-logo"
-                title="Place your attached logo image here" loading="lazy">
-
+        <div class="nav-left">
+            <div class="logo-container">
+                <img src="assets/yume-light.webp" alt="Yume Logo Light" class="brand-logo" fetchpriority="high"
+                    loading="eager">
+            </div>
         </div>
 
-        <!-- Mobile Hamburger Icon -->
-        <div class="menu-toggle" id="mobile-menu-btn">
-            <i class="fa-solid fa-bars"></i>
-        </div>
-
-        <nav class="nav-links" id="nav-links">
-            <div class="menu-items-container">
+        <div class="nav-center nav-desktop-only">
+            <nav class="nav-links-desktop">
                 <a href="#hero" class="menu-item">
                     <span class="menu-text i18n-text" data-i18n="nav.home">HOME</span>
                 </a>
@@ -70,43 +68,72 @@
                 <a href="#moonlight" class="menu-item">
                     <span class="menu-text i18n-text" data-i18n="nav.moonlight">MOONLIGHT</span>
                 </a>
-                
-                <!-- Mobile-only extras inline under nav links -->
+            </nav>
+        </div>
+
+        <div class="nav-right">
+            <!-- Desktop Utilities -->
+            <div class="nav-desktop-only">
+                <button class="btn-navbar-icon btn-yellow lang-toggle" id="desktop-lang-toggle">
+                    <span class="lang-toggle-text">IT</span>
+                </button>
+                <a href="#" class="btn-navbar-icon"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="btn-navbar-icon"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="cart" class="btn-navbar-icon">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span class="cart-count">0</span>
+                </a>
+            </div>
+
+            <!-- Mobile Hamburger Icon -->
+            <div class="menu-toggle" id="mobile-menu-btn">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Drawer -->
+        <nav class="nav-links" id="nav-links">
+            <div class="menu-items-container">
+                <!-- 1. Nav Names First -->
+                <a href="#hero" class="menu-item">
+                    <span class="menu-text i18n-text" data-i18n="nav.home">HOME</span>
+                </a>
+                <a href="#story" class="menu-item">
+                    <span class="menu-text i18n-text" data-i18n="nav.story">OUR STORY</span>
+                </a>
+                <a href="#flavors" class="menu-item">
+                    <span class="menu-text i18n-text" data-i18n="nav.flavors">FLAVORS</span>
+                </a>
+                <a href="#collabs" class="menu-item">
+                    <span class="menu-text i18n-text" data-i18n="nav.collabs">COLLABS</span>
+                </a>
+                <a href="#moonlight" class="menu-item">
+                    <span class="menu-text i18n-text" data-i18n="nav.moonlight">MOONLIGHT</span>
+                </a>
+
+                <!-- 2. Icons Underneath -->
                 <div class="mobile-menu-extras">
                     <div class="mobile-social-icons">
-                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="#"><i class="fa-brands fa-tiktok"></i></a>
-                        <a href="cart" class="cart-link-mobile">
+                        <a href="#" class="btn-navbar-icon"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="btn-navbar-icon"><i class="fa-brands fa-tiktok"></i></a>
+                        <a href="cart" class="btn-navbar-icon">
                             <i class="fa-solid fa-cart-shopping"></i>
                             <span class="cart-count">0</span>
                         </a>
-                        <button class="lang-toggle lang-toggle-mobile" id="mobile-lang-toggle">
+                        <button class="btn-navbar-icon btn-yellow lang-toggle" id="mobile-lang-toggle">
                             <span class="lang-toggle-text" id="mobile-lang-toggle-text">IT</span>
                         </button>
                     </div>
                 </div>
             </div>
         </nav>
-
-        <div class="socials desktop-socials">
-            <button class="lang-toggle" id="lang-toggle">
-                <span class="lang-toggle-text" id="lang-toggle-text">IT</span>
-            </button>
-            <a href="#"><i class="fa-brands fa-instagram"></i></a>
-            <a href="#"><i class="fa-brands fa-tiktok"></i></a>
-            <a href="cart" class="cart-link-nav">
-                <i class="fa-solid fa-cart-shopping"></i>
-
-                <span class="cart-count">0</span>
-            </a>
-        </div>
     </header>
 
     <!-- Parallax Hero -->
     <section id="hero" class="hero-section" data-theme="dark" style="background-color: #111427;">
         <!-- Single Background Level (Moves slightly backwards during scroll) -->
         <div class="parallax-layer layer-1 parallax-element" data-speed="0.1"
-            style="background-image: url('assets/hero-bg-main.png'); background-color: #111427;"></div>
+            style="background-image: url('assets/hero-bg-main.webp'); background-color: #111427;"></div>
 
 
         <!-- Sakura Petals Container (Z-index 4) -->
@@ -131,18 +158,21 @@
             <div class="story-content parallax-element reveal-on-scroll unique-reveal-left" data-speed="0.1">
                 <div class="punk-tag box-lavender shadow-punk" data-i18n="story.tag">Beyond the taste</div>
                 <h2 class="shadow-text-dark story-huge-title" data-i18n="story.title">DREAM IN EVERY SIP.</h2>
-                <p data-i18n="story.text"><strong>Yume (夢)</strong> brings you back to a nostalgic, dreamy anime sunset. We didn't just bottle
+                <p data-i18n="story.text"><strong>Yume (夢)</strong> brings you back to a nostalgic, dreamy anime sunset.
+                    We didn't just bottle
                     a flavor; we bottled a vibe. Balancing traditional Japanese tastes with an unapologetic, bold modern
                     twist.</p>
             </div>
 
-            <!-- Animazione Lattina 3D (GIF) -->
             <div class="story-3d-model-wrapper parallax-element reveal-on-scroll unique-reveal-right" data-speed="-0.04"
                 style="transition-delay: 0.2s;">
                 <div class="model-3d-container slanted">
-                    <!-- Loading="lazy" for performance -->
-                    <img src="assets/yume-3d-can.gif" alt="Animazione Lattina Yume" class="model-gif" loading="lazy"
+                    <!-- High-performance MP4 replacement for GIF -->
+                    <video autoplay loop muted playsinline class="model-gif"
                         style="width: 100%; height: auto; border-radius: 12px; filter: drop-shadow(8px 8px 0px var(--color-pink));">
+                        <source src="assets/yume-3d-can.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
                 </div>
             </div>
 
@@ -247,12 +277,14 @@
 
         <div class="container text-center parallax-element" data-speed="0.05" style="position: relative; z-index: 5;">
             <div class="title-badge slanted-box box-glass-dark shadow-punk"
-                style="color:var(--color-yellow); border-color:var(--color-yellow); font-size: 1.2rem; margin-bottom: 1.5rem;" data-i18n="collabs.tag">
+                style="color:var(--color-yellow); border-color:var(--color-yellow); font-size: 1.2rem; margin-bottom: 1.5rem;"
+                data-i18n="collabs.tag">
                 Exclusive Drops</div>
             <h2 class="section-title shadow-text"
-                style="font-size: 5rem; margin-top:0; letter-spacing: -2px; line-height: 1;" data-i18n="collabs.title">Anime Collabs</h2>
-            <p
-                style="font-size: 1.3rem; max-width: 600px; margin: 2rem auto 0; font-weight: bold; color: rgba(255, 255, 255, 0.8);" data-i18n="collabs.desc">
+                style="font-size: 5rem; margin-top:0; letter-spacing: -2px; line-height: 1;" data-i18n="collabs.title">
+                Anime Collabs</h2>
+            <p style="font-size: 1.3rem; max-width: 600px; margin: 2rem auto 0; font-weight: bold; color: rgba(255, 255, 255, 0.8);"
+                data-i18n="collabs.desc">
                 Two legendary worlds collide in this ultra-limited edition release. Witness the ultimate crossover and
                 choose your power.</p>
         </div>
@@ -262,7 +294,7 @@
     <section class="slanted-section collab-bg-section">
         <!-- JS Parallax Layer -->
         <div class="parallax-bg-layer parallax-element" data-speed="0.1"
-            style="background-image: linear-gradient(rgba(17, 20, 39, 0.6), rgba(17, 20, 39, 0.6)), url('assets/bg-onepiece.jpg');">
+            style="background-image: linear-gradient(rgba(17, 20, 39, 0.6), rgba(17, 20, 39, 0.6)), url('assets/bg-onepiece.webp');">
         </div>
         <div class="container text-center parallax-element" data-speed="0.05" style="position: relative; z-index: 5;">
             <div class="collab-row" style="border: none; padding: 2rem 0; margin-bottom: 0;">
@@ -270,15 +302,19 @@
                     style="text-align: left; color: white;">
                     <div style="display: block; width: fit-content; margin: 0 0 1rem 0;">
                         <span class="punk-tag shadow-punk slanted"
-                            style="background: #D32F2F; color: white; border-color: white; margin-bottom: 0;" data-i18n="collab.onepiece.tag">YUME x ONE
+                            style="background: #D32F2F; color: white; border-color: white; margin-bottom: 0;"
+                            data-i18n="collab.onepiece.tag">YUME x ONE
                             PIECE</span>
                     </div>
                     <h3 class="op-text slanted" data-i18n="collab.onepiece.name">Gomu Gomu Fizz</h3>
-                    <p style="margin-bottom: 0.5rem; font-size: 1.2rem;" data-i18n="collab.onepiece.desc">An energetic, tropical burst of freedom.
+                    <p style="margin-bottom: 0.5rem; font-size: 1.2rem;" data-i18n="collab.onepiece.desc">An energetic,
+                        tropical burst of freedom.
                         Capturing the spirit of the sea.</p>
-                    <p style="font-weight: bold;" data-i18n="collab.onepiece.flavor">Tropical Mango + Fresh Pineapple + Light Citrus.</p>
+                    <p style="font-weight: bold;" data-i18n="collab.onepiece.flavor">Tropical Mango + Fresh Pineapple +
+                        Light Citrus.</p>
                     <a href="products/onepiece" class="btn-primary shadow-punk"
-                        style="margin-top: 1rem; display: inline-block; transform: rotate(-2deg); background-color: #FFA726; color: #111427; border-color: #111427;" data-i18n="collab.onepiece.btn">DISCOVER
+                        style="margin-top: 1rem; display: inline-block; transform: rotate(-2deg); background-color: #FFA726; color: #111427; border-color: #111427;"
+                        data-i18n="collab.onepiece.btn">DISCOVER
                         THE DROP</a>
 
                 </div>
@@ -297,7 +333,7 @@
     <section class="slanted-section collab-bg-section">
         <!-- JS Parallax Layer (Reverse Scroll Direction) -->
         <div class="parallax-bg-layer parallax-element" data-speed="-0.1"
-            style="background-image: linear-gradient(rgba(17, 20, 39, 0.6), rgba(17, 20, 39, 0.6)), url('assets/bg-naruto.jpg');">
+            style="background-image: linear-gradient(rgba(17, 20, 39, 0.6), rgba(17, 20, 39, 0.6)), url('assets/bg-naruto.webp');">
         </div>
         <div class="container text-center parallax-element" data-speed="0.05" style="position: relative; z-index: 5;">
             <div class="collab-row reverse" style="border: none; padding: 2rem 0; margin-bottom: 0;">
@@ -305,15 +341,19 @@
                     style="text-align: right; color: white;">
                     <div style="display: block; width: fit-content; margin: 0 0 1rem auto;">
                         <span class="punk-tag shadow-punk slanted"
-                            style="background: #03A9F4; color: white; border-color: white; margin-bottom: 0;" data-i18n="collab.naruto.tag">YUME x
+                            style="background: #03A9F4; color: white; border-color: white; margin-bottom: 0;"
+                            data-i18n="collab.naruto.tag">YUME x
                             NARUTO</span>
                     </div>
                     <h3 class="naruto-text slanted" data-i18n="collab.naruto.name">Chakra Burst</h3>
-                    <p style="margin-bottom: 0.5rem; font-size: 1.2rem;" data-i18n="collab.naruto.desc">A dual sensation of calm strength and explosive
+                    <p style="margin-bottom: 0.5rem; font-size: 1.2rem;" data-i18n="collab.naruto.desc">A dual sensation
+                        of calm strength and explosive
                         energy. First sweet, then it hits you.</p>
-                    <p style="font-weight: bold;" data-i18n="collab.naruto.flavor">Blood Orange + Peach + Sharp Ginger.</p>
+                    <p style="font-weight: bold;" data-i18n="collab.naruto.flavor">Blood Orange + Peach + Sharp Ginger.
+                    </p>
                     <a href="products/naruto" class="btn-primary shadow-punk"
-                        style="margin-top: 1rem; display: inline-block; transform: rotate(2deg); background-color: #FF7043; color: #111427; border-color: #111427;" data-i18n="collab.naruto.btn">UNLEASH
+                        style="margin-top: 1rem; display: inline-block; transform: rotate(2deg); background-color: #FF7043; color: #111427; border-color: #111427;"
+                        data-i18n="collab.naruto.btn">UNLEASH
                         CHAKRA</a>
 
                 </div>
@@ -338,10 +378,12 @@
                 <h2 class="glow-text slanted" data-i18n="moonlight.title">Yume Moonlight</h2>
                 <div class="story-note box-glass-dark slanted">
                     <p data-i18n="moonlight.flavor">Japanese grape + blueberry + vanilla + floral note.</p>
-                    <p data-i18n="moonlight.desc">"Under a starry anime sky, magic becomes reality. A sweet dream you can drink."</p>
+                    <p data-i18n="moonlight.desc">"Under a starry anime sky, magic becomes reality. A sweet dream you
+                        can drink."</p>
                 </div>
                 <a href="products/moonlight" class="btn-primary"
-                    style="margin-top: 2rem; display: inline-block; text-decoration: none; transform: rotate(-2deg);" data-i18n="moonlight.btn">DISCOVER
+                    style="margin-top: 2rem; display: inline-block; text-decoration: none; transform: rotate(-2deg);"
+                    data-i18n="moonlight.btn">DISCOVER
                     THE CAN</a>
 
             </div>
@@ -392,19 +434,22 @@
                     <div style="display:none; position:absolute; left:-9999px;">
                         <input type="text" name="b_67_honeypot" tabindex="-1" value="">
                     </div>
-                    
+
                     <input type="email" id="newsletterEmail" placeholder="Your email..." required class="shadow-punk"
                         autocomplete="off" data-i18n="footer.newsletter_placeholder">
-                    <button type="submit" class="btn-primary shadow-punk" data-i18n="footer.newsletter_btn">Sign Up</button>
+                    <button type="submit" class="btn-primary shadow-punk" data-i18n="footer.newsletter_btn">Sign
+                        Up</button>
                 </form>
             </div>
 
             <!-- New Tracking Section -->
             <div class="footer-tracking reveal-on-scroll" style="transition-delay: 0.1s;">
                 <h4 data-i18n="footer.tracking_title">Track Your Order</h4>
-                <p data-i18n="footer.tracking_desc">Check the status of your shipment using the token from your email.</p>
+                <p data-i18n="footer.tracking_desc">Check the status of your shipment using the token from your email.
+                </p>
                 <a href="tracking" class="track-link">
-                    <i class="fa-solid fa-box-open"></i> <span class="i18n-text" data-i18n="footer.tracking_btn">GO TO TRACKING</span>
+                    <i class="fa-solid fa-box-open"></i> <span class="i18n-text" data-i18n="footer.tracking_btn">GO TO
+                        TRACKING</span>
                 </a>
 
             </div>
