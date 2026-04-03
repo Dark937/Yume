@@ -1,0 +1,232 @@
+/* =========================================
+   YUME - Legal Pages (Terms & Privacy)
+   ========================================= */
+
+.legal-main {
+    background: var(--bg-dark);
+    min-height: 100vh;
+}
+
+/* ---- Hero Section ---- */
+.legal-hero {
+    background: var(--color-lavender);
+    border-bottom: 3px solid var(--text-primary);
+    padding: 4rem 2rem 3rem;
+    text-align: center;
+}
+
+.legal-hero-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.legal-title {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    color: var(--text-primary);
+    text-shadow: 5px 5px 0 var(--color-pink);
+    margin-bottom: 0.75rem;
+    letter-spacing: 1px;
+}
+
+.legal-subtitle {
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    opacity: 0.8;
+    margin-bottom: 1.25rem;
+    font-style: italic;
+}
+
+.legal-date {
+    display: inline-block;
+    background: var(--color-yellow);
+    color: var(--text-primary);
+    border: 2px solid var(--text-primary);
+    box-shadow: 3px 3px 0 var(--text-primary);
+    padding: 0.3rem 1rem;
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+}
+
+/* ---- Content Area ---- */
+.legal-content {
+    padding: 3rem 0 5rem;
+}
+
+.legal-container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+}
+
+/* ---- Legal Cards ---- */
+.legal-card {
+    background: #1a1f3a;
+    border: 3px solid var(--text-primary);
+    box-shadow: 6px 6px 0 var(--text-primary);
+    border-radius: 4px;
+    padding: 2rem 2.5rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.legal-card:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 8px 8px 0 var(--text-primary);
+}
+
+.legal-card h2 {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    letter-spacing: 2px;
+    color: var(--color-yellow);
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid rgba(230, 221, 254, 0.2);
+}
+
+.legal-card p {
+    color: var(--color-lavender);
+    line-height: 1.85;
+    font-size: 0.975rem;
+    margin: 0;
+    opacity: 0.9;
+}
+
+.legal-card strong {
+    color: var(--color-pink);
+    font-weight: 700;
+}
+
+/* ---- Section Divider ---- */
+.legal-divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 0.5rem 0;
+}
+
+.legal-divider::before,
+.legal-divider::after {
+    content: '';
+    flex: 1;
+    height: 2px;
+    background: rgba(230, 221, 254, 0.15);
+}
+
+.legal-divider span {
+    font-family: var(--font-heading);
+    font-size: 0.7rem;
+    color: var(--color-lavender);
+    opacity: 0.5;
+    letter-spacing: 3px;
+    white-space: nowrap;
+}
+
+/* ---- Contact Card Highlight ---- */
+.legal-card.legal-contact {
+    background: #111427;
+    border-color: var(--color-pink);
+    box-shadow: 6px 6px 0 var(--color-pink);
+}
+
+.legal-card.legal-contact h2 {
+    color: var(--color-pink);
+}
+
+.legal-card.legal-contact:hover {
+    box-shadow: 8px 8px 0 var(--color-pink);
+}
+
+/* ---- Back to top / nav link ---- */
+.legal-alt-link {
+    text-align: center;
+    margin-top: 1rem;
+    padding-bottom: 2rem;
+}
+
+.legal-alt-link a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    color: var(--color-lavender);
+    opacity: 0.6;
+    transition: opacity 0.2s ease, color 0.2s ease;
+    letter-spacing: 1px;
+}
+
+.legal-alt-link a:hover {
+    opacity: 1;
+    color: var(--color-yellow);
+}
+
+/* =========================================
+   RESPONSIVE — Tablet (max 768px)
+   ========================================= */
+@media (max-width: 768px) {
+    .legal-hero {
+        padding: 3rem 1.5rem 2.5rem;
+    }
+
+    .legal-title {
+        font-size: 2.2rem;
+        text-shadow: 3px 3px 0 var(--color-pink);
+    }
+
+    .legal-subtitle {
+        font-size: 1rem;
+    }
+
+    .legal-container {
+        padding: 0 1.5rem;
+        gap: 1.5rem;
+    }
+
+    .legal-card {
+        padding: 1.5rem 1.75rem;
+    }
+}
+
+/* =========================================
+   RESPONSIVE — Mobile (max 480px)
+   ========================================= */
+@media (max-width: 480px) {
+    .legal-hero {
+        padding: 2.5rem 1rem 2rem;
+    }
+
+    .legal-title {
+        font-size: 1.7rem;
+        text-shadow: 2px 2px 0 var(--color-pink);
+    }
+
+    .legal-date {
+        font-size: 0.7rem;
+        padding: 0.25rem 0.75rem;
+    }
+
+    .legal-container {
+        padding: 0 1rem;
+        gap: 1.25rem;
+    }
+
+    .legal-card {
+        padding: 1.25rem 1.25rem;
+        box-shadow: 4px 4px 0 var(--text-primary);
+    }
+
+    .legal-card h2 {
+        font-size: 0.9rem;
+    }
+
+    .legal-card p {
+        font-size: 0.92rem;
+        line-height: 1.75;
+    }
+}
