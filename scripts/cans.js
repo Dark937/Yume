@@ -198,24 +198,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Back Button Logic
-    function updateBackBtn() {
-        const backBtn = document.getElementById('dynamicBackBtn');
-        if (!backBtn) return;
-        
-        const isStorefront = document.referrer && document.referrer.includes('products.html');
-        const key = isStorefront ? 'shop.title' : 'nav.home';
-        const defaultText = isStorefront ? 'STOREFRONT' : 'HOME';
-        const translatedText = window.I18nManager ? window.I18nManager.get(key) : defaultText;
-        
-        backBtn.href = isStorefront ? '../products.html' : '../index.html';
-        backBtn.innerHTML = `<i class="fa-solid fa-arrow-left"></i> <span class="i18n-text" data-i18n="${key}">${translatedText}</span>`;
-    }
-
-    updateBackBtn();
-
-    // Re-render on language change
-    window.addEventListener('yume:lang:changed', () => {
-        updateBackBtn();
-    });
+    // Back Button Logic - Removed as we now use static history.back() with icon-only design
 });

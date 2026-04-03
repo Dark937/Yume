@@ -69,6 +69,16 @@ body {
     background-color: var(--bg-dark);
 }
 
+/* Fix for fixed topbar overlap */
+main {
+    padding-top: 85px;
+}
+
+.index-page main {
+    padding-top: 0;
+    /* Hero section handles itself */
+}
+
 h1,
 h2,
 h3,
@@ -93,6 +103,9 @@ a {
     max-width: 1200px;
     margin: 0 auto;
     padding: 6rem 2rem;
+    width: 100%;
+    /* Ensure it takes full width when viewport is smaller */
+    box-sizing: border-box;
 }
 
 .text-center {
@@ -139,8 +152,8 @@ a {
 .slanted-section {
     transform: skewY(-3deg);
     transform-origin: top left;
-    margin-top: -50px;
-    /* pull up to close gaps */
+    margin-top: -80px;
+    /* Increased overlap to prevent gaps */
     padding-bottom: 50px;
 }
 
@@ -326,7 +339,6 @@ a {
 .btn-back-nav {
     display: flex;
     align-items: center;
-    gap: 0.8rem;
     font-weight: 800;
     font-family: var(--font-heading);
     color: inherit;
@@ -423,7 +435,7 @@ a {
     .nav-desktop-only {
         display: none !important;
     }
-    
+
     .navbar {
         display: flex;
         justify-content: space-between;
@@ -454,7 +466,8 @@ a {
 }
 
 .navbar.nav-dark .btn-back-nav i {
-    color: white; /* Force white arrow inside dark circle */
+    color: white;
+    /* Force white arrow inside dark circle */
 }
 
 .navbar.nav-dark .btn-navbar-icon {
@@ -470,7 +483,8 @@ a {
 }
 
 .navbar.nav-dark .brand-logo {
-    filter: invert(1) brightness(0.2); /* Ensure it's very dark/black */
+    filter: invert(1) brightness(0.2);
+    /* Ensure it's very dark/black */
 }
 
 /* Simple invert for dark logo on light bg if needed, though they provide files, we invert via css just in case */
@@ -622,8 +636,8 @@ a {
    ================================ */
 .hero-section {
     position: relative;
-    height: 110vh;
-    /* slightly taller to handle the skew cut */
+    height: 100vh;
+    min-height: 600px;
     width: 100%;
     overflow: hidden;
     background-color: var(--bg-dark);
@@ -1509,22 +1523,22 @@ a {
 /* Unique Animated Reveals */
 .reveal-on-scroll.unique-reveal-left {
     opacity: 0;
-    transform: translateX(-100px) scale(0.9);
+    transform: translateY(30px) scale(0.95);
 }
 
 .reveal-on-scroll.unique-reveal-left.is-visible {
     opacity: 1;
-    transform: translateX(0) scale(1);
+    transform: translateY(0) scale(1);
 }
 
 .reveal-on-scroll.unique-reveal-right {
     opacity: 0;
-    transform: translateX(100px) scale(0.9);
+    transform: translateY(30px) scale(0.95);
 }
 
 .reveal-on-scroll.unique-reveal-right.is-visible {
     opacity: 1;
-    transform: translateX(0) scale(1);
+    transform: translateY(0) scale(1);
 }
 
 @media (max-width: 900px) {
@@ -1624,18 +1638,60 @@ a {
     transform: rotate(-10deg);
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1200px) {
+    .container {
+        padding: 4rem 4vw;
+        /* Reduced vertical padding */
+    }
+
+    .split-story,
+    .moonlight-container,
+    .collab-row {
+        gap: 1rem;
+        /* Tighten gaps to reduce wasted space */
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .collab-row {
+        padding: 3rem 0;
+        /* Tighter row padding */
+    }
+
+    .story-content,
+    .moonlight-text {
+        min-width: 320px;
+        flex: 1;
+    }
+
+    .navbar {
+        padding: 0 1.5rem;
+    }
+
+    .nav-center {
+        gap: 0.8rem;
+    }
+
+    .menu-text {
+        font-size: 1rem;
+        margin: 0 0.2rem;
+    }
+}
+
+@media (max-width: 768px) {
     .moonlight-container {
         flex-direction: column;
         text-align: center;
-        gap: 8rem;
+        gap: 4rem;
+        /* Reduced from 8rem */
     }
 
     .moonlight-can {
-        margin-top: 4rem;
+        margin-top: 2rem;
+        /* Reduced from 4rem */
     }
 
-    /* Pushed down heavily to negate parallax overlap over text */
+    /* Pushed down slightly to negate parallax overlap */
     .split-story {
         flex-direction: column;
         text-align: center;
@@ -1647,6 +1703,29 @@ a {
         font-size: 2.8rem;
         margin-bottom: 1.5rem;
     }
+
+    .collab-row,
+    .collab-row.reverse {
+        flex-direction: column !important;
+        text-align: center;
+        gap: 3rem;
+        padding: 3rem 0;
+    }
+
+    .collab-desc-box {
+        text-align: center !important;
+    }
+
+    .collab-desc-box div {
+        margin: 0 auto 1rem !important;
+        /* Center the punk tag */
+    }
+
+    .op-text,
+    .naruto-text {
+        font-size: 3rem;
+    }
+
 
     .footer-content {
         flex-direction: column;
@@ -1877,6 +1956,7 @@ a {
         width: 300px;
         height: 300px;
     }
+}
 }
 
 /* Mobile FAB Logic */

@@ -300,7 +300,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 observer.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.3 }); // Trigger when 30% of the carousel comes into view
+    }, { threshold: 0.1 }); // Trigger when 10% of the carousel comes into view
 
     if (container) lineupObserver.observe(container);
 

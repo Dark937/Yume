@@ -78,8 +78,13 @@ body {
 
 .shop-section.light .shop-title {
     color: var(--bg-dark);
-    -webkit-text-stroke: 1.5px var(--color-purple);
-    text-shadow: 4px 4px 0px var(--color-mint);
+    -webkit-text-stroke: 0px;
+    background: linear-gradient(135deg, var(--bg-dark) 0%, var(--color-purple) 70%, #000 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 3px 3px 0px var(--color-mint);
+    letter-spacing: 2px;
 }
 
 .shop-section.light .flavor-profile {
@@ -120,11 +125,18 @@ body {
 
 .shop-title {
     font-family: var(--font-heading);
-    font-size: clamp(3rem, 6vw, 4rem);
+    font-size: clamp(3.5rem, 8vw, 5.5rem); /* Bigger and bolder */
     color: #fff;
-    -webkit-text-stroke: 1.5px var(--color-pink);
-    text-shadow: 4px 4px 0px var(--color-purple);
+    -webkit-text-stroke: 1px rgba(250, 188, 219, 0.5);
+    background: linear-gradient(180deg, #fff 30%, var(--color-pink) 70%, var(--color-purple) 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 6px 6px 0px rgba(138, 43, 226, 0.4);
     transform: rotate(-1deg);
+    margin-bottom: 0.5rem;
+    filter: drop-shadow(0 0 15px rgba(250, 188, 219, 0.3));
+    letter-spacing: -1px;
 }
 
 .product-grid {
