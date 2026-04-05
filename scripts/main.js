@@ -90,39 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
     /* =========================================
        1. Adaptive Navbar Color (Precise Scroll)
        ========================================= */
-    const navbar = document.querySelector('.navbar');
-    const sections = Array.from(document.querySelectorAll('section[data-theme]'));
-
-    window.addEventListener('scroll', () => {
-        let currentTheme = 'dark'; // Default
-        const scrollPosition = window.scrollY + 100; // Offset for navbar center-ish detection
-
-        sections.forEach(sec => {
-            const top = sec.offsetTop;
-            const bottom = top + sec.offsetHeight;
-            if (scrollPosition >= top && scrollPosition < bottom) {
-                currentTheme = sec.getAttribute('data-theme');
-
-                // Update active nav link
-                const id = sec.getAttribute('id');
-                if (id) {
-                    const navItems = document.querySelectorAll('.menu-item');
-                    navItems.forEach(item => {
-                        item.classList.remove('active');
-                        if (item.getAttribute('href') === `#${id}`) {
-                            item.classList.add('active');
-                        }
-                    });
-                }
-            }
-        });
-
-        if (currentTheme === 'light') {
-            navbar.classList.add('nav-dark');
-        } else {
-            navbar.classList.remove('nav-dark');
-        }
-    });
+    /* Navbar theme logic has been moved to scripts/navbar-theme.js for site-wide consistency. */
 
     // Initial check on load
     window.dispatchEvent(new Event('scroll'));

@@ -18,12 +18,13 @@
 
 
 <body class="flavor-grape">
-    <header class="navbar nav-dark">
+    <header class="navbar">
         <div class="nav-left"><a href="javascript:history.back()" class="btn-back-nav" id="dynamicBackBtn"><i class="fa-solid fa-arrow-left"></i></a></div>
 
         <div class="nav-center">
             <a href="index" class="nav-logo-link">
-                <img src="assets/yume-light-sakura.webp" alt="YUME" class="brand-logo">
+                <img src="assets/yume-light-sakura.webp" alt="YUME" class="brand-logo logo-light">
+                <img src="assets/yume-dark-sakura.webp" alt="YUME" class="brand-logo logo-dark">
             </a>
         </div>
 
@@ -40,7 +41,7 @@
 
     <main class="product-main-container">
         <!-- Main Product Section - LIGHT -->
-        <section class="product-section light">
+        <section class="product-section light" data-theme="light">
             <div class="product-container">
                 <div class="product-gallery">
                     <div class="slider-container">
@@ -156,10 +157,14 @@
         </section>
     </main>
 
-    <footer class="product-footer">
-        <p data-i18n="footer.rights">&copy; 2026 Yume Drinks. Anime-Inspired Energy.</p>
+    <footer class="footer-minimal">
+        <div class="container">
+            <img src="assets/yume-light-sakura.webp" alt="YUME" class="footer-logo">
+            <p class="footer-rights" data-i18n="footer.rights">&copy; 2026 Yume Drinks. Anime-Inspired Energy. All rights reserved.</p>
+        </div>
     </footer>
 
+    <script src="scripts/navbar-theme.js"></script>
     <script src="scripts/cans.js"></script>
 </body>
 

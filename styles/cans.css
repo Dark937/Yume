@@ -334,8 +334,18 @@ body {
 }
 .product-section.light .allergen-list { color: #d32f2f; }
 
+@media (max-width: 900px) {
+    .product-container { flex-direction: column; gap: 2rem; padding: 0 1.5rem; }
+    .product-gallery { flex: none; width: 100%; }
+    .product-info { width: 100%; text-align: center; }
+    .item-details-grid { grid-template-columns: 1fr; gap: 1rem; }
+    .slider-container { aspect-ratio: 1/1; }
+    .product-section.light { padding: 6rem 1rem 3rem; }
+}
+
 @media (max-width: 600px) {
     .nutrition-grid { grid-template-columns: repeat(2, 1fr); }
+    .product-title { font-size: 2.8rem; }
 }
 
 .product-footer {

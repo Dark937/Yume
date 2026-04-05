@@ -46,8 +46,8 @@
     <header class="navbar">
         <div class="nav-left">
             <div class="logo-container">
-                <img src="assets/yume-light.webp" alt="Yume Logo Light" class="brand-logo" fetchpriority="high"
-                    loading="eager">
+                <img src="assets/yume-light.webp" alt="YUME" class="brand-logo logo-light" fetchpriority="high" loading="eager">
+                <img src="assets/yume-dark-sakura.webp" alt="YUME" class="brand-logo logo-dark" fetchpriority="high" loading="eager">
             </div>
         </div>
 
@@ -179,7 +179,7 @@
         </div>
     </section>
 
-    <!-- Flavors Carousel Section (Pastel Lavander Background, Angled) -->
+    <!-- Flavors Carousel Section (Reverted to Pink/Lavender) -->
     <section id="flavors" class="section-lavender slanted-section-reverse" data-theme="light">
         <div class="container text-center parallax-element" data-speed="0.05">
             <div class="title-badge slanted-box box-yellow shadow-punk" data-i18n="flavors.tag">The Lineup</div>
@@ -397,16 +397,16 @@
     </section>
 
     <!-- Footer -->
-    <footer class="footer" data-theme="light">
-        <div class="footer-content container reveal-on-scroll" style="padding-bottom: 1rem;">
+    <footer class="footer">
+        <div class="footer-content container reveal-on-scroll">
             <div class="footer-brand">
-                <img src="assets/yume-dark.webp" alt="Yume Logo Dark" class="footer-logo" loading="lazy">
+                <img src="assets/yume-dark-sakura.webp" alt="YUME" class="footer-logo" loading="lazy">
                 <p data-i18n="hero.subtitle">Drink the dream. Feel the vibe.</p>
 
-                <div class="socials-footer margin-top-sm">
-                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#"><i class="fa-brands fa-tiktok"></i></a>
-                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                <div class="socials-footer">
+                    <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
                 </div>
             </div>
 
@@ -418,11 +418,12 @@
                     <a href="#" data-i18n="footer.press">Press</a>
                     <a href="#" data-i18n="footer.stockists">Stockists</a>
                 </div>
+
                 <div class="link-column">
-                    <h4 data-i18n="footer.help">Help & Info</h4>
-                    <a href="#" data-i18n="footer.faq">FAQ</a>
-                    <a href="#" data-i18n="footer.shipping">Shipping</a>
-                    <a href="#" data-i18n="footer.contact">Contact Us</a>
+                    <h4 data-i18n="footer.legal">Legal</h4>
+                    <a href="privacy" data-i18n="privacy.title">Privacy Policy</a>
+                    <a href="terms" data-i18n="terms.title">Terms of Service</a>
+                    <a href="faq" data-i18n="footer.faq">FAQ</a>
                 </div>
             </div>
 
@@ -430,28 +431,20 @@
                 <h4 data-i18n="footer.newsletter_title">Join the Dreamers</h4>
                 <p class="small-text" data-i18n="footer.newsletter_desc">Exclusive updates and anime drops.</p>
                 <form class="newsletter-form">
-                    <!-- Honey-pot field (Hidden from humans, bots will fill it) -->
-                    <div style="display:none; position:absolute; left:-9999px;">
-                        <input type="text" name="b_67_honeypot" tabindex="-1" value="">
-                    </div>
-
-                    <input type="email" id="newsletterEmail" placeholder="Your email..." required class="shadow-punk"
-                        autocomplete="off" data-i18n="footer.newsletter_placeholder">
-                    <button type="submit" class="btn-primary shadow-punk" data-i18n="footer.newsletter_btn">Sign
-                        Up</button>
+                    <input type="email" id="newsletterEmail" placeholder="Your email..." required autocomplete="off"
+                        data-i18n="footer.newsletter_placeholder">
+                    <button type="submit" class="btn-primary" data-i18n="footer.newsletter_btn">Join</button>
                 </form>
             </div>
 
-            <!-- New Tracking Section -->
-            <div class="footer-tracking reveal-on-scroll" style="transition-delay: 0.1s;">
+            <div class="footer-tracking">
                 <h4 data-i18n="footer.tracking_title">Track Your Order</h4>
                 <p data-i18n="footer.tracking_desc">Check the status of your shipment using the token from your email.
                 </p>
                 <a href="tracking" class="track-link">
-                    <i class="fa-solid fa-box-open"></i> <span class="i18n-text" data-i18n="footer.tracking_btn">GO TO
-                        TRACKING</span>
+                    <i class="fa-solid fa-location-crosshairs"></i>
+                    <span class="i18n-text" data-i18n="footer.tracking_btn">GO TO TRACKING</span>
                 </a>
-
             </div>
         </div>
         <div class="footer-bottom">
@@ -479,6 +472,7 @@
         </div>
     </div>
 
+    <script src="scripts/navbar-theme.js"></script>
     <script src="scripts/main.js"></script>
 </body>
 

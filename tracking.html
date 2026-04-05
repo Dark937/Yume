@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <base href="/">
     <title>Yume | Track Your Order</title>
-    <link rel="icon" href="assets/yume-light.png" type="image/png">
+    <link rel="icon" href="assets/yume-light.webp" type="image/webp">
     <link rel="stylesheet" href="styles/style.css">
     <link rel="stylesheet" href="styles/cart.css">
     <link rel="stylesheet" href="styles/tracking.css">
@@ -29,7 +29,8 @@
 
         <div class="nav-center">
             <a href="index" class="nav-logo-link">
-                <img src="assets/yume-light-sakura.webp" alt="YUME" class="brand-logo">
+                <img src="assets/yume-light-sakura.webp" alt="YUME" class="brand-logo logo-light">
+                <img src="assets/yume-dark-sakura.webp" alt="YUME" class="brand-logo logo-dark">
             </a>
         </div>
 
@@ -42,7 +43,7 @@
         </div>
     </nav>
 
-    <main class="tracking-main">
+    <main class="tracking-main" data-theme="light">
         <section class="tracking-hero" id="trackingHero">
             <div class="tracking-decoration">
                 <img src="" id="leftCan" class="tracking-can-side left" alt="Decorative Can">
@@ -153,10 +154,14 @@
         </section>
     </main>
 
-    <footer class="cart-footer">
-        <p data-i18n="footer.rights">&copy; 2026 Yume Drinks. Anime-Inspired Energy. All rights reserved.</p>
+    <footer class="footer-minimal">
+        <div class="container">
+            <img src="assets/yume-light-sakura.webp" alt="YUME" class="footer-logo">
+            <p class="footer-rights" data-i18n="footer.rights">&copy; 2026 Yume Drinks. Anime-Inspired Energy. All rights reserved.</p>
+        </div>
     </footer>
 
+    <script src="scripts/navbar-theme.js"></script>
     <script src="scripts/utils.js"></script>
     <script src="scripts/tracking.js"></script>
 </body>

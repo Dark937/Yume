@@ -18,7 +18,7 @@
 </head>
 
 <body class="shop-page">
-    <header class="navbar nav-dark">
+    <header class="navbar nav-dark" style="border-bottom: 1px solid rgba(0,0,0,0.05);">
         <div class="nav-left">
             <a href="javascript:history.back()" class="btn-back-nav">
                 <i class="fa-solid fa-arrow-left"></i>
@@ -27,7 +27,8 @@
 
         <div class="nav-center">
             <a href="index" class="nav-logo-link">
-                <img src="assets/yume-light-sakura.webp" alt="YUME" class="brand-logo" loading="lazy">
+                <img src="assets/yume-light-sakura.webp" alt="YUME" class="brand-logo logo-light">
+                <img src="assets/yume-dark-sakura.webp" alt="YUME" class="brand-logo logo-dark">
             </a>
         </div>
 
@@ -44,7 +45,7 @@
 
     <main>
         <!-- Header Section - NOW WHITE -->
-        <section class="shop-section light">
+        <section class="shop-section light" data-theme="light">
             <div class="shop-container shop-header">
                 <h1 class="shop-title" data-i18n="shop.title">STOREFRONT</h1>
                 <p class="flavor-profile" data-i18n="shop.subtitle">Crave the dream. Drink the vibe.</p>
@@ -52,7 +53,7 @@
         </section>
 
         <!-- Special Editions -->
-        <section class="shop-section dark">
+        <section class="shop-section dark" data-theme="dark">
             <div class="shop-container">
                 <header class="section-label">
                     <span data-i18n="shop.limited_label">Limited Time</span>
@@ -103,8 +104,8 @@
             </div>
         </section>
 
-        <!-- Originals Section - LIGHT LAVENDER -->
-        <section class="shop-section lavender">
+        <!-- Originals Section - DARK -->
+        <section class="shop-section">
             <div class="shop-container">
                 <h2 class="regular-label" data-i18n="shop.originals_title">Yume Originals Collection</h2>
                 <div class="product-grid">
@@ -210,9 +211,11 @@
         </section>
     </main>
 
-    <footer
-        style="background-color: var(--bg-dark); color: var(--text-light); padding: 4rem 2rem; border-top: 1px solid rgba(255,255,255,0.05); text-align: center;">
-        <p data-i18n="footer.rights">&copy; 2026 Yume Drinks. Anime-Inspired Energy.</p>
+    <footer class="footer-minimal">
+        <div class="container">
+            <img src="assets/yume-light-sakura.webp" alt="YUME" class="footer-logo">
+            <p class="footer-rights" data-i18n="footer.rights">&copy; 2026 Yume Drinks. Anime-Inspired Energy. All rights reserved.</p>
+        </div>
     </footer>
 
     <div class="scroll-hint">
@@ -221,6 +224,7 @@
         <i class="fa-solid fa-chevron-down"></i>
     </div>
 
+    <script src="scripts/navbar-theme.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const cards = document.querySelectorAll('.product-card');

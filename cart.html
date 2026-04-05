@@ -18,8 +18,8 @@
 </head>
 
 
-<body>
-    <nav class="navbar nav-dark">
+<body style="background-color: #111427;">
+    <nav class="navbar">
         <div class="nav-left">
             <a href="javascript:history.back()" class="btn-back-nav">
                 <i class="fa-solid fa-arrow-left"></i>
@@ -28,7 +28,8 @@
 
         <div class="nav-center">
             <a href="index" class="nav-logo-link">
-                <img src="assets/yume-light-sakura.webp" alt="YUME" class="brand-logo">
+                <img src="assets/yume-light-sakura.webp" alt="YUME" class="brand-logo logo-light">
+                <img src="assets/yume-dark-sakura.webp" alt="YUME" class="brand-logo logo-dark">
             </a>
         </div>
 
@@ -313,14 +314,18 @@
         </section>
 
         <!-- Footer - DARK -->
-        <footer class="cart-footer">
-            <p data-i18n="footer.rights">&copy; 2026 Yume Drinks. Anime-Inspired Energy. All rights reserved.</p>
+        <footer class="footer-minimal">
+            <div class="container">
+                <img src="assets/yume-light-sakura.webp" alt="YUME" class="footer-logo">
+                <p class="footer-rights" data-i18n="footer.rights">&copy; 2026 Yume Drinks. Anime-Inspired Energy. All rights reserved.</p>
+            </div>
         </footer>
     </main>
 
     <!-- Custom Script for Cart rendering (matches Image 2 style) -->
     <!-- Order Confirmation Email Service -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="scripts/navbar-theme.js"></script>
     <script src="scripts/utils.js"></script>
     <script src="scripts/email-service.js"></script>
     <script src="scripts/cart.js"></script>
