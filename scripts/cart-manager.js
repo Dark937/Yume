@@ -27,14 +27,27 @@ const CartManager = {
      */
     addItem(product, quantity = 1, bundleType = 'single') {
         const cart = this.getCart();
+        
+        // Ensure inputs are numeric
+        const numericQty = parseInt(quantity) || 1;
+        // Clean price string (remove €, whitespace) and parse
+        let rawPrice = product.price;
+        if (typeof rawPrice === 'string') {
+            rawPrice = rawPrice.replace(/[^\d.,]/g, '').replace(',', '.');
+        }
+        const numericPrice = parseFloat(rawPrice) || 0;
+        
         const existingItemIndex = cart.findIndex(item => item.id === product.id && item.bundleType === bundleType);
 
         if (existingItemIndex > -1) {
-            cart[existingItemIndex].quantity += quantity;
+            cart[existingItemIndex].quantity += numericQty;
+            // Update price in case it changed or was corrected
+            cart[existingItemIndex].price = numericPrice;
         } else {
             cart.push({
                 ...product,
-                quantity,
+                price: numericPrice,
+                quantity: numericQty,
                 bundleType,
                 addedAt: new Date().getTime()
             });

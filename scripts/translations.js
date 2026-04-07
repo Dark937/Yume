@@ -226,7 +226,7 @@ const Translations = {
         "terms.changes.title": "10. AGGIORNAMENTI",
         "terms.changes.text": "Ci riserviamo il diritto di evolve il presente documento in qualsiasi momento per riflettere i cambiamenti nel mercato o nella tecnologia. Le notifiche degli aggiornamenti verranno pubblicate sul sito. L'interazione continua con lo store post-modifica implica l'accettazione automatica.",
         "terms.contact.title": "CONTATTO LEGALE",
-        "terms.contact.text": "Per comunicazioni ufficiali o chiarimenti sui protocolli, invia un messaggio crittografato a: <strong>legal@yume.drinks</strong>",
+        "terms.contact.text": "Per comunicazioni ufficiali o chiarimenti sui protocolli, invia un messaggio crittografato a: <strong>yumeanimecans@outlook.com</strong>",
 
         "privacy.title": "Privacy policy",
         "privacy.subtitle": "La tua identità digitale è protetta. Operiamo in totale trasparenza.",
@@ -261,7 +261,7 @@ const Translations = {
         "privacy.changes.title": "EVOLUZIONE POLICY",
         "privacy.changes.text": "Man mano che l'universo Yume si espande, potremmo aggiornare questi protocolli. Le modifiche critiche verranno segnalate visivamente a ogni accesso. La versione più recente è sempre quella consultabile su questa pagina.",
         "privacy.contact.title": "DATA MANAGER",
-        "privacy.contact.text": "Per queries sul trattamento o per esercitare i tuoi diritti digitali, connettiti con noi: <strong>privacy@yume.drinks</strong>",
+        "privacy.contact.text": "Per queries sul trattamento o per esercitare i tuoi diritti digitali, connettiti con noi: <strong>yumeanimecans@outlook.com</strong>",
     },
     en: {
         "nav.home": "HOME",
@@ -494,7 +494,7 @@ const Translations = {
         "terms.changes.title": "10. UPDATES",
         "terms.changes.text": "We reserve the right to evolve this document at any time to reflect changes in the market or technology. Update notifications will be posted on the site. Continued interaction with the store post-modification implies automatic acceptance.",
         "terms.contact.title": "LEGAL CONTACT",
-        "terms.contact.text": "For official communications or protocol clarifications, send an encrypted message to: <strong>legal@yume.drinks</strong>",
+        "terms.contact.text": "For official communications or protocol clarifications, send an encrypted message to: <strong>yumeanimecans@outlook.com</strong>",
 
         "privacy.title": "Privacy policy",
         "privacy.subtitle": "Your digital identity is protected. We operate in total transparency.",
@@ -518,7 +518,7 @@ const Translations = {
         "privacy.changes.title": "POLICY EVOLUTION",
         "privacy.changes.text": "As the Yume universe expands, we may update these protocols. Critical changes will be visually flagged upon access. The most recent version is always the one available on this page.",
         "privacy.contact.title": "DATA MANAGER",
-        "privacy.contact.text": "For queries on processing or to exercise your digital rights, connect with us: <strong>privacy@yume.drinks</strong>",
+        "privacy.contact.text": "For queries on processing or to exercise your digital rights, connect with us: <strong>yumeanimecans@outlook.com</strong>",
     },
     ja: {
         "nav.home": "ホーム",
@@ -758,7 +758,7 @@ const Translations = {
         "terms.changes.title": "10. アップデート",
         "terms.changes.text": "市場やテクノロジーの変化を反映するために、いつでも本文書を進化させる権利を留保します。更新通知はサイトに掲載されます。変更後のストアとの継続的なやり取りは、自動的な承諾を意味します。",
         "terms.contact.title": "法務窓口",
-        "terms.contact.text": "公式な連絡やプロトコルの説明が必要な場合は、こちらまで暗号化されたメッセージを送信してください：<strong>legal@yume.drinks</strong>",
+        "terms.contact.text": "公式な連絡やプロトコルの説明が必要な場合は、こちらまで暗号化されたメッセージを送信してください：<strong>yumeanimecans@outlook.com</strong>",
 
         "privacy.title": "プライバシー・プロトコル",
         "privacy.subtitle": "あなたのデジタルアイデンティティは保護されています。完全な透明性を持って運営します。",
@@ -782,7 +782,7 @@ const Translations = {
         "privacy.changes.title": "ポリシーの進化",
         "privacy.changes.text": "Yumeユニバースの拡大に伴い、これらのプロトコルを更新する場合があります。重要な変更はアクセス時に視覚的にフラグが立てられます。最新版は常にこのページで確認できます。",
         "privacy.contact.title": "データマネージャー",
-        "privacy.contact.text": "処理に関する問い合わせやデジタル権利の行使については、こちらまでご連絡ください：<strong>privacy@yume.drinks</strong>",
+        "privacy.contact.text": "処理に関する問い合わせやデジタル権利の行使については、こちらまでご連絡ください：<strong>yumeanimecans@outlook.com</strong>",
 
         "nav.faq": "よくある質問",
         "faq.title": "よくある質問",

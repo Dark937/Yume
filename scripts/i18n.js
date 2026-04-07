@@ -1,142 +1,76 @@
-/**
- * Yume i18n Manager
- * Handles language detection, persistence, and DOM updates.
- */
-
 const I18nManager = {
-    currentLang: 'it',
-    supportedLangs: ['it', 'en', 'ja'],
+    lang: 'it',
+    supported: ['it', 'en', 'ja'],
 
     init() {
-        console.log('🌐 i18n Manager Initializing...');
-        this.detectLanguage();
-        this.updateDOM();
-        this.setupToggle();
+        this.detect();
+        this.update();
+        this.bind();
     },
 
-    /**
-     * DETECT LANGUAGE
-     * 1. Check LocalStorage
-     * 2. Check Browser Language
-     * 3. Default to Italian
-     */
-    detectLanguage() {
-        const savedLang = localStorage.getItem('yume-language');
-        if (savedLang && this.supportedLangs.includes(savedLang)) {
-            this.currentLang = savedLang;
-            console.log(`📍 Language loaded from storage: ${this.currentLang}`);
-        } else {
-            const browserLang = navigator.language.split('-')[0];
-            if (this.supportedLangs.includes(browserLang)) {
-                this.currentLang = browserLang;
-                console.log(`🌍 Browser language detected: ${this.currentLang}`);
-            } else {
-                this.currentLang = 'it';
-                console.log(`🏳️ Defaulting to Italian: ${this.currentLang}`);
-            }
-            localStorage.setItem('yume-language', this.currentLang);
-        }
-        document.documentElement.setAttribute('lang', this.currentLang);
-    },
-
-    /**
-     * TOGGLE LANGUAGE
-     * Cycles through: it -> en -> ja -> it
-     */
-    toggleLanguage() {
-        const currentIndex = this.supportedLangs.indexOf(this.currentLang);
-        const nextIndex = (currentIndex + 1) % this.supportedLangs.length;
-        this.setLanguage(this.supportedLangs[nextIndex]);
-    },
-
-    /**
-     * SET LANGUAGE
-     */
-    setLanguage(lang) {
-        if (!this.supportedLangs.includes(lang)) return;
-        this.currentLang = lang;
-        localStorage.setItem('yume-language', lang);
-        document.documentElement.setAttribute('lang', lang);
-        this.updateDOM();
+    detect() {
+        const saved = localStorage.getItem('yume-language');
+        const browser = navigator.language.split('-')[0];
+        this.lang = (saved && this.supported.includes(saved)) ? saved : 
+                    (this.supported.includes(browser) ? browser : 'it');
         
-        // Notify other components
+        if (!saved) localStorage.setItem('yume-language', this.lang);
+        document.documentElement.lang = this.lang;
+    },
+
+    set(lang) {
+        if (!this.supported.includes(lang)) return;
+        this.lang = lang;
+        localStorage.setItem('yume-language', lang);
+        document.documentElement.lang = lang;
+        this.update();
         window.dispatchEvent(new CustomEvent('yume:lang:changed', { detail: { lang } }));
-        console.log(`🌐 Language switched to: ${lang.toUpperCase()}`);
     },
 
-    /**
-     * GET TRANSLATION
-     * Returns a translated string with @parameter replacement.
-     */
+    toggle() {
+        let idx = (this.supported.indexOf(this.lang) + 1) % this.supported.length;
+        this.set(this.supported[idx]);
+    },
+
     get(key, params = {}) {
-        const translations = window.Translations[this.currentLang];
-        if (!translations || !translations[key]) return key;
-
-        let translation = translations[key];
-        Object.keys(params).forEach(param => {
-            translation = translation.replace(`@${param}`, params[param]);
-        });
-        return translation;
+        let val = window.Translations?.[this.lang]?.[key] || key;
+        Object.entries(params).forEach(([k, v]) => val = val.replace(`@${k}`, v));
+        return val;
     },
 
-    /**
-     * UPDATE DOM
-     * Scans for [data-i18n] and updates text/placeholder.
-     */
-    updateDOM() {
-        const translations = window.Translations[this.currentLang];
-        if (!translations) return;
+    update() {
+        const dict = window.Translations?.[this.lang];
+        if (!dict) return;
 
-        // Update elements with data-i18n
         document.querySelectorAll('[data-i18n]').forEach(el => {
-            const key = el.getAttribute('data-i18n');
+            const key = el.dataset.i18n;
             let params = {};
-            const paramsStr = el.getAttribute('data-i18n-params');
-            if (paramsStr) {
-                try { params = JSON.parse(paramsStr.replace(/'/g, '"')); } catch(e) { console.error('i18n params parse error', e); }
+            const pStr = el.getAttribute('data-i18n-params');
+            if (pStr) {
+                try { params = JSON.parse(pStr.replace(/'/g, '"')); } catch(e) {}
             }
             
-            const translation = this.get(key, params);
+            const txt = this.get(key, params);
+            if (txt === key) return;
 
-            if (translation !== key) {
-                if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-                    if (el.placeholder) el.placeholder = translation;
-                } else {
-                    const textSpan = el.querySelector('.i18n-text');
-                    if (textSpan) {
-                        if (translation.includes('<')) textSpan.innerHTML = translation;
-                        else textSpan.textContent = translation;
-                    } else {
-                        if (translation.includes('<')) el.innerHTML = translation;
-                        else el.textContent = translation;
-                    }
-                }
+            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                if (el.placeholder) el.placeholder = txt;
+            } else {
+                const target = el.querySelector('.i18n-text') || el;
+                if (txt.includes('<')) target.innerHTML = txt;
+                else target.textContent = txt;
             }
         });
 
-        // Update All Language Toggle Button Texts
-        document.querySelectorAll('.lang-toggle-text').forEach(span => {
-            span.textContent = this.currentLang.toUpperCase();
-        });
+        document.querySelectorAll('.lang-toggle-text').forEach(s => s.textContent = this.lang.toUpperCase());
     },
 
-    /**
-     * SETUP TOGGLE
-     */
-    setupToggle() {
-        const toggleBtns = document.querySelectorAll('.lang-toggle');
-        toggleBtns.forEach(btn => {
-            btn.onclick = (e) => {
-                e.preventDefault();
-                this.toggleLanguage();
-            };
+    bind() {
+        document.querySelectorAll('.lang-toggle').forEach(btn => {
+            btn.onclick = (e) => (e.preventDefault(), this.toggle());
         });
     }
 };
 
-// Initialize when DOM is ready
-document.addEventListener('DOMContentLoaded', () => {
-    I18nManager.init();
-});
-
+document.addEventListener('DOMContentLoaded', () => I18nManager.init());
 window.I18nManager = I18nManager;

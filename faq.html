@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="it">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <base href="/">
     <title>Yume | FAQ</title>
-    <link rel="icon" href="assets/yume-light.png" type="image/png">
+    <link rel="icon" href="assets/yume-light.webp" type="image/webp">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&family=Nunito:ital,wght@0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
@@ -44,7 +43,7 @@
     <main class="legal-main">
         <header class="legal-hero" data-theme="light">
             <div class="legal-hero-inner">
-                <h1 class="legal-title" data-i18n="faq.title">DOMANDE FREQUENTI</h1>
+                <h1 class="legal-title" data-i18n="faq.title">FAQ</h1>
                 <p class="legal-subtitle" data-i18n="faq.subtitle">Everything you need to know about the mission.</p>
                 <div class="legal-date">SYNC: JAN 2026</div>
             </div>
@@ -66,17 +65,14 @@
                     <h2 data-i18n="faq.q1.title">Where do you ship?</h2>
                     <p data-i18n="faq.q1.text">...</p>
                 </section>
-
                 <section id="q2" class="legal-section">
                     <h2 data-i18n="faq.q2.title">Ingredients</h2>
                     <p data-i18n="faq.q2.text">...</p>
                 </section>
-
                 <section id="q3" class="legal-section">
                     <h2 data-i18n="faq.q3.title">Tracking</h2>
                     <p data-i18n="faq.q3.text">...</p>
                 </section>
-
                 <section id="q4" class="legal-section">
                     <h2 data-i18n="faq.q4.title">Cancellations</h2>
                     <p data-i18n="faq.q4.text">...</p>
@@ -85,10 +81,10 @@
         </div>
     </main>
 
-    <footer class="footer-minimal footer-light">
+    <footer class="footer-minimal">
         <div class="container">
             <img src="assets/yume-light-sakura.webp" alt="YUME" class="footer-logo">
-            <p class="footer-rights" data-i18n="footer.rights">&copy; 2026 Yume Drinks. Anime-Inspired Energy. All rights reserved.</p>
+            <p class="footer-rights" data-i18n="footer.rights">&copy; 2026 Yume Drinks. Anime-Inspired Energy.</p>
         </div>
     </footer>
 
@@ -98,45 +94,27 @@
             const sections = document.querySelectorAll('.legal-section');
             const navLinks = document.querySelectorAll('.legal-nav-link');
 
-            // Handle internal navigation for hash links when <base> is present
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
+                anchor.addEventListener('click', e => {
                     e.preventDefault();
-                    const targetId = this.getAttribute('href').substring(1);
-                    const targetElement = document.getElementById(targetId);
-                    if (targetElement) {
-                        const offset = 100;
-                        const elementPosition = targetElement.getBoundingClientRect().top;
-                        const offsetPosition = elementPosition + window.pageYOffset - offset;
-
-                        window.scrollTo({
-                            top: offsetPosition,
-                            behavior: 'smooth'
-                        });
-                        history.pushState(null, null, '#' + targetId);
+                    const target = document.getElementById(anchor.getAttribute('href').slice(1));
+                    if (target) {
+                        window.scrollTo({ top: target.offsetTop - 100, behavior: 'smooth' });
+                        history.pushState(null, null, anchor.getAttribute('href'));
                     }
                 });
             });
 
-            // Scroll-spy highlighting logic
             window.addEventListener('scroll', () => {
-                let current = "";
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop;
-                    if (pageYOffset >= sectionTop - 150) {
-                        current = section.getAttribute('id');
-                    }
+                let activeId = "";
+                sections.forEach(sec => {
+                    if (pageYOffset >= sec.offsetTop - 150) activeId = sec.id;
                 });
-
                 navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href').includes(current) && current !== "") {
-                        link.classList.add('active');
-                    }
+                    link.classList.toggle('active', link.getAttribute('href').includes(activeId) && activeId !== "");
                 });
             });
         });
     </script>
 </body>
-
 </html>

@@ -7,9 +7,7 @@
     <base href="/">
     <title>Yume</title>
 
-    <!-- Favicon -->
     <link rel="icon" href="assets/yume-light.webp" type="image/png">
-    <!-- Performance Hints -->
     <link rel="preload" href="assets/hero-bg-main.webp" as="image">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,9 +15,8 @@
         href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&family=Nunito:ital,wght@0,400;0,700;0,900;1,400&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="styles/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-    <!-- SEO & Social Media -->
     <meta name="description"
         content="Yume - The ultimate anime-inspired soft drink from Japan. Discover bold flavors and exclusive collaborations.">
     <meta property="og:title" content="Yume | Anime-Inspired Japanese Soft Drink">
@@ -29,7 +26,6 @@
     <meta property="og:url" content="http://yume.altervista.org">
     <meta name="twitter:card" content="summary_large_image">
 
-    <!-- Core Scripts -->
     <script src="scripts/utils.js" defer></script>
     <script src="scripts/translations.js" defer></script>
     <script src="scripts/i18n.js" defer></script>
@@ -38,10 +34,9 @@
 </head>
 
 <body class="index-page">
-    <!-- Screen Preloader -->
     <div id="preloader" class="preloader">
-        <img src="assets/yume-light-sakura.webp" alt="Loading Yume" class="preloader-logo" loading="lazy">
-    </div> <!-- Sticky Navigation -->
+        <img src="assets/yume-light-sakura.webp" alt="Loading Yume" class="preloader-logo">
+    </div>
 
     <header class="navbar">
         <div class="nav-left">
@@ -90,11 +85,8 @@
                 <i class="fa-solid fa-bars"></i>
             </div>
         </div>
-
-        <!-- Mobile Menu Drawer -->
         <nav class="nav-links" id="nav-links">
             <div class="menu-items-container">
-                <!-- 1. Nav Names First -->
                 <a href="#hero" class="menu-item">
                     <span class="menu-text i18n-text" data-i18n="nav.home">HOME</span>
                 </a>
@@ -111,7 +103,7 @@
                     <span class="menu-text i18n-text" data-i18n="nav.moonlight">MOONLIGHT</span>
                 </a>
 
-                <!-- 2. Icons Underneath -->
+                <!-- Social & Utilities -->
                 <div class="mobile-menu-extras">
                     <div class="mobile-social-icons">
                         <a href="#" class="btn-navbar-icon"><i class="fa-brands fa-instagram"></i></a>
@@ -271,11 +263,9 @@
     <section id="collabs" class="section-collabs slanted-section" data-theme="dark"
         style="padding-bottom: 5rem; position: relative;">
         <!-- Animated Intro Aura -->
-        <div
-            style="position: absolute; top: -10%; left: 50%; transform: translateX(-50%); width: 800px; height: 800px; background: radial-gradient(circle, rgba(138,43,226,0.2) 0%, rgba(0,0,0,0) 70%); z-index: 0; pointer-events: none;">
-        </div>
+        <div class="section-aura-effect"></div>
 
-        <div class="container text-center parallax-element" data-speed="0.05" style="position: relative; z-index: 5;">
+        <div class="container text-center parallax-element parallax-container-fix" data-speed="0.05">
             <div class="title-badge slanted-box box-glass-dark shadow-punk"
                 style="color:var(--color-yellow); border-color:var(--color-yellow); font-size: 1.2rem; margin-bottom: 1.5rem;"
                 data-i18n="collabs.tag">
@@ -296,11 +286,10 @@
         <div class="parallax-bg-layer parallax-element" data-speed="0.1"
             style="background-image: linear-gradient(rgba(17, 20, 39, 0.6), rgba(17, 20, 39, 0.6)), url('assets/bg-onepiece.webp');">
         </div>
-        <div class="container text-center parallax-element" data-speed="0.05" style="position: relative; z-index: 5;">
+        <div class="container text-center parallax-element parallax-container-fix" data-speed="0.05">
             <div class="collab-row" style="border: none; padding: 2rem 0; margin-bottom: 0;">
-                <div class="collab-desc-box reveal-on-scroll unique-reveal-left"
-                    style="text-align: left; color: white;">
-                    <div style="display: block; width: fit-content; margin: 0 0 1rem 0;">
+                <div class="collab-desc-box reveal-on-scroll unique-reveal-left collab-desc-box-fix">
+                    <div class="punk-tag-fix">
                         <span class="punk-tag shadow-punk slanted"
                             style="background: #D32F2F; color: white; border-color: white; margin-bottom: 0;"
                             data-i18n="collab.onepiece.tag">YUME x ONE
@@ -319,8 +308,7 @@
 
                 </div>
                 <div class="can-showcase-wrapper reveal-on-scroll unique-reveal-right" style="flex-shrink: 0;">
-                    <div class="collab-aura"
-                        style="background: radial-gradient(circle, rgba(255,167,38,0.5) 0%, rgba(0,0,0,0) 70%);"></div>
+                    <div class="collab-aura"></div>
                     <div class="can-placeholder can-onepiece shadow-punk slanted"
                         style="width: 220px; height: 380px; position: relative; z-index: 2; transform: rotate(5deg);">
                     </div>
@@ -335,11 +323,10 @@
         <div class="parallax-bg-layer parallax-element" data-speed="-0.1"
             style="background-image: linear-gradient(rgba(17, 20, 39, 0.6), rgba(17, 20, 39, 0.6)), url('assets/bg-naruto.webp');">
         </div>
-        <div class="container text-center parallax-element" data-speed="0.05" style="position: relative; z-index: 5;">
+        <div class="container text-center parallax-element parallax-container-fix" data-speed="0.05">
             <div class="collab-row reverse" style="border: none; padding: 2rem 0; margin-bottom: 0;">
-                <div class="collab-desc-box reveal-on-scroll unique-reveal-right"
-                    style="text-align: right; color: white;">
-                    <div style="display: block; width: fit-content; margin: 0 0 1rem auto;">
+                <div class="collab-desc-box reveal-on-scroll unique-reveal-right collab-desc-box-fix reverse">
+                    <div class="punk-tag-fix reverse">
                         <span class="punk-tag shadow-punk slanted"
                             style="background: #03A9F4; color: white; border-color: white; margin-bottom: 0;"
                             data-i18n="collab.naruto.tag">YUME x
@@ -358,8 +345,7 @@
 
                 </div>
                 <div class="can-showcase-wrapper reveal-on-scroll unique-reveal-left" style="flex-shrink: 0;">
-                    <div class="collab-aura"
-                        style="background: radial-gradient(circle, rgba(255,112,67,0.5) 0%, rgba(0,0,0,0) 70%);"></div>
+                    <div class="collab-aura" style="--aura-color: rgba(255,112,67,0.5);"></div>
                     <div class="can-placeholder can-naruto shadow-punk slanted"
                         style="width: 220px; height: 380px; position: relative; z-index: 2; transform: rotate(-5deg);">
                     </div>
@@ -400,7 +386,7 @@
     <footer class="footer">
         <div class="footer-content container reveal-on-scroll">
             <div class="footer-brand">
-                <img src="assets/yume-dark-sakura.webp" alt="YUME" class="footer-logo" loading="lazy">
+                <img src="assets/yume-dark-sakura.webp" alt="YUME" class="footer-logo">
                 <p data-i18n="hero.subtitle">Drink the dream. Feel the vibe.</p>
 
                 <div class="socials-footer">
@@ -457,10 +443,10 @@
         <i class="fa-solid fa-cart-shopping"></i> <span class="i18n-text" data-i18n="nav.shop_now">SHOP NOW</span>
     </a>
 
-    <!-- ═══ EASTER EGG: Can 67 ═══ -->
+    <!-- Secret Flavor Overlay -->
     <div id="egg67-overlay" class="egg-overlay">
         <div id="egg67-inner" class="egg-inner">
-            <img src="assets/can-67.webp" alt="Can 67" class="egg-can-img" loading="lazy">
+            <img src="assets/can-67.webp" alt="Can 67" class="egg-can-img">
             <h2 class="egg-title">Can #67</h2>
 
             <p class="egg-text">

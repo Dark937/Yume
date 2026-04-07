@@ -1,34 +1,18 @@
-/**
- * Yume Project Utilities
- * Security and performance helpers.
- */
-
 const Utils = {
-    /**
-     * ESCAPE HTML
-     * Prevents XSS by converting special characters to HTML entities.
-     * Use this whenever you inject user-provided or external text into innerHTML.
-     */
-    escapeHTML(str) {
+    escapeHTML: (str) => {
         if (!str) return '';
-        const p = document.createElement('p');
-        p.textContent = str;
-        return p.innerHTML;
+        const d = document.createElement('div');
+        d.textContent = str;
+        return d.innerHTML;
     },
 
-    /**
-     * DEBOUNCE
-     * Limits the rate at which a function can fire.
-     * Great for scroll and resize events.
-     */
-    debounce(func, wait = 100) {
-        let timeout;
+    debounce: (fn, delay = 100) => {
+        let timer;
         return (...args) => {
-            clearTimeout(timeout);
-            timeout = setTimeout(() => func.apply(this, args), wait);
+            clearTimeout(timer);
+            timer = setTimeout(() => fn(...args), delay);
         };
     }
 };
 
-// Export to window
 window.Utils = Utils;

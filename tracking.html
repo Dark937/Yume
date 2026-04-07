@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="it">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,27 +16,19 @@
     <script src="scripts/email.min.js"></script>
 </head>
 
-
-
 <body>
     <nav class="navbar nav-dark">
         <div class="nav-left">
-            <a href="javascript:history.back()" class="btn-back-nav">
-                <i class="fa-solid fa-arrow-left"></i>
-            </a>
+            <a href="javascript:history.back()" class="btn-back-nav"><i class="fa-solid fa-arrow-left"></i></a>
         </div>
-
         <div class="nav-center">
             <a href="index" class="nav-logo-link">
                 <img src="assets/yume-light-sakura.webp" alt="YUME" class="brand-logo logo-light">
                 <img src="assets/yume-dark-sakura.webp" alt="YUME" class="brand-logo logo-dark">
             </a>
         </div>
-
         <div class="nav-right">
-            <button class="btn-navbar-icon btn-yellow lang-toggle" id="lang-toggle">
-                <span class="lang-toggle-text">IT</span>
-            </button>
+            <button class="btn-navbar-icon btn-yellow lang-toggle" id="lang-toggle"><span class="lang-toggle-text">IT</span></button>
             <a href="#" class="btn-navbar-icon"><i class="fa-brands fa-instagram"></i></a>
             <a href="#" class="btn-navbar-icon"><i class="fa-brands fa-tiktok"></i></a>
         </div>
@@ -46,107 +37,54 @@
     <main class="tracking-main" data-theme="light">
         <section class="tracking-hero" id="trackingHero">
             <div class="tracking-decoration">
-                <img src="" id="leftCan" class="tracking-can-side left" alt="Decorative Can">
-                <img src="" id="rightCan" class="tracking-can-side right" alt="Decorative Can">
+                <img src="" id="leftCan" class="tracking-can-side left" alt="">
+                <img src="" id="rightCan" class="tracking-can-side right" alt="">
             </div>
             <div class="container text-center">
                 <h1 class="tracking-title" data-i18n="tracking.title">TRACK YOUR HAUL</h1>
-                <p class="tracking-subtitle" data-i18n="tracking.subtitle">Enter your token to see where your dreams are
-                    currently brewing.</p>
-
+                <p class="tracking-subtitle" data-i18n="tracking.subtitle">Enter your token to follow your dreams.</p>
                 <form id="trackingForm" class="tracking-form-box" novalidate>
                     <div class="tracking-input-wrapper">
-                        <input type="text" id="tokenInput" placeholder="YME-XXXX-XXXX-XXXX" autocomplete="off"
-                            spellcheck="false" data-i18n="tracking.placeholder">
-                        <button type="submit" class="btn-track"><span class="i18n-text" data-i18n="tracking.btn">TRACK
-                                NOW</span> <i class="fa-solid fa-magnifying-glass"></i></button>
+                        <input type="text" id="tokenInput" placeholder="YME-XXXX-XXXX-XXXX" autocomplete="off" spellcheck="false" data-i18n="tracking.placeholder">
+                        <button type="submit" class="btn-track"><span class="i18n-text" data-i18n="tracking.btn">TRACK</span> <i class="fa-solid fa-magnifying-glass"></i></button>
                     </div>
-                    <div id="trackingError" class="tracking-error-msg" data-i18n="tracking.error">Order Not Found.
-                        Please check your token.</div>
+                    <div id="trackingError" class="tracking-error-msg" data-i18n="tracking.error">Not found. Check your token.</div>
                 </form>
-
-                <!-- Loading State -->
                 <div id="trackingLoader" class="tracking-loader-container" style="display: none;">
                     <div class="yume-payment-loader"></div>
-                    <p data-i18n="tracking.loader">Fetching your haul from the database...</p>
+                    <p data-i18n="tracking.loader">Fetching database logs...</p>
                 </div>
             </div>
         </section>
 
-        <!-- Order Results (Hidden by default) -->
         <section id="trackingResults" class="tracking-results-section" style="display: none;">
             <div class="container">
                 <div class="tracking-layout">
-                    <!-- Left: Status & Info -->
                     <div class="tracking-details-column">
                         <div class="status-card shadow-punk">
-                            <div class="status-header">
-                                <span class="status-badge" id="orderStatusLabel"
-                                    data-i18n="tracking.processing">PROCESSING</span>
-                                <!-- Token display removed as requested -->
-                            </div>
-
+                            <div class="status-header"><span class="status-badge" id="orderStatusLabel" data-i18n="tracking.processing">PROCESSING</span></div>
                             <div class="status-stepper">
-                                <div class="status-step complete" data-status="placed">
-                                    <div class="step-dot"></div>
-                                    <span class="step-label" data-i18n="tracking.placed">ORDER PLACED</span>
-                                </div>
-                                <div class="status-step active" data-status="processing">
-                                    <div class="step-dot"></div>
-                                    <span class="step-label" data-i18n="tracking.processing">PROCESSING</span>
-                                </div>
-                                <div class="status-step" data-status="shipped">
-                                    <div class="step-dot"></div>
-                                    <span class="step-label" data-i18n="tracking.shipped">SHIPPED</span>
-                                </div>
-                                <div class="status-step" data-status="delivered">
-                                    <div class="step-dot"></div>
-                                    <span class="step-label" data-i18n="tracking.delivered">DELIVERED</span>
-                                </div>
+                                <div class="status-step" data-status="placed"><div class="step-dot"></div><span class="step-label" data-i18n="tracking.placed">PLACED</span></div>
+                                <div class="status-step" data-status="processing"><div class="step-dot"></div><span class="step-label" data-i18n="tracking.processing">PROCESSING</span></div>
+                                <div class="status-step" data-status="shipped"><div class="step-dot"></div><span class="step-label" data-i18n="tracking.shipped">SHIPPED</span></div>
+                                <div class="status-step" data-status="delivered"><div class="step-dot"></div><span class="step-label" data-i18n="tracking.delivered">DELIVERED</span></div>
                             </div>
                         </div>
-
-                        <!-- Status History (Realistic Journey) -->
                         <div class="history-card shadow-punk">
                             <h3 data-i18n="tracking.journey">JOURNEY LOGS</h3>
-                            <div id="trackHistoryList" class="history-list">
-                                <!-- History events injected here -->
-                                <div class="history-placeholder">
-                                    <p>Enter your token to see the journey logs.</p>
-                                </div>
-                            </div>
+                            <div id="trackHistoryList" class="history-list"><div class="history-placeholder"><p>Enter token to see logs.</p></div></div>
                         </div>
-
-                        <div class="info-grid single">
-                            <div class="info-card shadow-punk">
-                                <h3 data-i18n="tracking.shipping_to">SHIPPING TO</h3>
-                                <div id="shippingInfo" class="info-content">
-                                    <p class="name" id="trackName">Zoro Roronoa</p>
-                                    <p id="trackAddress">123 Sakura Way, Kyoto, Japan</p>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="info-card shadow-punk"><h3 data-i18n="tracking.shipping_to">SHIPPING TO</h3><div id="shippingInfo" class="info-content"><p class="name" id="trackName">...</p><p id="trackAddress">...</p></div></div>
                     </div>
-
-                    <!-- Right: Summary & Arrival -->
                     <div class="tracking-summary-column">
                         <div class="summary-card shadow-punk">
-                            <h3 data-i18n="tracking.summary">ORDER SUMMARY</h3>
-                            <div id="trackItemsList" class="track-items-list">
-                                <!-- Items injected here -->
-                            </div>
-                            <div class="track-total-row">
-                                <span data-i18n="tracking.total">TOTAL</span>
-                                <span id="trackTotal">0.00€</span>
-                            </div>
+                            <h3 data-i18n="tracking.summary">SUMMARY</h3>
+                            <div id="trackItemsList" class="track-items-list"></div>
+                            <div class="track-total-row"><span data-i18n="tracking.total">TOTAL</span><span id="trackTotal">0.00€</span></div>
                         </div>
-
                         <div class="info-card shadow-punk highlight est-arrival-sidebar">
-                            <h3 data-i18n="tracking.est_arrival">ESTIMATED ARRIVAL</h3>
-                            <div class="info-content">
-                                <i class="fa-solid fa-truck-fast"></i>
-                                <p class="arrival-date" id="trackArrival">Friday, April 3</p>
-                            </div>
+                            <h3 data-i18n="tracking.est_arrival">ARRIVAL</h3>
+                            <div class="info-content"><i class="fa-solid fa-truck-fast"></i><p class="arrival-date" id="trackArrival">...</p></div>
                         </div>
                     </div>
                 </div>
@@ -157,7 +95,7 @@
     <footer class="footer-minimal">
         <div class="container">
             <img src="assets/yume-light-sakura.webp" alt="YUME" class="footer-logo">
-            <p class="footer-rights" data-i18n="footer.rights">&copy; 2026 Yume Drinks. Anime-Inspired Energy. All rights reserved.</p>
+            <p class="footer-rights" data-i18n="footer.rights">&copy; 2026 Yume Drinks. Anime-Inspired Energy.</p>
         </div>
     </footer>
 
@@ -165,5 +103,4 @@
     <script src="scripts/utils.js"></script>
     <script src="scripts/tracking.js"></script>
 </body>
-
 </html>

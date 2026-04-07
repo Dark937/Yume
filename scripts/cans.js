@@ -172,28 +172,30 @@ document.addEventListener('DOMContentLoaded', () => {
     const buyBtn = document.querySelector('.buy-btn');
     if(buyBtn) {
         buyBtn.addEventListener('click', () => {
+            const titleEl = document.querySelector('.product-title');
+            const imgEl = document.querySelector('.slider-item img');
+            
             const product = {
                 id: document.body.className.replace('flavor-', ''),
-                name: document.querySelector('.product-title').textContent,
-                price: currentPrice,
-                image: document.querySelector('.slider-item img').src,
+                name: titleEl ? titleEl.textContent : 'Yume Drink',
+                price: parseFloat(currentPrice) || 0,
+                image: imgEl ? imgEl.src : '',
                 link: window.location.pathname,
                 type: 'drink'
             };
             
+            console.log('Adding to cart:', product, selectedBundle);
             window.CartManager.addItem(product, 1, selectedBundle);
 
             // Visual Feedback
             const originalText = buyBtn.textContent;
             const addedText = window.I18nManager ? window.I18nManager.get('product.added_msg') : 'ADDED TO CART ✓';
             buyBtn.textContent = addedText; 
-            buyBtn.style.color = '#fff';
-            buyBtn.style.backgroundColor = '#4CAF50';
+            buyBtn.classList.add('added-success');
             
             setTimeout(() => { 
                 buyBtn.textContent = window.I18nManager ? window.I18nManager.get('product.add_to_cart') : originalText; 
-                buyBtn.style.color = ''; 
-                buyBtn.style.backgroundColor = '';
+                buyBtn.classList.remove('added-success');
             }, 2000);
         });
     }

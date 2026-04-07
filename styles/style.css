@@ -1,6 +1,4 @@
-/* =========================================
-   YUME - Core Design System & Variables
-   ========================================= */
+/* design system vars */
 :root {
     /* Brand Colors */
     --bg-dark: #111427;
@@ -112,9 +110,7 @@ a {
     text-align: center;
 }
 
-/* ================================
-   Punk & Cozy Utility Classes
-   ================================ */
+/* utils */
 /* Hard solid shadows instead of blurry ones */
 .shadow-punk {
     box-shadow: 6px 6px 0px var(--text-primary);
@@ -148,13 +144,18 @@ a {
     display: inline-block;
 }
 
-/* Asymmetric section cuts */
+/* Slanted section cuts */
 .slanted-section {
     transform: skewY(-3deg);
     transform-origin: top left;
-    margin-top: -80px;
-    /* Increased overlap to prevent gaps */
+    margin-top: -60px; /* Adjusted to prevent overlaps */
     padding-bottom: 50px;
+}
+
+@media (max-width: 600px) {
+    .slanted-section {
+        margin-top: -30px; /* Further reduced for mobile to prevent cut-offs */
+    }
 }
 
 .slanted-section>* {
@@ -351,13 +352,14 @@ a {
 .btn-back-nav i {
     width: 32px;
     height: 32px;
-    background: var(--text-primary);
-    color: white;
+    background: white;
+    color: var(--text-primary);
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
     font-size: 0.8rem;
+    border: 1px solid var(--text-primary);
 }
 
 .btn-back-nav:hover {
@@ -387,14 +389,10 @@ a {
     border-radius: 4px;
 }
 
-/* ================================
-   Navbar & Logos
-   ================================ */
+/* header/nav */
 .navbar {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
+    top: 0; left: 0; width: 100%;
     height: 85px;
     display: grid;
     grid-template-columns: 1fr auto 1fr;
@@ -405,7 +403,6 @@ a {
     transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
     background: transparent !important;
     color: var(--text-light);
-    border-bottom: 2px solid transparent;
 }
 
 @media (max-width: 992px) {
@@ -448,7 +445,7 @@ a {
     .navbar {
         display: flex;
         justify-content: space-between;
-        padding: 1rem 1.5rem;
+        padding: 0.8rem 1.2rem;
     }
 }
 
@@ -475,8 +472,8 @@ a {
 }
 
 .navbar.nav-dark .btn-back-nav i {
-    background: white;
-    color: var(--text-primary);
+    background: var(--text-primary);
+    color: white;
     border: 1px solid var(--text-primary);
 }
 
@@ -656,9 +653,7 @@ a {
     color: var(--text-dark);
 }
 
-/* ================================
-   Hero Section
-   ================================ */
+/* hero */
 .hero-section {
     position: relative;
     height: 100vh;
@@ -784,9 +779,7 @@ a {
     }
 }
 
-/* ================================
-   Sakura Petals
-   ================================ */
+/* effects */
 #petals-container {
     position: absolute;
     top: 0;
@@ -852,9 +845,7 @@ a {
     margin: 0;
 }
 
-/* ================================
-   Scroll Entrance Animations & Preloader
-   ================================ */
+/* preloader & reveals */
 .preloader {
     position: fixed;
     top: 0;
@@ -905,9 +896,7 @@ a {
     transform: translateY(0);
 }
 
-/* ================================
-   Story Section (Split Layout)
-   ================================ */
+/* story */
 .section-light {
     background-color: var(--bg-light);
     color: var(--text-dark);
@@ -927,7 +916,7 @@ a {
 }
 
 .story-huge-title {
-    font-size: 4rem;
+    font-size: clamp(2.5rem, 8vw, 4rem);
     line-height: 1.1;
     margin-bottom: 2rem;
 }
@@ -981,9 +970,7 @@ a {
     left: 0;
 }
 
-/* ================================
-   Flavors Carousel
-   ================================ */
+/* carousel */
 .section-lavender {
     background: linear-gradient(135deg, var(--color-lavender), #C3B1E1);
     color: var(--text-dark);
@@ -1024,9 +1011,7 @@ a {
     left: 50%;
     width: 320px;
     margin-left: -160px;
-    /* center horizontally based on own width */
-    margin-top: -220px;
-    /* rough center height */
+    margin-top: -240px; /* Refined centering */
     text-align: center;
     transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.8s ease-out;
     opacity: 0;
@@ -1070,27 +1055,27 @@ a {
 
 /* Colors */
 .can-original {
-    background: url('../assets/original.webp') center/cover no-repeat;
+    background: url('../assets/original-nobg.webp') center/cover no-repeat;
 }
 
 .can-green {
-    background: url('../assets/melon.webp') center/cover no-repeat;
+    background: url('../assets/melon-nobg.webp') center/cover no-repeat;
 }
 
 .can-pink {
-    background: url('../assets/strawberry.webp') center/cover no-repeat;
+    background: url('../assets/strawberry-nobg.webp') center/cover no-repeat;
 }
 
 .can-yellow {
-    background: url('../assets/yuzu.webp') center/cover no-repeat;
+    background: url('../assets/yuzu-nobg.webp') center/cover no-repeat;
 }
 
 .can-peach {
-    background: url('../assets/lychee.webp') center/cover no-repeat;
+    background: url('../assets/lychee-nobg.webp') center/cover no-repeat;
 }
 
 .can-blue {
-    background: url('../assets/blue.webp') center/cover no-repeat;
+    background: url('../assets/blue-nobg.webp') center/cover no-repeat;
 }
 
 .can-moonlight {
@@ -1098,11 +1083,11 @@ a {
 }
 
 .can-calpis {
-    background: url('../assets/calpis.webp') center/cover no-repeat;
+    background: url('../assets/calpis-nobg.webp') center/cover no-repeat;
 }
 
 .can-grape {
-    background: url('../assets/grape.webp') center/cover no-repeat;
+    background: url('../assets/grape-nobg.webp') center/cover no-repeat;
 }
 
 .flavor-info {
@@ -1170,9 +1155,7 @@ a {
     right: 5%;
 }
 
-/* ================================
-   Moonlight Edition Section
-   ================================ */
+/* moonlight */
 .section-dark {
     background-color: var(--bg-dark);
     color: var(--text-light);
@@ -1277,9 +1260,7 @@ a {
     }
 }
 
-/* ================================
-   Collab Editions Section
-   ================================ */
+/* collab */
 .section-collabs {
     overflow: hidden;
     background-color: var(--bg-dark);
@@ -1355,9 +1336,7 @@ a {
     margin-bottom: 2rem;
 }
 
-/* ================================
-   Footer
-   ================================ */
+/* footer */
 .footer {
     background-color: var(--bg-light);
     color: var(--text-dark);
@@ -2111,9 +2090,55 @@ a {
         height: 400px;
     }
 
-    .collab-aura {
+    .can-aura {
         width: 300px;
         height: 300px;
+    }
+}
+
+/* Small Mobile Fixes (375px - 600px) */
+@media (max-width: 600px) {
+    .navbar {
+        padding: 0 1rem;
+        height: 65px;
+    }
+
+    .btn-navbar-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 0.9rem;
+        margin-left: 0.2rem;
+    }
+
+    .nav-right {
+        gap: 0.5rem; /* Increased for better touch targets */
+    }
+
+    .brand-logo {
+        height: 38px;
+    }
+
+    .carousel-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+
+    .neon-badge {
+        font-size: 0.85rem;
+        padding: 0.35rem 0.8rem;
+    }
+
+    .glow-text {
+        font-size: 2.22rem;
+    }
+
+    .hero-title-animated {
+        font-size: 2.5rem;
+    }
+
+    .container {
+        padding: 2.5rem 1rem;
     }
 }
 
@@ -2224,3 +2249,52 @@ a {
     text-transform: uppercase;
     margin-top: 2rem;
 }
+/* Aura Effects for Collab sections (Refactored for CSP) */
+.section-aura-effect {
+    position: absolute;
+    top: -10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, rgba(138,43,226,0.2) 0%, rgba(0,0,0,0) 70%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.collab-aura {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, var(--aura-color, rgba(255,167,38,0.3)) 0%, rgba(0,0,0,0) 70%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.parallax-container-fix {
+    position: relative;
+    z-index: 5;
+}
+
+.collab-desc-box-fix {
+    text-align: left;
+    color: white;
+}
+
+.collab-desc-box-fix.reverse {
+    text-align: right;
+}
+
+.punk-tag-fix {
+    display: block;
+    width: fit-content;
+    margin: 0 0 1rem 0;
+}
+
+.punk-tag-fix.reverse {
+    margin: 0 0 1rem auto;
+}
+

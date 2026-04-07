@@ -3,6 +3,11 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Ensure I18n is initialized before render
+    if (window.I18nManager && typeof window.I18nManager.init === 'function') {
+        window.I18nManager.init();
+    }
+
     const cartItemsList = document.getElementById('cartItemsList');
     const subtotalDisplay = document.getElementById('subtotal');
     const totalDisplay = document.getElementById('total');
@@ -17,7 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderCart() {
         const cart = window.CartManager.getCart();
-        const itemCount = cart.reduce((acc, item) => acc + item.quantity, 0);
+        const itemCount = window.CartManager.getCartCount();
+        console.log('Rendering Cart:', cart, 'Total Units:', itemCount);
 
         if (cartCountTitle) {
             const itemsWord = window.I18nManager ? window.I18nManager.get('cart.items') : 'ITEMS';
@@ -25,21 +31,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (cart.length === 0) {
-            cartItemsList.style.display = 'block'; // Ensure block for message
             cartItemsList.innerHTML = `
                 <div class="empty-cart-message">
                     <i class="fa-solid fa-box-open"></i>
                     <p data-i18n="cart.empty_msg">Your haul is empty. Time to dream bigger.</p>
-                    <a href="products.html" class="btn-primary" data-i18n="cart.return_store">Go to Store</a>
+                    <a href="shop" class="btn-primary" data-i18n="cart.return_store">Go to Store</a>
                 </div>
             `;
-            if (window.I18nManager) window.I18nManager.updateDOM(cartItemsList);
-            const checkoutFlow = document.getElementById('checkoutFlow');
-            if (checkoutFlow) checkoutFlow.style.display = 'none';
+            if (window.I18nManager && typeof window.I18nManager.update === 'function') window.I18nManager.update();
             
-            const checkoutBtn = document.getElementById('checkoutBtn');
-            if (checkoutBtn) checkoutBtn.style.display = 'none';
-
+            // Hide checkout components
+            ['checkoutFlow', 'checkoutBtn', 'promoSection'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.style.display = 'none';
+            });
+            
             const summaryColumn = document.querySelector('.cart-summary-column');
             if (summaryColumn) summaryColumn.style.display = 'none';
 
@@ -48,47 +54,63 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        // Show components if cart not empty
+        const summaryColumn = document.querySelector('.cart-summary-column');
+        if (summaryColumn) summaryColumn.style.display = 'block';
+        const checkoutBtn = document.getElementById('checkoutBtn');
+        if (checkoutBtn && (!window.checkoutInstance || window.checkoutInstance.currentStep === 0)) {
+            checkoutBtn.style.display = 'block';
+        }
+
         cartItemsList.innerHTML = '';
-        let subtotal = 0;
-
+        
         cart.forEach(item => {
-            const itemTotal = item.price * item.quantity;
-            subtotal += itemTotal;
-
-            const itemElement = document.createElement('div');
-            itemElement.className = 'cart-item';
-
-            itemElement.innerHTML = `
-                <div class="item-img-wrapper">
-                    <img src="${item.image}" alt="${item.name}" class="item-img">
-                </div>
-                <div class="item-info">
-                    <div class="item-header">
-                        <h3>${item.name}</h3>
-                        <span class="item-price">${item.price.toFixed(2)}€</span>
+            try {
+                const price = parseFloat(item.price) || 0;
+                const quantity = parseInt(item.quantity) || 0;
+                const imgPath = fixAssetExtension(item.image);
+                
+                const itemElement = document.createElement('div');
+                itemElement.className = 'cart-item';
+                itemElement.innerHTML = `
+                    <div class="item-img-wrapper">
+                        <img src="${imgPath}" alt="${item.name || 'Product'}" class="item-img" onerror="this.src='assets/yume-light.webp'">
                     </div>
-                    <p class="item-bundle" data-i18n="product.${item.bundleType}">${formatBundleName(item.bundleType)}</p>
-                    
-                    <div class="item-actions">
-                        <div class="qty-control-wrapper">
-                            <div class="qty-control">
-                                <button class="qty-btn minus" data-id="${item.id}" data-bundle="${item.bundleType}">-</button>
-                                <span class="qty-val">${item.quantity}</span>
-                                <button class="qty-btn plus" data-id="${item.id}" data-bundle="${item.bundleType}">+</button>
+                    <div class="item-info">
+                        <div class="item-header">
+                            <h3>${item.name || 'Unknown Product'}</h3>
+                            <span class="item-price">${price.toFixed(2)}€</span>
+                        </div>
+                        <p class="item-bundle" data-i18n="product.${item.bundleType}">${formatBundleName(item.bundleType)}</p>
+                        
+                        <div class="item-actions">
+                            <div class="qty-control-wrapper">
+                                <div class="qty-control">
+                                    <button class="qty-btn minus" data-id="${item.id}" data-bundle="${item.bundleType}">-</button>
+                                    <span class="qty-val">${quantity}</span>
+                                    <button class="qty-btn plus" data-id="${item.id}" data-bundle="${item.bundleType}">+</button>
+                                </div>
+                            </div>
+                            <div class="item-secondary-actions">
+                                <button class="action-icon-btn remove-btn" data-id="${item.id}" data-bundle="${item.bundleType}">
+                                    <i class="fa-solid fa-trash-can"></i> <span class="i18n-text" data-i18n="cart.remove">REMOVE</span>
+                                </button>
                             </div>
                         </div>
-                        <div class="item-secondary-actions">
-                            <button class="action-icon-btn remove-btn" data-id="${item.id}" data-bundle="${item.bundleType}">
-                                <i class="fa-solid fa-trash-can"></i> <span class="i18n-text" data-i18n="cart.remove">REMOVE</span>
-                            </button>
-                        </div>
                     </div>
-                </div>
-            `;
-            cartItemsList.appendChild(itemElement);
-            if (window.I18nManager) window.I18nManager.updateDOM(itemElement);
+                `;
+                cartItemsList.appendChild(itemElement);
+            } catch (err) {
+                console.error('Error rendering cart item:', err, item);
+            }
         });
 
+        // Run translation once after all items are added
+        if (window.I18nManager && typeof window.I18nManager.update === 'function') {
+            window.I18nManager.update();
+        }
+
+        const subtotal = window.CartManager.getCartTotal();
         updateSummary(subtotal);
         updateShippingProgress(subtotal);
         setupEventListeners();
@@ -101,22 +123,40 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function setupEventListeners() {
+        // Quantity Minus
         document.querySelectorAll('.qty-btn.minus').forEach(btn => {
-            btn.onclick = () => {
-                window.CartManager.updateQuantity(btn.dataset.id, btn.dataset.bundle, -1);
-                renderCart();
+            btn.onclick = (e) => {
+                e.preventDefault();
+                const id = btn.dataset.id;
+                const bundle = btn.dataset.bundle;
+                const cart = window.CartManager.getCart();
+                const item = cart.find(i => i.id === id && i.bundleType === bundle);
+                if (item) {
+                    window.CartManager.updateQuantity(id, bundle, item.quantity - 1);
+                    renderCart();
+                }
             };
         });
 
+        // Quantity Plus
         document.querySelectorAll('.qty-btn.plus').forEach(btn => {
-            btn.onclick = () => {
-                window.CartManager.updateQuantity(btn.dataset.id, btn.dataset.bundle, 1);
-                renderCart();
+            btn.onclick = (e) => {
+                e.preventDefault();
+                const id = btn.dataset.id;
+                const bundle = btn.dataset.bundle;
+                const cart = window.CartManager.getCart();
+                const item = cart.find(i => i.id === id && i.bundleType === bundle);
+                if (item) {
+                    window.CartManager.updateQuantity(id, bundle, item.quantity + 1);
+                    renderCart();
+                }
             };
         });
 
+        // Remove Item
         document.querySelectorAll('.remove-btn').forEach(btn => {
-            btn.onclick = () => {
+            btn.onclick = (e) => {
+                e.preventDefault();
                 window.CartManager.removeItem(btn.dataset.id, btn.dataset.bundle);
                 renderCart();
             };
@@ -124,10 +164,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updateSummary(subtotal) {
-        const discount = subtotal * currentDiscount;
-        const total = subtotal - discount;
+        // Force number type
+        const numericSubtotal = parseFloat(subtotal) || 0;
+        const discount = numericSubtotal * currentDiscount;
+        const total = numericSubtotal - discount;
 
-        subtotalDisplay.textContent = `${subtotal.toFixed(2)}€`;
+        subtotalDisplay.textContent = `${numericSubtotal.toFixed(2)}€`;
         totalDisplay.textContent = `${total.toFixed(2)}€`;
 
         if (currentDiscount > 0) {
@@ -143,14 +185,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const progressFill = document.getElementById('progressFill');
         const shippingMsg = document.getElementById('shippingMsg');
 
-        // Note: Listener moved outside to avoid duplication
-
         if (!progressFill || !shippingMsg) return;
 
-        const percentage = Math.min((subtotal / threshold) * 100, 100);
-        progressFill.style.width = `${percentage}%`;
+        const numericTotal = parseFloat(subtotal) || 0;
+        const percentage = Math.min((numericTotal / threshold) * 100, 100);
+        console.log(`Progress Update: ${numericTotal} / ${threshold} = ${percentage}%`);
+        
+        requestAnimationFrame(() => {
+            progressFill.style.width = `${percentage}%`;
+        });
 
-        if (subtotal >= threshold) {
+        if (numericTotal >= threshold) {
             shippingMsg.setAttribute('data-i18n', 'cart.shipping_free');
             shippingMsg.removeAttribute('data-i18n-params');
             shippingMsg.style.color = 'var(--color-purple)';
@@ -162,7 +207,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Trigger translation refresh for this element
-        if (window.I18nManager) window.I18nManager.updateDOM();
+        if (window.I18nManager && typeof window.I18nManager.update === 'function') window.I18nManager.update();
+    }
+
+    // --- Helper to fix legacy asset extensions ---
+    function fixAssetExtension(url) {
+        if (!url) return url;
+        return url.replace(/\.png$/, '.webp');
     }
 
     // --- Checkout Logic (Final Precision) ---

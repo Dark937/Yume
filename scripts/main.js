@@ -1,47 +1,29 @@
-// Always scroll to top on load/reload
+/* Setup and Initialization */
 history.scrollRestoration = 'manual';
 window.scrollTo(0, 0);
 
 document.addEventListener('DOMContentLoaded', () => {
-
-    /* =========================================
-       0. Preloader Logic
-       ========================================= */
     const preloader = document.getElementById('preloader');
-
     if (preloader) {
-        const navEntries = performance.getEntriesByType("navigation");
-        const isReload = navEntries.length > 0 && navEntries[0].type === "reload";
-        const hasPlayedThisSession = sessionStorage.getItem('yume_preloader_played');
+        const isReload = performance.getEntriesByType("navigation")[0]?.type === "reload";
+        const hasPlayed = sessionStorage.getItem('yume_preloader_played');
 
-        // Hard scroll lock helpers
-        const scrollKeys = ['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' '];
-        const preventScroll = (e) => e.preventDefault();
-        const preventKeyScroll = (e) => { if (scrollKeys.includes(e.key)) e.preventDefault(); };
-
-        const lockScroll = () => {
-            document.documentElement.style.overflow = 'hidden';
-            window.addEventListener('wheel', preventScroll, { passive: false });
-            window.addEventListener('touchmove', preventScroll, { passive: false });
-            window.addEventListener('keydown', preventKeyScroll);
+        const toggleLock = (lock) => {
+            document.documentElement.style.overflow = lock ? 'hidden' : '';
+            const method = lock ? 'addEventListener' : 'removeEventListener';
+            ['wheel', 'touchmove'].forEach(e => window[method](e, p => p.preventDefault(), { passive: false }));
+            window[method]('keydown', e => ['ArrowUp', 'ArrowDown', ' ', 'PageUp', 'PageDown'].includes(e.key) && e.preventDefault());
         };
 
-        const unlockScroll = () => {
-            document.documentElement.style.overflow = '';
-            window.removeEventListener('wheel', preventScroll);
-            window.removeEventListener('touchmove', preventScroll);
-            window.removeEventListener('keydown', preventKeyScroll);
-        };
-
-        if (!hasPlayedThisSession || isReload) {
-            lockScroll();
+        if (!hasPlayed || isReload) {
+            toggleLock(true);
             window.addEventListener('load', () => {
                 setTimeout(() => {
                     preloader.classList.add('fade-out');
                     sessionStorage.setItem('yume_preloader_played', 'true');
                     setTimeout(() => {
                         preloader.style.display = 'none';
-                        unlockScroll();
+                        toggleLock(false);
                     }, 800);
                 }, 800);
             });
@@ -50,58 +32,30 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    /* =========================================
-       0.5. Mobile Hamburger Menu
-       ========================================= */
     const mobileMenuBtn = document.getElementById('mobile-menu-btn');
     const navLinks = document.getElementById('nav-links');
+    const navbar = document.querySelector('.navbar');
 
     if (mobileMenuBtn && navLinks) {
-        mobileMenuBtn.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
+        const toggleMenu = () => {
+            const active = navLinks.classList.toggle('active');
             mobileMenuBtn.classList.toggle('active');
             navbar.classList.toggle('menu-open');
-
-            // X Icon Toggle
             const icon = mobileMenuBtn.querySelector('i');
-            if (mobileMenuBtn.classList.contains('active')) {
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-xmark');
-            } else {
-                icon.classList.remove('fa-xmark');
-                icon.classList.add('fa-bars');
-            }
-        });
+            icon.classList.replace(active ? 'fa-bars' : 'fa-xmark', active ? 'fa-xmark' : 'fa-bars');
+        };
 
-        // Close menu when clicking a link
-        navLinks.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-                mobileMenuBtn.classList.remove('active');
-                const icon = mobileMenuBtn.querySelector('i');
-                if (icon) {
-                    icon.classList.remove('fa-xmark');
-                    icon.classList.add('fa-bars');
-                }
-            });
-        });
+        mobileMenuBtn.onclick = toggleMenu;
+        navLinks.querySelectorAll('a').forEach(a => a.onclick = toggleMenu);
     }
 
-    /* =========================================
-       1. Adaptive Navbar Color (Precise Scroll)
-       ========================================= */
-    /* Navbar theme logic has been moved to scripts/navbar-theme.js for site-wide consistency. */
-
-    // Initial check on load
+    // Initial Navbar Theme check
     window.dispatchEvent(new Event('scroll'));
 
-    /* =========================================
-       2. Universal Parallax Effect
-       ========================================= */
-    const layers = document.querySelectorAll('.parallax-layer'); // Hero backgrounds
-    const parallaxElements = document.querySelectorAll('.parallax-element'); // All punk elements
+    // Parallax Effects
+    const layers = document.querySelectorAll('.parallax-layer'); 
+    const parallaxElements = document.querySelectorAll('.parallax-element');
 
-    // Cache initial transforms
     parallaxElements.forEach(el => {
         const comp = window.getComputedStyle(el).transform;
         el.dataset.origTransform = comp !== 'none' ? comp : '';
@@ -135,9 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    /* =========================================
-       3. Precision Flavor Carousel Logic (Absolute Array)
-       ========================================= */
+    // Product Carousel
     const container = document.querySelector('.carousel-container');
     const items = Array.from(document.querySelectorAll('.carousel-item'));
     const nextBtn = document.querySelector('.next-btn');
@@ -148,70 +100,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const updateCarousel = () => {
         items.forEach((item, index) => {
-            // Calculate wrapped difference for infinite scrolling
-            const totalItems = items.length;
+            const total = items.length;
             let diff = index - currentIndex;
+            const half = Math.floor(total / 2);
+            
+            if (diff > half) diff -= total;
+            else if (diff < -half + (total % 2 === 0 ? 1 : 0)) diff += total;
 
-            // Wrap the difference so it stays within [-half, +half]
-            const half = Math.floor(totalItems / 2);
-            if (diff > half) diff -= totalItems;
-            else if (diff < -half + (totalItems % 2 === 0 ? 1 : 0)) diff += totalItems;
+            const config = {
+                0: { scale: 1.1, opacity: 1, z: 10 },
+                1: { scale: 0.8, opacity: 0.8, z: 9 },
+                2: { scale: 0.6, opacity: 0.3, z: 8 }
+            };
 
-            item.classList.remove('active', 'prev', 'next');
+            const { scale, opacity, z } = config[Math.abs(diff)] || { scale: 0.4, opacity: 0, z: 5 };
+            const xOffset = diff * 200;
 
-            // Assign active classes
-            if (diff === 0) item.classList.add('active');
-            else if (diff === -1) item.classList.add('prev');
-            else if (diff === 1) item.classList.add('next');
-
-            // Visual Mathematics
-            const gap = 200; // Evenly balanced pixel distance
-            let xOffset = diff * gap;
-
-            let scale = 1;
-            let opacity = 1;
-            let zIndex = 10 - Math.abs(diff);
-
-            if (diff === 0) {
-                scale = 1.1;
-                opacity = 1;
-            } else if (Math.abs(diff) === 1) {
-                scale = 0.8;
-                opacity = 0.8;
-            } else if (Math.abs(diff) === 2) {
-                scale = 0.6;
-                opacity = 0.3;
-            } else {
-                scale = 0.4;
-                opacity = 0; // Brutally hide the outer extreme items crossing over
-            }
-
-            // Evaluate previous physical interval state to spot Cross-void wrapping triggers
-            const oldDiff = item.dataset.prevDiff !== undefined ? parseInt(item.dataset.prevDiff) : diff;
+            const oldDiff = parseInt(item.dataset.prevDiff || diff);
             item.dataset.prevDiff = diff;
 
-            // Instantly strip transitions to snap wrapping items without physical dragging visuals
-            if (Math.abs(oldDiff - diff) > 1) {
-                item.style.transition = 'none';
-                item.style.transform = `translateX(${xOffset}px) scale(${scale})`;
-                item.style.opacity = opacity;
-                void item.offsetWidth; // Extremely critical: Force browser Paint flush to lock in invisible teleport before next transitions
-            } else {
-                item.style.transition = 'transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.8s ease-out';
-                item.style.transform = `translateX(${xOffset}px) scale(${scale})`;
-                item.style.opacity = opacity;
-            }
+            const isSnap = Math.abs(oldDiff - diff) > 1;
+            item.style.transition = isSnap ? 'none' : 'transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.8s ease-out';
+            item.style.transform = `translateX(${xOffset}px) scale(${scale})`;
+            item.style.opacity = opacity;
+            item.style.zIndex = z;
+            item.style.pointerEvents = (Math.abs(diff) > 2 || opacity === 0) ? 'none' : 'auto';
 
-            item.style.zIndex = zIndex;
-
-            // Hide items too far away from interactions
-            if (Math.abs(diff) > 2 || opacity === 0) {
-                item.style.pointerEvents = 'none';
-            } else if (Math.abs(diff) === 0) {
-                item.style.pointerEvents = 'auto';
-            } else {
-                item.style.pointerEvents = 'auto'; // allow clicking neighbors
-            }
+            if (isSnap) void item.offsetWidth;
         });
     };
 
@@ -276,9 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!container.classList.contains('unrevealed')) updateCarousel();
     });
 
-    /* =========================================
-       4. Moonlight Canvas Star Animation
-       ========================================= */
+    // Moonlight Background Effects
     const canvas = document.getElementById('starsCanvas');
     const ctx = canvas.getContext('2d');
 
@@ -364,9 +277,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (moonlightSection) observer.observe(moonlightSection);
 
-    /* =========================================
-       5. Sakura Petals Injection (Hero Effect)
-       ========================================= */
+    // Visual Effects
     const petalsContainer = document.getElementById('petals-container');
     if (petalsContainer) {
         const petalCount = 20;
@@ -390,9 +301,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    /* =========================================
-       6. Scroll Reveal Animations
-       ========================================= */
+    // Intersection Observers for Scroll Reveal
     const revealElements = document.querySelectorAll('.reveal-on-scroll');
     const revealObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
@@ -406,9 +315,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     revealElements.forEach(el => revealObserver.observe(el));
 
-    /* =========================================
-       7. Easter Egg & Newsletter Subscription
-       ========================================= */
+    // Forms and Newsletter
     const newsletterForm = document.querySelector('.newsletter-form');
     const newsletterInput = document.getElementById('newsletterEmail');
     const eggOverlay = document.getElementById('egg67-overlay');
@@ -420,7 +327,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (newsletterInput.value.includes('67')) {
                 if (eggOverlay) eggOverlay.classList.add('active');
                 newsletterInput.value = '';
-                console.log('%c✨ SECRET UNLOCKED: FLAVOR #67', 'color: #FFD700; font-weight: 900; font-size: 20px;');
             }
         });
 
@@ -434,7 +340,6 @@ document.addEventListener('DOMContentLoaded', () => {
             // 🛡️ HONEY-POT CHECK: If this field is filled, it's a bot!
             const honeypot = newsletterForm.querySelector('input[name="b_67_honeypot"]');
             if (honeypot && honeypot.value !== "") {
-                console.warn('🤖 Bot detected via Honey-pot. Ignoring submission.');
                 newsletterForm.reset();
                 return;
             }
@@ -455,10 +360,6 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.innerHTML = 'THANK YOU! 🌸';
             btn.style.backgroundColor = 'var(--color-pink)';
             btn.style.color = 'white';
-
-            console.log(`📩 NEW SUBSCRIBER: ${email}`);
-
-            // Optional: You could add EmailJS integration here like Service.sendNewsletter(email)
         });
     }
 

@@ -11,32 +11,8 @@
     --font-body: 'Nunito', sans-serif;
 }
 
-* { 
-    box-sizing: border-box; 
-    margin: 0; 
-    padding: 0;
-    scrollbar-width: thin;
-    scrollbar-color: #FABCDB #111427;
-}
-
-/* Custom Scrollbar Styles */
-::-webkit-scrollbar {
-    width: 12px;
-}
-
-::-webkit-scrollbar-track {
-    background: #111427;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #FABCDB;
-    border: 3px solid #111427;
-    border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #E6DDFE;
-}
+/* flavor page styles */
+* { box-sizing: border-box; margin: 0; padding: 0; }
 body {
     background-color: var(--bg-dark); color: var(--text-light);
     font-family: var(--font-body); min-height: 100vh;
@@ -54,7 +30,7 @@ body {
 
 .product-container { max-width: 1400px; margin: 0 auto; display: flex; gap: 4rem; align-items: center; }
 
-/* Product Slider */
+/* gallery */
 .product-gallery { 
     flex: 1.2; 
     position: relative; 
@@ -154,7 +130,7 @@ body {
 
 .product-info { flex: 1; }
 
-/* Flavor-specific Theme Colors */
+/* themes */
 .flavor-blue { --theme-color: #3f51b5; }
 .flavor-calpis { --theme-color: #03a9f4; }
 .flavor-grape { --theme-color: #8a2be2; }
@@ -243,6 +219,7 @@ body {
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 .buy-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.15); opacity: 0.9; }
+.buy-btn.added-success { background-color: #4CAF50 !important; color: #fff !important; transform: scale(1.02); }
 
 /* In Dark Section overrides */
 .product-section.dark .product-title { color: #fff; -webkit-text-stroke: none; text-shadow: 4px 4px 0px var(--theme-color); }
@@ -254,7 +231,7 @@ body {
 .product-section.dark .bundle-option:hover { border-color: var(--theme-color); }
 
 
-/* Refined Ingredients Box */
+/* ingredients */
 .ingredients-box {
     background: rgba(255,255,255,0.03); 
     border: 1px solid rgba(255,255,255,0.1);
@@ -345,7 +322,14 @@ body {
 
 @media (max-width: 600px) {
     .nutrition-grid { grid-template-columns: repeat(2, 1fr); }
-    .product-title { font-size: 2.8rem; }
+    .product-title { font-size: 2.5rem; }
+    .slider-arrow {
+        width: 38px;
+        height: 38px;
+        font-size: 1rem;
+    }
+    .prev-arrow { left: 0.8rem; }
+    .next-arrow { right: 0.8rem; }
 }
 
 .product-footer {
