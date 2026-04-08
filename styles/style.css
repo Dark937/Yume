@@ -2194,6 +2194,7 @@ a {
 .egg-can-img {
     width: 250px;
     height: auto;
+    border-radius: 25px;
     filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.4));
     animation: float67 3s ease-in-out infinite;
     user-select: none;

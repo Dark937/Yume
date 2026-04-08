@@ -8,16 +8,25 @@ document.addEventListener('DOMContentLoaded', () => {
         const isReload = performance.getEntriesByType("navigation")[0]?.type === "reload";
         const hasPlayed = sessionStorage.getItem('yume_preloader_played');
 
+        const preventScroll = (e) => e.preventDefault();
+        const preventKeyScroll = (e) => ['ArrowUp', 'ArrowDown', ' ', 'PageUp', 'PageDown'].includes(e.key) && e.preventDefault();
+
         const toggleLock = (lock) => {
             document.documentElement.style.overflow = lock ? 'hidden' : '';
-            const method = lock ? 'addEventListener' : 'removeEventListener';
-            ['wheel', 'touchmove'].forEach(e => window[method](e, p => p.preventDefault(), { passive: false }));
-            window[method]('keydown', e => ['ArrowUp', 'ArrowDown', ' ', 'PageUp', 'PageDown'].includes(e.key) && e.preventDefault());
+            if (lock) {
+                window.addEventListener('wheel', preventScroll, { passive: false });
+                window.addEventListener('touchmove', preventScroll, { passive: false });
+                window.addEventListener('keydown', preventKeyScroll, { passive: false });
+            } else {
+                window.removeEventListener('wheel', preventScroll, { passive: false });
+                window.removeEventListener('touchmove', preventScroll, { passive: false });
+                window.removeEventListener('keydown', preventKeyScroll, { passive: false });
+            }
         };
 
         if (!hasPlayed || isReload) {
             toggleLock(true);
-            window.addEventListener('load', () => {
+            const hidePreloader = () => {
                 setTimeout(() => {
                     preloader.classList.add('fade-out');
                     sessionStorage.setItem('yume_preloader_played', 'true');
@@ -26,7 +35,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         toggleLock(false);
                     }, 800);
                 }, 800);
-            });
+            };
+
+            if (document.readyState === 'complete') {
+                hidePreloader();
+            } else {
+                window.addEventListener('load', hidePreloader);
+            }
         } else {
             preloader.style.display = 'none';
         }

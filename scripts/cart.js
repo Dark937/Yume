@@ -501,7 +501,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             totalDisplay.textContent = `${total.toFixed(2)}€`;
-            this.finalNote.style.display = 'none'; // Replaced by sidebar box in success
+            if (this.finalNote) {
+                this.finalNote.style.display = 'none'; // Replaced by sidebar box in success
+            }
         }
 
         getContinentalRates(country) {

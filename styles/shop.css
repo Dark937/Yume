@@ -162,9 +162,17 @@ body {
     border-bottom: 3px solid #111427;
 }
 
-.box-lavender, .box-pink, .box-mint, .box-blue, .box-onepiece, .box-naruto, .starry-box {
+.box-lavender, .box-pink, .box-mint, .box-blue {
     background: #fff !important;
     box-shadow: none !important;
+}
+
+.box-onepiece {
+    background: linear-gradient(135deg, #FFD000 0%, #FF7A00 100%) !important;
+}
+
+.box-naruto {
+    background: linear-gradient(135deg, #FF4B2B 0%, #FF416C 100%) !important;
 }
 
 .card-img {
@@ -282,9 +290,9 @@ body {
 .label-underline.blue { width: 50px; background: #A6E4F6; margin-top: 0.8rem; }
 
 .starry-box {
-    background: #000;
+    background: linear-gradient(135deg, #8E2DE2 0%, #4A00E0 100%) !important;
     border-color: var(--color-mint);
-    box-shadow: 0 0 20px rgba(209, 245, 225, 0.4), inset 0 0 20px rgba(209, 245, 225, 0.2);
+    box-shadow: 0 0 20px rgba(209, 245, 225, 0.4), inset 0 0 20px rgba(209, 245, 225, 0.2) !important;
 }
 
 .limited-badge {
@@ -356,4 +364,94 @@ body {
     .product-card { border-width: 2px; }
     .card-image-box { height: 220px; border-bottom-width: 2px; }
     .card-info h3 { font-size: 1.1rem; }
+}
+
+/* Subscribe Form Elements */
+.subscribe-section {
+    padding: 3rem 2rem 5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+.shop-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+.shop-form-row {
+    display: flex;
+    gap: 1.5rem;
+}
+.shop-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+}
+.shop-form-group label {
+    font-size: 0.85rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #A6E4F6;
+    letter-spacing: 1px;
+}
+.shop-form-group input[type="text"],
+.shop-form-group input[type="email"] {
+    padding: 1.2rem;
+    background: #1F2232;
+    border: 1px solid #333;
+    color: #fff;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+.shop-form-group input:focus {
+    border-color: var(--color-pink);
+}
+.pref-label {
+    margin-bottom: 0.5rem;
+    color: #fff !important;
+}
+.checkboxes {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+.custom-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-size: 0.95rem;
+    color: #ccc;
+    font-weight: 700;
+}
+.custom-checkbox input {
+    accent-color: var(--color-pink);
+    transform: scale(1.2);
+    cursor: pointer;
+}
+.shop-btn-submit {
+    background: #FABCDB;
+    color: #111427;
+    border: inherit;
+    padding: 1.2rem;
+    font-size: 1.1rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-family: var(--font-heading);
+    border-radius: 4px;
+    transition: 0.3s;
+    margin-top: 1rem;
+}
+.shop-btn-submit:hover {
+    background: #E6DDFE;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(250, 188, 219, 0.4);
+}
+@media (max-width: 600px) {
+    .shop-form-row {
+        flex-direction: column;
+    }
 }
